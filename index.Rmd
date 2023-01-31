@@ -4,7 +4,7 @@ subtitle: |
   | Integrated Solutions for Better Results<br><br>
 author: Teresia Mrema-Buza
 date: |
-  | ![](images/imap1.png)<br><br>
+  | ![](images/part1_getting_started.png)<br><br>
   | Updated on `r Sys.time()` <br><br>
 csl: "library/apa-numeric-superscript.csl"
 bibliography: "library/references.bib"
