@@ -1,0 +1,470 @@
+---
+title: "Microbiome Data Analysis Snakemake Workflows<br><br>"
+subtitle: |
+  | Integrated Solutions for Better Results<br><br>
+author: Teresia Mrema-Buza
+date: |
+  | ![](images/new_horizon.png)<br><br>
+  | Updated on `r Sys.time()` <br><br>
+csl: "library/apa-numeric-superscript.csl"
+bibliography: "library/references.bib"
+link-citations: true
+mainfont:
+biblio-style: apalike
+email_address: "tmbuza@complexdatainsights.com"
+github_repo: "https://github.com/tmbuza/imap-mothur"
+github_page: "https://tmbuza.github.io/imap-mothur/"
+related_website: "https://complexdatainsights.com"
+description: |
+  This repo provides integrated and highly curated solutions for reproducible microbiome data analysis.
+---
+
+```{css echo = FALSE}
+/* ############
+# CONTAINER CSS
+############ */
+
+.author, .subtitle{
+  display: none;
+} 
+
+.date{
+  color: yellow;
+} 
+.main-container {
+  max-width: 80%;
+  background-color: black;
+  color: white;
+  padding: 3% 3% 3% 3%;
+  margin-left: auto;
+  margin-right: auto;
+}
+body{
+  font-size: 14px;
+  text-align: left;
+}
+
+#header {
+  background-color: none;
+  color: white;
+  /* line-height: 4; */
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  width: 100%;
+  padding: 5%;
+  text-transform: none;
+  font-weight: bold;
+  background-image: url("images/bkgd.png");
+  background-repeat: no-repeat;
+  height: 100%; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  
+}
+```
+
+```{css echo = FALSE} 
+/* ############
+# BODY CSS
+############ */
+#header h1{
+  font-size: 4em;
+  text-transform: capitalize;
+  color: black;
+}
+#header h2{
+  font-size: 2.8em;
+}
+
+#header h3{
+  font-size: 1.8em;
+  color: black;
+  text-transform: capitalize;
+} 
+#header img{
+width:96%;
+}
+
+body {
+  background-color: F5F5F5;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+body h1{
+  font-size: 2.8em;
+  text-transform: capitalize;
+}
+body h2{
+  font-size: 2.0em;
+}
+
+body h3{
+  font-size: 1.6em;
+}
+
+table tbody tr td {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+body img{
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px, 50px, 20px, 50px;
+}
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 16px;
+    border-left: 5px solid #eee;
+}
+
+a{
+  color: #6bb7f5;
+}
+#tablefield {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+hr {
+  display: inline-block;
+  text-align: left;
+  margin: 0px;
+}
+
+#appendix img{
+  width: 75%;
+}
+.DiagrammeR, .mermaid{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.DiagrammeR rect, .mermaid rect{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.DiagrammeR svg, .mermaid svg{
+
+
+.node text {
+font-family: 'trebuchet ms', verdana, arial;
+font-size: 14px;
+}
+.DiagrammeR .mermaid{
+position: absolute;
+text-align: center;
+max-width: 200px;
+padding: 2px;
+font-family: 'trebuchet ms', verdana, arial;
+font-size: 12px;
+background: #ffff00;
+border: 1px solid #aaaa33;
+border-radius: 2px;
+pointer-events: none;
+z-index: 100;
+}
+
+```
+
+
+```{css echo = FALSE} 
+/* ############
+# MEDIA: max-width: 768px
+############ */
+@media only screen and (max-width: 768px) {
+  .main-container {
+  max-width: 100%;
+  padding: 1% 1% 1% 1%;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  #header h1{
+    font-size: 3em;
+    text-transform: capitalize;
+    color: black;
+  }
+
+   body {
+    font-size: 12px;
+    width: 100%; 
+  } 
+  #footer {
+    text-align: left;
+    font-size: 1.1em;
+  } 
+
+  #tablefield {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+} 
+body h1{
+  font-size: 2.5em;
+  text-transform: capitalize;
+}
+body h2{
+  font-size: 1.8em;
+}
+
+body h3{
+  font-size: 1.6em;
+}
+
+#tablefield h2{
+  font-size: 1.6em;
+}
+
+```
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  comment = NA,
+  fig.path='./figures/',
+  fig.show='asis',
+  dev = 'png',
+  fig.align='center',
+  out.width = "70%",
+  fig.width = 7,
+  fig.asp = 0.7,
+  fig.show = "asis"
+)
+
+library(tidyverse, suppressPackageStartupMessages())
+library(mikropml)
+library(schtools)
+
+```
+
+<br>
+
+# Quick glimpse {#glimpse}
+- We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
+  - Maintaining reproducibility in technical validation and regeneration of results
+  - Creating scalable data analysis scaled to server, grid or cloud environment seamlessly.
+  - Fostering sustainable improvement of the microbiome data analysis.
+/* - Reviewing existing workflows methodlogies [@Snakemake2023; @Mothursnakemake] helps in gaining a better insights for improving microbiome data analysis.
+- We break any complex workflows into small contiguous but related chunks where each major step form a separate executable snakemake rule. */
+
+<br>
+
+> We envision to keep fostering on continuous integration and development of highly reproducible workflows.
+
+# iMAP 1: Getting started workflow {#imap1}
+
+...In Progress...
+
+```{r eval=FALSE, include=FALSE}
+library(DiagrammeR)
+library(DiagrammeRsvg)
+
+mermaid("graph TB
+
+subgraph iMAP 1: GETTING STARTED
+
+A[<b>MICROBIOME DATA ANALYSIS</b>] --> B{Basic Requirements}
+B --> C[Basic Software]
+B --> D[Sample Metadata]
+B --> E[Sequencing Data]
+B --> F[Reference Database]
+B --> J[Mapping Files]
+C --> G[Analysis & Visualization Tools]
+C --> H[Quality Control Tools]
+C --> I[Bioinformatics Pipelines]
+F --> K[Sequence Alignments]
+F --> L[Taxonomy Classifiers]
+
+end
+
+")#, height = 800, width = 600)
+
+```
+
+<hr width=100%><br><br>
+
+# iMAP 2: Microbiome Bioinformatics {#imap2}
+## Root directory
+
+```{bash}
+cat project_tree.txt
+```
+
+<br><br>
+
+## Snakemake workflow
+![](dags/rulegraph.svg)
+
+>Note: Some snakemake rules available in existing workflows [@Mothursnakemake] are integrated but with slight modification.
+
+<br><br>
+
+## 16S classification options
+### Classify OTUs
+- OTUs (Operational Taxonomic Units (OTUs)) are clusters of similar sequences and are commonly accepted as analytical units in microbial profiling when using 16S rRNA gene markers.
+
+### Classify Phylotypes
+- A phylotype in microbiome research is a DNA sequence or group of sequences sharing more than an arbitrarily chosen level of similarity of a 16S rRNA gene marker.
+
+### Classify ASVs
+- ASVs Amplicon Sequence Variants (ASVs)in microbiome research is any inferred single DNA sequences recovered from a bioinformatics analysis of 16S rRNA marker genes.
+- ASV is typically really a cluster of sequences that are one or two bases apart from each other.
+
+### Classify Phylogenies
+- Microbial phylogenies are from gene sequence homologies.  Models of mutation determine the most-likely evolutionary histories.
+
+<br><br>
+
+## Mothur Preliminary Analysis
+The preliminary analysis (`alpha_beta_diversity rule`) is part of the bioinformatics analysis. It includes:
+
+- Creating reads count for each group.
+- Subsampling for downstream analysis.
+- Rarefaction.
+- Computing Alpha diversity metrics.
+- Computing Beta diversity metrics.
+- Getting sample distances.
+- Constructing sample phylip tree.
+- Generating ordination matrices including PCoA and NMDS.
+
+
+
+
+<br><br><hr width=50%>
+
+# iMAP 3: Data tidying & transformation {#imap3}
+
+<br><br><hr width=50%>
+
+# iMAP 4 : Data analysis & visualization {#imap4}
+
+<br><br><hr width=50%>
+
+# iMAP 5 : Microbiome Machine Learning {#imap5}
+
+<br><br><hr width=50%>
+
+# Appendix {-}
+## Reference Databases
+<ol>
+  <li>Mothur-based SILVA reference files [@MothurSILVA]</li>.
+  <li>Mothur-based RDP reference files [@MothurRDP]. Note: The RDP database is to classify 16S rRNA gene sequences to the genus level.</li>
+  <li>ZymoBIOMICS Microbial Community Standard (Cat # D6306)[@Zymo2023]. The ZymoBIOMICS Microbial Community DNA Standard is designed to assess bias, errors and other artifacts after the step of nucleic acid purification.</li>
+</ol>
+
+<br>
+<br>
+
+
+## Mermaid workflow template
+```{r}
+
+library(DiagrammeR)
+library(DiagrammeRsvg)
+mermaid("graph LR
+
+subgraph A: Title 1
+
+0[Start Here] --> 1[Node 1]
+0 --> 2[Node 2]
+
+end
+
+subgraph B: Title 2
+0 --> 3[Node 3]
+3 --> 4[Node 4]
+end
+
+")
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+## Machine Learning
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(magrittr)
+library(rsvg)
+graph <- DiagrammeR::grViz("
+digraph {
+graph [layout = dot, rankdir = TD]
+# define the global styles of the nodes. We can override these in box if we wish
+node [shape = rectangle, style = filled, fillcolor = white]
+A [label = 'Clean Data', shape = folder, fillcolor = grey]
+B [label = 'Training \n Set', shape = folder, fillcolor = grey]
+C [label = 'Testing \n Set', shape = folder, fillcolor = grey]
+D [label = 'Model \nTraining Subset\n(X-Train)']
+E [label = 'Validation Subset\n(y_Train)']
+F [label = 'Better Feature \nSelection']
+G [label = 'Retrain \nModel']
+H [label = 'Best Feature \nSelection']
+I [label = 'Validated \nFeatures']
+J [label = 'Best Performing \nModel', shape = rectangle]
+K [label = 'Predict \nTest Set Labels', shape = rectangle]
+L [label = 'Compare Known \nwith Predicted', shape = rectangle]
+M [label = 'Cross \nValidation', shape = rectangle]
+N [label = 'Model \nImprovement', shape = rectangle]
+# edge definitions with the node IDs
+{A}  -> B
+{A}  -> C
+{B}  -> D
+{B}  -> E
+{D}  -> F
+{F}  -> G
+{G}  -> D
+{G}  -> H
+{H}  -> E
+{E}  -> I
+{I}  -> J
+{J}  -> C
+{C}  -> K
+{K}  -> L
+{L}  -> M
+{M}  -> N
+}", height = 1000, width = 600)
+### Visualize the graph object
+graph
+```
+## Troubleshooting (in progress)
+<ol>
+  <li>Are chimeras removed by default in newer versions?</li>
+    <ul>Yes. Chimeras are removed by default. You can still run the remove.seqs command without error, but it is not necessary. Remove chimera sequence explained [here](https://forum.mothur.org/t/chimera-vsearch-removes-groups-and-generates-empty-files/21342/4)</ul>.
+  <li>Mothur dist.seqs taking too long.</li>
+  <ul>
+    <li>Merged reads are too long, probably over 300pb.</li>
+    <li>Reads not overlaping when merging the paired reads.</li>
+    <li>Too many uniques representative sequences probably caused by lack of overlapping.</li>
+    <li>No enough computer power which suggest a use of HPC or Cluster.</li>
+  </ul>
+</ol>
+
+<br>
+<br>
+
+## References
+::: {#refs}
+:::
+
+<br><br><hr width=50%><br>
+
+<div id="footer">
+Last updated on `r format(Sys.time(), '%B %d, %Y')`. <br><br>
+These workflows are continuously reviewed, integrated, tested and compiled by [`r rmarkdown::metadata$author`](mailto:`r rmarkdown::metadata$email_address`).  
+Github_Repo: `r rmarkdown::metadata$github_repo`.  
+Github_Page (this document): `r rmarkdown::metadata$github_page`.  
+Visit the [Complex Data Insights (CDI) website](`r rmarkdown::metadata$related_website`) for more practical user guides (...in progress).  
+</div><br><br>
