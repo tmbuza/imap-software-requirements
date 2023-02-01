@@ -1,0 +1,53 @@
+# Bioinformatics Pipelines
+
+## Mothur pipeline 
+- Most famous for profiling microbial composition from 16S rRNA sequencing data.
+- Mothur is an open-source software package for bioinformatics data processing.
+- It is a very famous platform comprised of over 145 tools that can be integrated to for a desired pipeline. 
+- Mothur has a [basic tutorial](https://mothur.org/wiki/miseq_sop/) that help users get started with 16S rRNA gene analysis. 
+- We can download a stable platform from [here](https://github.com/mothur/mothur/releases/).
+
+## QIIME2 pipeline
+- Most famous for profiling microbial composition from 16S rRNA sequencing data.
+- QIIME2 is an open-source microbiome analysis platform with integrated software for quality control such as DADA2.
+- It is a very famous platform with an active community forum. 
+- QIIME2 has [profound tutorials](https://docs.qiime2.org/2022.2/tutorials/) that help users get started with 16S rRNA gene analysis. 
+- We can install the latest version from [here](https://docs.qiime2.org/2022.2/install/).
+
+
+## MetaPhlAn standalone pipeline
+- MetaPhlAn is an open-source pipeline for taxonomic profiling from metagenomic shotgun sequencing data.
+- MetaPhlAn [tutorial](https://github.com/biobakery/biobakery/wiki/metaphlan3) provide a step-by-step guidance for taxonomic profiling from different environmental samples.
+
+
+## MetaPhlAn within HUMAnN pipeline
+- HUMAnN (the HMP Unified Metabolic Analysis Network) is an open-source pipeline for functional profiling from metagenomic sequencing data.
+- HUMAnN [tutorial](https://github.com/biobakery/biobakery/wiki/humann3) provide a step-by-step guidance for functional profiling.
+
+
+## Demo installing MetaPhlAn and HUMAnN
+- We will demonstrate how to create a new environment named `biobakery3` and install MetaPhlAn and HUMAnN pipelines.
+
+```{block, type="tmbinfo", echo=T}
+Note: When installing HUMAnN e.g using `conda` it will also automatically install MetaPhlAn for microbial profiling. But having a standalone MetaPhlAn pipeline can be useful when your interest is in microbial profiling rather than functional profiling. 
+```
+
+
+```bash
+conda create --name biobakery3 python=3.9
+conda activate biobakery3
+
+# Set conda channel priority:
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda config --add channels biobakery
+
+conda install humann -c biobakery
+conda install metaphlan -c bioconda.
+
+# Test the installation
+humann_test
+
+```
+

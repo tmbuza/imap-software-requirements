@@ -1,3 +1,26 @@
+# Additional
+code
+The10BeatitudesInScripture.Rmd
+*metamap*
+*temp*
+*jquery*
+*htmlwidget*
+*samplelocmap*
+*leaflet*
+REFER
+library/*
+data/*
+dags/dag.svg
+dags/dag.png
+results/*
+# dags/*.
+images/*
+figures/*
+report/*
+.snakemake
+*.logfile
+*log*
+*.Rproj
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,3 +150,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.Rproj.user
