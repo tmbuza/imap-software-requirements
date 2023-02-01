@@ -1,12 +1,12 @@
 ---
 title:  |
-  | Microbiome Bioinformatcs & Data Science<br>
+  | IMAP<br>Integrated Microbiome Analysis Pipelines<br>
   | ![](../images/cicd.png)
   | <u>IMAP-PART 1</u>
 date: |
   |  <br>Updated on `r Sys.Date()` <br>
 subtitle: |
-  | Integrated Solutions for Better Results<br>
+  | How to get started with Microbiome Data Analysis<br>
 author: Teresia Mrema-Buza
 
 csl: "library/apa-numeric-superscript.csl"
@@ -36,7 +36,13 @@ description: |
 # CONTAINER CSS
 ############ */
 
-.author, .subtitle{
+.subtitle{
+  color: lightblue;
+  font-family: "Montserrat", sans-serif;
+  font-size: normal:
+} 
+
+.author{
   display: none;
 } 
 
