@@ -290,7 +290,7 @@ library(schtools)
 
 <br><br>
 
-## Root directory
+## Project directories
 ```{bash}
 cat project_tree.txt
 ```

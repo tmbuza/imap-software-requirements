@@ -22,7 +22,7 @@ rule get_project_tree_txt:
 	output:
 		tree="project_tree.txt"
 	shell:
-		"tree -d . >{output}"
+		"tree -L 2 . >{output}"
 
 
 rule get_rulegraph:
