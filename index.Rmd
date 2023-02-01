@@ -277,6 +277,9 @@ library(schtools)
 
 <div id="title">
 # Basic requirements
+
+GitHub Repo: https://github.com/tmbuza/imap-requirements
+
 </div>
 
 <br><br>
