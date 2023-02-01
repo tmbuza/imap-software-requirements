@@ -67,7 +67,7 @@ description: |
 
 .date{
   color: #004400;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Anton", sans-serif;
   font-weight: normal:
 }
 #header {
