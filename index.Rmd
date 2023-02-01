@@ -1,5 +1,5 @@
 ---
-title:  "<big>IMAP-PART 1</big><br>Getting started with Microbiome Data Analysis<br><br>"
+title:  "<big><u>IMAP-PART 1</u></big><br><br>Getting started with Microbiome Data Analysis<br><br>"
 subtitle: |
   | ![](../images/cicd.png)<br>
   | Integrated Microbiome Analysis Pipelines (IMAP) with Snakemake & GitHub Actions<br><br>
