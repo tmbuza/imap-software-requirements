@@ -2,7 +2,7 @@
 title:  |
   | Microbiome Bioinformatcs & Data Science<br>
   | ![](../images/cicd.png)
-  | <u>PART 1</u>
+  | <u>IMAP-PART 1</u>
 date: |
   |  <br>Updated on `r Sys.Date()` <br>
 subtitle: |
@@ -270,7 +270,7 @@ library(schtools)
 <br><hr><br>
 
 <div id="title">
-# IMAP 1: Basic requirements
+# Basic requirements
 </div>
 
 <br><br>
@@ -318,15 +318,11 @@ cat project_tree.txt
 ## Downloading metadata from NCBI-SRA
 Typically, after sequencing the microbiome DNA, the investigators are encouraged to deposit the sequence reads in a public repository. The Sequence Read Archive (SRA) is currently the best bioinformatics database for read information. The good thing about SRA is that it integrates data from the NCBI, the European Bioinformatics Institute (EBI), and the DNA Data Bank of Japan (DDBJ). 
 
-Demo: Downloading metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
-
-- Note that the SRA filename for metadata is automatically named `SraRunTable.txt`.
-- We will save the metadata file in a folder named `data`.
-- Let's create `a`data` folder (if it doesn't exist!). 
-
 <br><br>
 
 ## Sample distribution
+This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
+ The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
 ```{r}
 source("workflow/scripts/common.R")
 library(tidyverse, suppressPackageStartupMessages())
@@ -349,12 +345,19 @@ metadata <- read_csv("data/metadata/SraRunTable.csv", show_col_types = FALSE) %>
   select(sample_id, ecosystem, isolate, latitude, longitude, milionbases=bases, description)
   
   write_csv(metadata, "data/metadata/metadata.csv")
+```
 
-
+### Getting read size by variables
+```{r echo=TRUE}
 metadata %>% 
   select(isolate, ecosystem, milionbases) %>% 
   arrange(milionbases)
+```
 
+<br>
+
+### Graphical read size distribution
+```{r}
   metadata %>% 
   ggplot(aes(x = isolate, y = milionbases, fill = ecosystem)) +
   facet_grid(~ ecosystem) +
