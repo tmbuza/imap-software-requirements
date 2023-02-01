@@ -1,9 +1,10 @@
 ---
 title:  |
   | Microbiome Bioinformatcs & Data Science<br>
-date: |
   | ![](../images/cicd.png)
-  | Updated on `r Sys.time()` <br>
+  | <u>PART 1</u>
+date: |
+  |  <br>Updated on `r Sys.Date()` <br>
 subtitle: |
   | Integrated Solutions for Better Results<br>
 author: Teresia Mrema-Buza
@@ -40,7 +41,9 @@ description: |
 } 
 
 .date{
-  color: black;
+  color: lightblue;
+  font-family: "Anton", sans-serif;
+  font-weight: normal:
 } 
 .main-container {
   max-width: 80%;
