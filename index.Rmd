@@ -2,7 +2,7 @@
 title:  "<big>IMAP-PART 1</big><br>Getting started with Microbiome Data Analysis<br><br>"
 subtitle: |
   | ![](../images/cicd.png)<br>
-  | Integrated Microbiome Analysis Pipelines (IMAP) with Snakemake<br><br>
+  | Integrated Microbiome Analysis Pipelines (IMAP) with Snakemake & GitHub Actions<br><br>
 date: |
   |  Updated on `r Sys.Date()` <br>
 author: Teresia Mrema-Buza
@@ -19,6 +19,7 @@ related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible microbiome data analysis.
 ---
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,19 +43,19 @@ description: |
   margin-right: auto;
 }
 #header .title big {
-  font-size: 2em;
+  font-size: 1.5em;
   text-transform: capitalize;
   color: black;
   font-family: "Anton", sans-serif;
 } 
 #header h1{
-  font-size: 3em;
+  font-size: 2.5em;
   text-transform: capitalize;
   color: #1a1a1a;
   font-family: "Anton", sans-serif;
 }
 #header .subtitle{
-  font-size: 1.8em;
+  font-size: 1.5em;
   text-transform: capitalize;
   color: #004400;
   font-family: "Anton", sans-serif;
@@ -87,12 +88,9 @@ description: |
 }
 
 body h1{
-  font-size: 3.5em;
+  font-size: 2.5em;
   text-transform: capitalize;
 font-family: "Anton", sans-serif;
-}
-#header h2{
-  font-size: 2.8em;
 }
 #header h3{
   font-size: 1.8em;
@@ -187,13 +185,11 @@ z-index: 100;
   margin-right: auto;
   }
   #header h1{
-    font-size: 2.5em;
+    font-size: 2em;
     text-transform: capitalize;
     color: #1a1a1a;
     font-family: "Anton", sans-serif;
-  }
-
-   body {
+  body {
     font-size: 12px;
     width: 100%; 
   } 
