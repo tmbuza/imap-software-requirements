@@ -1,12 +1,10 @@
 ---
-title:  |
-  | IMAP<br>Integrated Microbiome Analysis Pipelines<br>
-  | ![](../images/cicd.png)
-  | <u>IMAP-PART 1</u>
-date: |
-  |  <br>Updated on `r Sys.Date()` <br>
+title:  "<big>IMAP-PART 1</big><br>Getting started with Microbiome Data Analysis<br><br>"
 subtitle: |
-  | How to get started with Microbiome Data Analysis<br>
+  | ![](../images/cicd.png)<br>
+  | Integrated Microbiome Analysis Pipelines (IMAP) with Snakemake<br><br>
+date: |
+  |  Updated on `r Sys.Date()` <br>
 author: Teresia Mrema-Buza
 
 csl: "library/apa-numeric-superscript.csl"
@@ -25,32 +23,16 @@ description: |
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
 
-
 ```{css echo = FALSE}
-/* ############
-# CONTAINER CSS
-############ */
-
-.subtitle{
-  color: lightblue;
-  font-family: "Montserrat", sans-serif;
-  font-size: normal:
-} 
-
-.author{
-  display: none;
-} 
-
-.date{
-  color: lightblue;
-  font-family: "Anton", sans-serif;
-  font-weight: normal:
-} 
+/* #######################################*/
+/* #######################################*/
+ body{
+  font-size: 14px;
+  text-align: left;
+}
 .main-container {
   max-width: 80%;
   background-color: black;
@@ -59,11 +41,34 @@ description: |
   margin-left: auto;
   margin-right: auto;
 }
-body{
-  font-size: 14px;
-  text-align: left;
+#header .title big {
+  font-size: 2em;
+  text-transform: capitalize;
+  color: black;
+  font-family: "Anton", sans-serif;
+} 
+#header h1{
+  font-size: 3em;
+  text-transform: capitalize;
+  color: #1a1a1a;
+  font-family: "Anton", sans-serif;
 }
+#header .subtitle{
+  font-size: 1.8em;
+  text-transform: capitalize;
+  color: #004400;
+  font-family: "Anton", sans-serif;
+} 
 
+.author{
+  display: none;
+} 
+
+.date{
+  color: #004400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal:
+}
 #header {
   background-color: none;
   color: black;
@@ -73,29 +78,19 @@ body{
   padding: 5%;
   text-transform: none;
   font-weight: bold;
-  /* background-image: url("../images/bkgd1.png"); */
-  background-image: url("../images/bkgd2.png");
+  background-image: url("../images/bkgd1.png");
+  /* background-image: url("../images/bkgd2.png"); */
   background-repeat: no-repeat;
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
-#header h1{
-  font-size: 4em;
-  text-transform: capitalize;
-  color: black;
-  background: none;
-  font-family: "Anton", sans-serif;
-} 
-
-#title h1, body h1{
+body h1{
   font-size: 3.5em;
   text-transform: capitalize;
-  color: white;
-  background: none;
-  font-family: "Anton", sans-serif;
-} 
+font-family: "Anton", sans-serif;
+}
 #header h2{
   font-size: 2.8em;
 }
@@ -111,23 +106,6 @@ width:75%;
 /* ############
 # BODY CSS
 ############ */
-
-body {
-  background-color: F5F5F5;
-  color: white;
-  font-family: "Montserrat", sans-serif;
-}
-body h1{
-  font-size: 2.8em;
-  text-transform: capitalize;
-}
-body h2{
-  font-size: 2.0em;
-}
-
-body h3{
-  font-size: 1.6em;
-}
 
 table tbody tr td {
   font-size: 14px;
@@ -159,7 +137,9 @@ hr {
   display: inline-block;
   text-align: left;
   margin: 0px;
+  color: #AAAAAA;
 }
+
 
 #appendix img{
   width: 75%;
@@ -197,13 +177,8 @@ pointer-events: none;
 z-index: 100;
 }
 
-```
-
-
-```{css echo = FALSE} 
-/* ############
-# MEDIA: max-width: 768px
-############ */
+/* #######################################*/
+/* #######################################*/
 @media only screen and (max-width: 768px) {
   .main-container {
   max-width: 100%;
@@ -212,9 +187,10 @@ z-index: 100;
   margin-right: auto;
   }
   #header h1{
-    font-size: 3em;
+    font-size: 2.5em;
     text-transform: capitalize;
-    color: black;
+    color: #1a1a1a;
+    font-family: "Anton", sans-serif;
   }
 
    body {
@@ -234,6 +210,7 @@ z-index: 100;
 body h1{
   font-size: 2.5em;
   text-transform: capitalize;
+  font-family: "Anton", sans-serif;
 }
 body h2{
   font-size: 1.8em;
@@ -246,7 +223,7 @@ body h3{
 #tablefield h2{
   font-size: 1.6em;
 }
-
+}
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -278,7 +255,7 @@ library(schtools)
 <div id="title">
 # Basic requirements
 
-GitHub Repo: https://github.com/tmbuza/imap-requirements
+GitHub Repo: https://github.com/tmbuza/imap-bioinformatics
 
 </div>
 
