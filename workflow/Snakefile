@@ -14,7 +14,6 @@ mothurSamples = list(set(glob_wildcards(os.path.join('data/mothur/raw/', '{sampl
 rule all:
     input:
         "project_tree.txt",
-        "dags/rulegraph.svg",
         "index.html",
 
 

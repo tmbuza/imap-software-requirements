@@ -266,7 +266,11 @@ library(schtools)
 
 <br><hr><br>
 
-<div id="title">h1 IMAP 1: Basic requirements</div>
+<div id="title">
+# IMAP 1: Basic requirements
+</div>
+
+<br><br>
 
 <img src="images/part1.png">"
 
