@@ -9,15 +9,27 @@ configfile: "config/config.yaml"
 # Function for aggregating list of raw sequencing files.
 mothurSamples = list(set(glob_wildcards(os.path.join('data/mothur/raw/', '{sample}_{readNum, R[12]}_001.fastq.gz')).sample))
 
+import os
 import csv
 import pandas as pd
 
-sraMapping = pd.read_csv('config/samples.csv')
-SAMPLES = sraMapping['sample_name'].tolist()
+# Get the SRA Run accessions
+ACC_LIST=pd.read_csv('config/SraRunTable.csv')
+ACCESSIONS=ACC_LIST['Run'].tolist() # Specify the column containing the accession, in this demo is Run
 
-READSDIR="data/reads" 
-OUTDIR=READSDIR+"/"
+OUTDIR="data/reads" 
+TEMPDIR=OUTDIR+"/temp"
 
+if not os.path.exists(OUTDIR):
+   os.makedirs(OUTDIR)
+TEMPDIR=OUTDIR+"/temp"
+
+if not os.path.exists(TEMPDIR):
+   os.makedirs(TEMPDIR)
+
+
+###############################################
+###############################################
 
 
 # Master rule for controlling workflow.
@@ -25,8 +37,8 @@ rule all:
     input:
         "project_tree.txt",
         "index.html",
-        expand("{outdir}{samples}_1.fastq", outdir=OUTDIR, samples=SAMPLES),
-        expand("{outdir}{samples}_2.fastq", outdir=OUTDIR, samples=SAMPLES)
+        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS)
 
 
 # Get directory tree
@@ -63,18 +75,16 @@ rule interactive_report:
         "bash workflow/scripts/interactive_report.sh"
 
 
-# rule sra:
-#     input:
-#         expand("{outdir}{samples}_1.fastq", outdir=OUTDIR, samples=SAMPLES),
-#         expand("{outdir}{samples}_2.fastq", outdir=OUTDIR, samples=SAMPLES)
 
-
-rule download_srareads: 
+# Dowload the SRA RUN reads
+rule download_sra_reads: 
     output:
-        "%s{samples}_1.fastq" % OUTDIR,
-        "%s{samples}_2.fastq" % OUTDIR
+        "{outdir}/{accession}_1.fastq",
+        "{outdir}/{accession}_2.fastq"
     params:
-        download_folder = READSDIR
+        download_folder=OUTDIR,
+        tempfolder=TEMPDIR
+    threads: 1
     shell:
-        "fasterq-dump {wildcards.samples} -O {params.download_folder}"
+        "fasterq-dump {wildcards.accession} -O {params.download_folder} --temp {params.tempfolder} --threads {threads}"
  
