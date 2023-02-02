@@ -9,12 +9,24 @@ configfile: "config/config.yaml"
 # Function for aggregating list of raw sequencing files.
 mothurSamples = list(set(glob_wildcards(os.path.join('data/mothur/raw/', '{sample}_{readNum, R[12]}_001.fastq.gz')).sample))
 
+import csv
+import pandas as pd
+
+sraMapping = pd.read_csv('config/samples.csv')
+SAMPLES = sraMapping['sample_name'].tolist()
+
+READSDIR="data/reads" 
+OUTDIR=READSDIR+"/"
+
+
 
 # Master rule for controlling workflow.
 rule all:
     input:
         "project_tree.txt",
         "index.html",
+        expand("{outdir}{samples}_1.fastq", outdir=OUTDIR, samples=SAMPLES),
+        expand("{outdir}{samples}_2.fastq", outdir=OUTDIR, samples=SAMPLES)
 
 
 # Get directory tree
@@ -49,3 +61,20 @@ rule github_page_index:
 rule interactive_report:
     shell:
         "bash workflow/scripts/interactive_report.sh"
+
+
+# rule sra:
+#     input:
+#         expand("{outdir}{samples}_1.fastq", outdir=OUTDIR, samples=SAMPLES),
+#         expand("{outdir}{samples}_2.fastq", outdir=OUTDIR, samples=SAMPLES)
+
+
+rule download_srareads: 
+    output:
+        "%s{samples}_1.fastq" % OUTDIR,
+        "%s{samples}_2.fastq" % OUTDIR
+    params:
+        download_folder = READSDIR
+    shell:
+        "fasterq-dump {wildcards.samples} -O {params.download_folder}"
+ 
