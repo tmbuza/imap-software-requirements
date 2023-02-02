@@ -2,13 +2,18 @@
 ├── LICENSE
 ├── README.md
 ├── config
+│   ├── SraRunTable.csv
 │   ├── config.yaml
-│   └── samples.tsv
+│   ├── samples.csv
+│   └── units.csv
 ├── dags
+│   ├── rulegraph.png
 │   └── rulegraph.svg
 ├── data
-│   └── metadata
+│   ├── metadata
+│   └── reads
 ├── figures
+│   ├── unnamed-chunk-5-1.png
 │   ├── unnamed-chunk-6-1.png
 │   ├── unnamed-chunk-7-1.png
 │   ├── unnamed-chunk-8-1.png
@@ -40,4 +45,4 @@
     ├── schemas
     └── scripts
 
-13 directories, 27 files
+14 directories, 31 files
