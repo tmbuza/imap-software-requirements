@@ -61,7 +61,6 @@ m <- metadata %>%
   addCircles(color="magenta", radius = log1p(metadata$longitude) * 10)
 
 ## save html to png
-saveWidget(m, "sample_gps.html", selfcontained = FALSE)
-webshot("sample_gps.html", file = "images/sample_gps.png",
+saveWidget(m, "images/sample_gps.html", selfcontained = FALSE)
+webshot("images/sample_gps.html", file = "images/sample_gps.png",
         cliprect = "viewport")
-

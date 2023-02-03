@@ -14,7 +14,7 @@ import csv
 import pandas as pd
 
 # Get the SRA Run accessions
-ACC_LIST=pd.read_csv('config/SraRunTable.csv')
+ACC_LIST=pd.read_csv('config/metadata.csv')
 ACCESSIONS=ACC_LIST['Run'].tolist() # Specify the column containing the accession, in this demo is Run
 
 OUTDIR="data/reads" 
@@ -36,17 +36,19 @@ if not os.path.exists(TEMPDIR):
 rule all:
     input:
         "project_tree.txt",
-        "index.html",
+        "images/variable_freq.png",
+        "images/sample_gps.png",
         expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS)
+        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        "index.html",
 
 
 # Get directory tree
 rule get_project_tree_txt:
-	output:
-		tree="project_tree.txt"
-	shell:
-		"tree -L 2 . >{output}"
+    output:
+        tree="project_tree.txt"
+    shell:
+        "tree -L 2 . >{output}"
 
 
 rule get_rulegraph:
@@ -75,9 +77,38 @@ rule interactive_report:
         "bash workflow/scripts/interactive_report.sh"
 
 
+rule get_sra_metadata:
+    input:
+        script = "workflow/scripts/explore_metadata.R"
+    output:
+        csv="data/metadata/metadata.csv"
+    shell:
+        "{input.script}"
+        
+
+rule ggplot_variable_freq:
+    input:
+        script = "workflow/scripts/explore_metadata.R",
+        csv="data/metadata/metadata.csv"
+    output:
+        "images/variable_freq.png"
+    shell:
+        "{input.script}"
+      
+  
+rule leaflet_sample_gps:
+    input:
+        script = "workflow/scripts/explore_metadata.R",
+        csv="data/metadata/metadata.csv"
+    output:
+        "images/sample_gps.png"
+    shell:
+        "{input.script}"
 
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
+    input:
+        acc=rules.get_sra_metadata.output.csv
     output:
         "{outdir}/{accession}_1.fastq",
         "{outdir}/{accession}_2.fastq"
@@ -87,4 +118,3 @@ rule download_sra_reads:
     threads: 1
     shell:
         "fasterq-dump {wildcards.accession} -O {params.download_folder} --temp {params.tempfolder} --threads {threads}"
- 

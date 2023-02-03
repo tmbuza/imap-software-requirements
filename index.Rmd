@@ -21,6 +21,7 @@ description: |
 ---
 <h4>Github_Repo: `r rmarkdown::metadata$github_repo`. </h4> 
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -246,8 +247,6 @@ library(schtools)
 ```
 
 
-<br><hr><br>
-
 # General Overview
 
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
@@ -255,35 +254,64 @@ library(schtools)
   - Creating scalable data analysis scaled to server, grid or cloud environment seamlessly.
   - Fostering sustainable improvement of the microbiome data analysis.
 - Reviewing existing workflows methodlogies [@Snakemake2023; @Mothursnakemake] helps in gaining a better insights for improving microbiome data analysis.
-- We break any complex workflows into small contiguous but related chunks where each major step form a separate executable snakemake rule.
+- We break any complex workflows into small contiguous but related chunks for simplicity reasons.
+- Each major step forms a separate executable snakemake rule and is represented in the DAG (Directed Acyclic Graph).
 
 <br>
 
 > We envision to keep fostering on continuous integration and development of highly reproducible workflows.
 
 
-## Snakemake rulegraph
-<img src="dags/rulegraph.svg">
+<br><hr width=100%><br>
+
+# Basic requirements
+
+<img src="images/part1.png">
 
 <br><br>
 
-## Project directories
-```{bash}
-cat project_tree.txt
+## Snakemake rule DAG
+<img src="dags/rulegraph.svg">
+
+<br><hr width=100%><br>
+
+# Basic Software
+```{r child='workflow/scripts/01a_basic_software.Rmd'}
 ```
 
 <br><hr width=100%><br>
 
+# Sample metadata
+```{r child='workflow/scripts/01b_samplemetadata.Rmd'}
+```
 
-# Basic requirements
+<br><hr width=100%><br>
 
-<img src="images/part1.png">"
+<!-- #  -->
+```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
+```
 
-<br><br>
+<br><hr width=100%><br>
 
-## Snakemake rulegraph
-<img src="dags/rulegraph.svg">
+<!-- #  -->
+```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
+```
 
+<br><hr width=100%><br>
+
+<!-- #  -->
+```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
+```
+
+<br><hr width=100%><br>
+
+<!-- #  -->
+```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
+```
+
+<br><hr width=100%><br>
+
+# Appendix
 <br><br>
 
 ## Project directories
@@ -291,120 +319,6 @@ cat project_tree.txt
 cat project_tree.txt
 ```
 
-<br><br>
-
-```{r child='workflow/scripts/01a_basic_software.Rmd'}
-```
-
-<br><hr><br>
-
-# Sample metadata
-
-## What is metadata?
-* <b>Metadata</b> is a set of data that describes and provides information about other data. It is commonly defined as **data about data**.
-* **Sample metadata** described in this book refers to the description and context of the individual sample collected for a specific microbiome study.
-
-## Metadata structure
-* Metadata collected at different stages (Figure 1) are typically organized in an Excel or Google spreadsheet where:
-  * The metadata table columns represent the properties of the samples.
-  * The metadata table rows contain information associated with the samples.
-  * Typically, the first column of sample metadata is Sample ID, which designates the key associated to individual sample
-  * Sampl ID must be unique.
-
-## Embedded metadata
-* In most cases, you will find the metadata detached from the experimental data.
-* Embedded metadata integrates the experimental data especially for graphics.
-* Major microbiome analysis platforms require sample metadata, commonly referred to as **mapping file** when performing downstream analysis.
-
-
-## Downloading metadata from NCBI-SRA
-Typically, after sequencing the microbiome DNA, the investigators are encouraged to deposit the sequence reads in a public repository. The Sequence Read Archive (SRA) is currently the best bioinformatics database for read information. The good thing about SRA is that it integrates data from the NCBI, the European Bioinformatics Institute (EBI), and the DNA Data Bank of Japan (DDBJ). 
-
-<br><br>
-
-## Sample distribution
-This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
- The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
-```{r}
-source("workflow/scripts/common.R")
-library(tidyverse, suppressPackageStartupMessages())
-
-metadata <- read_csv("data/metadata/SraRunTable.csv", show_col_types = FALSE) %>%  
-  rename_all(tolower) %>% 
-  rename(sample_id = run) %>% 
-  drop_na(lat_lon) %>% 
-  mutate(
-    geo_loc_name = str_replace_all(geo_loc_name, "Tanzania: ", ""),
-    geo_loc_name = str_replace_all(geo_loc_name, "The Greater Serengeti Ecosystem", "Serengeti"),
-    geo_loc_name = str_replace_all(geo_loc_name, " Ecosystem", ""),
-    isolate = str_replace_all(isolate, "_\\d*$", ""),
-    lat_lon = str_replace_all(lat_lon, " E$", ""),
-    latitude = as.numeric(str_replace_all(lat_lon, " S.*", "")) * -1,
-    longitude = as.numeric(str_replace_all(lat_lon, ".*S ", ""))) %>% 
-  rename(ecosystem = geo_loc_name) %>%
-  rename(description = host) %>% 
-  mutate(bases = round(bases/1E6, digits = 0)) %>% 
-  select(sample_id, ecosystem, isolate, latitude, longitude, milionbases=bases, description)
-  
-  write_csv(metadata, "data/metadata/metadata.csv")
-```
-
-### Getting read size by variables
-```{r echo=TRUE}
-metadata %>% 
-  select(isolate, ecosystem, milionbases) %>% 
-  arrange(milionbases)
-```
-
-<br>
-
-### Graphical read size distribution
-```{r}
-  metadata %>% 
-  ggplot(aes(x = isolate, y = milionbases, fill = ecosystem)) +
-  facet_grid(~ ecosystem) +
-  geom_col(position = "dodge") +
-  coord_flip() +
-  labs(x = "Animal Name", y = "Read size (milion bases)") +
-  theme_light()
-
-ggsave(file="images/variables.png", width=10, height=10)
-ggsave(file="images/variables.svg", width=10, height=10)
-```
-<br><br>
-
-## Location of samples
-```{r}
-library(leaflet)
-# library(leaflet.esri)
-library(leaflet.providers)
-# library(leaflet.extras)
-# library(data.table)
-library(htmlwidgets)
-library(webshot)
-library(mapview)
-
-minLat <- min(metadata$latitude) - 1
-minLon <- min(metadata$longitude) + 0
-maxLat <- max(metadata$latitude) + .5
-maxLon <- max(metadata$longitude) + 0
-
-m <- metadata %>%
-  leaflet() %>% 
-  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-  fitBounds(minLon, minLat, maxLon, maxLat) %>%
-  addMarkers(lng = ~longitude, lat = ~latitude, popup = ~isolate, label = ~ c(isolate)) %>%
-  addCircles(color="magenta", radius = log1p(metadata$longitude) * 10)
-
-## save html to png
-saveWidget(m, "images/sample_gps.html", selfcontained = FALSE)
-webshot("images/sample_gps.html", file = "images/sample_gps.png",
-        cliprect = "viewport")
-```
-
-<br><hr><br>
-
-# Appendix
 
 ## Troubleshooting (in progress)
 <ol>

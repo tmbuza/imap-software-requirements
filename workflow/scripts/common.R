@@ -6,7 +6,6 @@ knitr::opts_chunk$set(
   warning = FALSE,
   cache = FALSE,
   comment = NA,
-  fig.path='./figures/',
   fig.show='asis',
   dev = 'png',
   fig.align='center',
