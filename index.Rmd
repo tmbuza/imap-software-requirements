@@ -7,7 +7,7 @@ date: |
   |  Updated on `r Sys.Date()` <br>
 author: Teresia Mrema-Buza
 
-csl: "library/apa-numeric-superscript.csl"
+csl: "library/apa.csl"
 bibliography: "library/references.bib"
 link-citations: true
 mainfont:
@@ -19,13 +19,12 @@ related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible microbiome data analysis.
 ---
-
+<h4>Github_Repo: `r rmarkdown::metadata$github_repo`. </h4> 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
 
 ```{css echo = FALSE}
 /* #######################################*/
@@ -246,16 +245,37 @@ library(schtools)
 
 ```
 
+
 <br><hr><br>
 
-<div id="title">
-# Basic requirements
+# General Overview
 
-GitHub Repo: https://github.com/tmbuza/imap-bioinformatics
+- We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
+  - Maintaining reproducibility in technical validation and regeneration of results
+  - Creating scalable data analysis scaled to server, grid or cloud environment seamlessly.
+  - Fostering sustainable improvement of the microbiome data analysis.
+- Reviewing existing workflows methodlogies [@Snakemake2023; @Mothursnakemake] helps in gaining a better insights for improving microbiome data analysis.
+- We break any complex workflows into small contiguous but related chunks where each major step form a separate executable snakemake rule.
 
-</div>
+<br>
+
+> We envision to keep fostering on continuous integration and development of highly reproducible workflows.
+
+
+## Snakemake rulegraph
+<img src="dags/rulegraph.svg">
 
 <br><br>
+
+## Project directories
+```{bash}
+cat project_tree.txt
+```
+
+<br><hr width=100%><br>
+
+
+# Basic requirements
 
 <img src="images/part1.png">"
 
