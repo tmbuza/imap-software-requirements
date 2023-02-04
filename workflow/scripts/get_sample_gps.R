@@ -23,20 +23,6 @@ metadata <- read_csv("data/metadata/SraRunTable_Bushmeat.csv", show_col_types = 
   write_csv(metadata, "data/metadata/metadata.csv")
 
 
-metadata %>% 
-  select(isolate, ecosystem, milionbases) %>% 
-  arrange(milionbases)
-
-  metadata %>% 
-  ggplot(aes(x = isolate, y = milionbases, fill = ecosystem)) +
-  facet_grid(~ ecosystem) +
-  geom_col(position = "dodge") +
-  coord_flip() +
-  labs(x = "Animal Name", y = "Read size (milion bases)") +
-  theme_light()
-
-ggsave(file="images/variables_freq.png", width=10, height=10)
-ggsave(file="images/variables_freq.svg", width=10, height=10)
 
 # Sample GPS
 library(leaflet)

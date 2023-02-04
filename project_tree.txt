@@ -1,40 +1,32 @@
 .
 ├── LICENSE
 ├── README.md
+├── Rplots.pdf
 ├── config
 │   ├── SraRunTable.csv
 │   ├── config.yaml
 │   ├── samples.csv
-│   └── units.csv
+│   └── units.tsv
 ├── dags
+│   ├── dag.png
+│   ├── dag.svg
 │   ├── rulegraph.png
 │   └── rulegraph.svg
 ├── data
 │   ├── metadata
 │   └── reads
 ├── figures
-│   ├── unnamed-chunk-5-1.png
-│   ├── unnamed-chunk-6-1.png
-│   ├── unnamed-chunk-7-1.png
-│   ├── unnamed-chunk-8-1.png
-│   └── unnamed-chunk-9-1.png
 ├── images
-│   ├── RStudioIDE.png
-│   ├── part1.png
-│   ├── part1_flow.png
-│   ├── rlogoblue.png
-│   ├── rstudio.png
-│   ├── sample_gps.html
-│   ├── sample_gps.png
-│   ├── sample_gps_files
-│   ├── smda_part1.png
-│   ├── variables.png
-│   └── variables.svg
+│   ├── cicd.png
+│   ├── gsea_fig.svg
+│   ├── microbiome.pptx
+│   ├── snakemake_intro.png
+│   └── variables.png
 ├── imap-requirements.Rproj
 ├── index.Rmd
 ├── index.html
 ├── library
-│   ├── apa-numeric-superscript.csl
+│   ├── apa.csl
 │   └── references.bib
 ├── project_tree.txt
 ├── report.html
@@ -45,4 +37,4 @@
     ├── schemas
     └── scripts
 
-14 directories, 31 files
+13 directories, 24 files

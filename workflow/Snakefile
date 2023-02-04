@@ -14,19 +14,12 @@ import csv
 import pandas as pd
 
 # Get the SRA Run accessions
-ACC_LIST=pd.read_csv('config/metadata.csv')
+ACC_LIST=pd.read_csv('config/SraRunTable.csv')
 ACCESSIONS=ACC_LIST['Run'].tolist() # Specify the column containing the accession, in this demo is Run
 
 OUTDIR="data/reads" 
-TEMPDIR=OUTDIR+"/temp"
-
 if not os.path.exists(OUTDIR):
    os.makedirs(OUTDIR)
-TEMPDIR=OUTDIR+"/temp"
-
-if not os.path.exists(TEMPDIR):
-   os.makedirs(TEMPDIR)
-
 
 ###############################################
 ###############################################
@@ -36,6 +29,7 @@ if not os.path.exists(TEMPDIR):
 rule all:
     input:
         "project_tree.txt",
+        "data/metadata/metadata.csv",
         "images/variable_freq.png",
         "images/sample_gps.png",
         expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
@@ -60,61 +54,70 @@ rule get_rulegraph:
     shell:
         "bash workflow/scripts/rules_dag.sh"
 
-rule github_page_index:
-    input:
-        script="workflow/scripts/render.R",
-        rmd="index.Rmd",
-        rulegraph="dags/rulegraph.svg",
-    output:
-        doc="index.html",
-    shell:
-        """
-            R -e "library(rmarkdown); render('{input.rmd}')"
-        """
 
 rule interactive_report:
     shell:
         "bash workflow/scripts/interactive_report.sh"
 
 
-rule get_sra_metadata:
-    input:
-        script = "workflow/scripts/explore_metadata.R"
+rule get_tidy_metadata:
     output:
         csv="data/metadata/metadata.csv"
-    shell:
-        "{input.script}"
+    script:
+        "scripts/get_tidy_metadata.R"
         
 
-rule ggplot_variable_freq:
+rule plot_variable_freq:
     input:
-        script = "workflow/scripts/explore_metadata.R",
-        csv="data/metadata/metadata.csv"
+        csv=rules.get_tidy_metadata.output.csv
     output:
-        "images/variable_freq.png"
-    shell:
-        "{input.script}"
+        png="images/variable_freq.png",
+        # svg="images/variable_freq.svg"
+    script:
+        "scripts/plot_var_freq.R"
+
+
+rule explore_read_size:
+    input:
+        csv=rules.get_tidy_metadata.output.csv
+    output:
+        readsize="data/metadata/metadata.csv"
+    script:
+        "scripts/explore_read_size.R"
       
   
-rule leaflet_sample_gps:
+rule get_sample_gps:
     input:
-        script = "workflow/scripts/explore_metadata.R",
-        csv="data/metadata/metadata.csv"
+        csv=rules.get_tidy_metadata.output.csv
     output:
-        "images/sample_gps.png"
-    shell:
-        "{input.script}"
+        map="images/sample_gps.png"
+    script:
+        "scripts/get_sample_gps.R"
 
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        acc=rules.get_sra_metadata.output.csv
+        acc=rules.get_tidy_metadata.output.csv
     output:
         "{outdir}/{accession}_1.fastq",
         "{outdir}/{accession}_2.fastq"
     params:
         download_folder=OUTDIR,
-        tempfolder=TEMPDIR
     threads: 1
     shell:
-        "fasterq-dump {wildcards.accession} -O {params.download_folder} --temp {params.tempfolder} --threads {threads}"
+        "fasterq-dump {wildcards.accession} -O {params.download_folder} --threads {threads}"
+
+
+rule github_page_index:
+    input:
+        script="workflow/scripts/render.R",
+        rmd="index.Rmd",
+        rulegraph="dags/rulegraph.svg",
+        svg="images/variable_freq.png",
+        map=rules.get_sample_gps.output,
+    output:
+        doc="index.html",
+    shell:
+        """
+            R -e "library(rmarkdown); render('{input.rmd}')"
+        """
