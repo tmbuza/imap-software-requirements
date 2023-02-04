@@ -3,6 +3,5 @@
 # Generate interactive html report
 snakemake --report report.html
 
-# snakemake -c3 --report report.zip
-# unzip report.zip
-# rm report.zip
+hti -H report.html -o images/smkreport
+

@@ -28,37 +28,24 @@ if not os.path.exists(OUTDIR):
 # Master rule for controlling workflow.
 rule all:
     input:
-        "project_tree.txt",
-        "data/metadata/metadata.csv",
-        "images/variable_freq.png",
-        "images/sample_gps.png",
+        "index.html",
+        # "project_tree.txt",
+        # "data/metadata/metadata.csv",
+        # "images/variable_freq.png",
+        # "images/sample_gps.png",
+        # "images/smkreport/screenshot.png",  
         expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
         expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        "index.html",
+        "software.txt"
 
-
-# Get directory tree
-rule get_project_tree_txt:
+rule basic_software:
     output:
-        tree="project_tree.txt"
+        tools="software.txt"
     shell:
-        "tree -L 2 . >{output}"
-
-
-rule get_rulegraph:
-    output:
-        "dags/rulegraph.svg",
-        "dags/rulegraph.png",
-        "dags/dag.svg",
-        "dags/dag.png"
-    shell:
-        "bash workflow/scripts/rules_dag.sh"
-
-
-rule interactive_report:
-    shell:
-        "bash workflow/scripts/interactive_report.sh"
-
+        """
+        echo Install Rstudio environment > {output}
+        echo Install Rstudio environment >> {output}
+        """
 
 rule get_tidy_metadata:
     output:
@@ -108,13 +95,45 @@ rule download_sra_reads:
         "fasterq-dump {wildcards.accession} -O {params.download_folder} --threads {threads}"
 
 
+# Get directory tree
+rule get_project_tree_txt:
+    output:
+        tree="project_tree.txt"
+    shell:
+        "tree -L 2 . >{output}"
+
+
+rule get_rulegraph:
+    output:
+        "dags/rulegraph.svg",
+    shell:
+        "bash workflow/scripts/rules_dag.sh"
+
+
+rule interactive_smk_report:
+    output:
+        html="report.html"
+    shell:
+        "bash workflow/scripts/interactive_report.sh"
+
+
+rule static_smk_report:
+    input:
+        html=rules.interactive_smk_report.output.html
+    output:
+        "images/smkreport/screenshot.png"
+    shell:
+        "bash workflow/scripts/interactive_report.sh"
+
 rule github_page_index:
     input:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
         rulegraph="dags/rulegraph.svg",
-        svg="images/variable_freq.png",
+        dag="images/variable_freq.png",
         map=rules.get_sample_gps.output,
+        smkstatic=rules.static_smk_report.output,
+        tree=rules.get_project_tree_txt.output,
     output:
         doc="index.html",
     shell:

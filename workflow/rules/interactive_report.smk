@@ -8,10 +8,8 @@ configfile: "config/config.yaml"
 rule interactive_report:
 	input:
 	output:
-		"report/report.html",
+		"report.html",
 	shell:
 		"""
-		snakemake -c3 --report report.zip
-		unzip report.zip
-		rm report.zip
+		snakemake -c3 --report report.html
 		"""
