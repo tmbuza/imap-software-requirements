@@ -1,7 +1,6 @@
 .
 ├── LICENSE
 ├── README.md
-├── Rplots.pdf
 ├── config
 │   ├── SraRunTable.csv
 │   ├── config.yaml
@@ -15,21 +14,17 @@
 ├── data
 │   ├── metadata
 │   └── reads
-├── figures
 ├── images
+│   ├── RStudioIDE.png
 │   ├── cicd.png
-│   ├── gsea_fig.svg
-│   ├── microbiome.pptx
-│   ├── snakemake_intro.png
-│   └── variables.png
+│   └── imap-part1.png
 ├── imap-requirements.Rproj
 ├── index.Rmd
-├── index.html
 ├── library
 │   ├── apa.csl
 │   └── references.bib
 ├── project_tree.txt
-├── report.html
+├── styles.css
 └── workflow
     ├── Snakefile
     ├── envs
@@ -37,4 +32,4 @@
     ├── schemas
     └── scripts
 
-13 directories, 24 files
+12 directories, 20 files

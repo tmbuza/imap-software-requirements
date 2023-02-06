@@ -6,7 +6,7 @@ min_version("6.10.0")
 configfile: "config/config.yaml"
 
  
-rule get_sra_metadata:
+rule get_metadata:
         input:
                 script = "workflow/scripts/explore_metadata.R"
         output:
@@ -15,7 +15,7 @@ rule get_sra_metadata:
                 "{input.script}"
       
   
-rule ggplot_variable_freq:
+rule plot_variable_freq:
         input:
                 script = "workflow/scripts/explore_metadata.R",
                 csv="data/metadata/metadata.csv"
@@ -34,15 +34,3 @@ rule leaflet_sample_gps:
         shell:
                 "{input.script}"
 
-rule download_srareads: 
-        input:
-                acc=rules.get_sra_metadata.output.csv
-        output:
-                "{outdir}/{accession}_1.fastq",
-                "{outdir}/{accession}_2.fastq"
-        params:
-                download_folder=OUTDIR,
-                tempfolder=TEMPDIR
-        threads: 1
-        shell:
-                "fasterq-dump {wildcards.accession} -O {params.download_folder} --temp {params.tempfolder} --threads {threads}"

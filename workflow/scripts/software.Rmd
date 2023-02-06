@@ -1,3 +1,4 @@
+<!-- # Basic Software -->
 ## Install R Environment {#R-environment}
 
 <!-- <a href=""><img src="images/rlogoblue.png" alt="R Software" width="10" style="padding: 0 15px; float: left;"/></a> -->
@@ -23,7 +24,7 @@
 
 <br>
 
-![Screen shot of RStudio User Interface](images/RStudioIDE.png){ width=100% }
+![Screen shot of RStudio User Interface](../../images/RStudioIDE.png){ width=100% }
 
 <br>
 

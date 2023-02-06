@@ -11,7 +11,7 @@ read_csv("data/metadata/metadata.csv", show_col_types = FALSE) %>%
   labs(x = "Animal Name", y = "Read size (milion bases)") +
   theme_light()
 
-ggsave(file="images/variables_freq.png", width=10, height=10)
-# ggsave(file="images/variables_freq.svg", width=10, height=10)
+ggsave(file="images/variable_freq.png", width=10, height=10)
+ggsave(file="images/variable_freq.svg", width=10, height=10)
 
 

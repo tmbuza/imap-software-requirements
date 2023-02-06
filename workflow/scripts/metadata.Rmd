@@ -1,3 +1,4 @@
+<!-- # Sample Metadata -->
 ## What is metadata?
 * <b>Metadata</b> is a set of data that describes and provides information about other data. It is commonly defined as **data about data**.
 * **Sample metadata** described in this book refers to the description and context of the individual sample collected for a specific microbiome study.
@@ -23,3 +24,6 @@ Typically, after sequencing the microbiome DNA, the investigators are encouraged
 ## Sample distribution
 This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
  The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
+
+
+

@@ -17,9 +17,10 @@ import pandas as pd
 # df = pd.read_csv('data/metadata/metadata.csv')
 # print(df.shape)
 
-SRA_MAPPING = pd.read_csv('data/metadata/SRR_Acc_List.csv')
-SRAFILES = SRA_MAPPING["sample_name"].tolist()
-print(SRAFILES)
+METADATA=pd.read_csv('config/SraRunTable.csv').loc[0:2]
+
+ACCLIST=METADATA['Run'].tolist() # Specify the column containing the accession, in this demo is Run
+print(ACCLIST)
 
 # samples = (pd.read_csv("config/samples.tsv", sep="\t"))
 # print(samples)

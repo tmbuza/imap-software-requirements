@@ -1,2 +1,2 @@
-schtools::log_snakemake()
+# schtools::log_snakemake()
 rmarkdown::render(snakemake@input[["rmd"]], output_file = snakemake@output[["docl"]])

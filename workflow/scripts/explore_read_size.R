@@ -2,18 +2,22 @@
 
 library(tidyverse, suppressPackageStartupMessages())
 
-metadata <- read_csv("data/metadata/metadata.csv", show_col_types = FALSE) %>%
+metadata <- read_csv("data/metadata/metadata.csv", show_col_types = FALSE) 
 
-cat("\nAscending order\n")
+
 metadata %>% 
-  select(isolate, ecosystem, milionbases) %>% 
+  dplyr::select(isolate, ecosystem, milionbases) %>% 
+  group_by(isolate, ecosystem) %>% 
+  summarise(milionbases = sum(milionbases), .groups = "drop") %>% 
   arrange(milionbases) %>% 
   head() %>% 
-  write_csv("data/metadata/read_size_asce_group.csv")
+  write_csv("data/metadata/read_size_asce.csv")
 
-cat("\n\nDescending order\n")
+
 metadata %>% 
-  select(isolate, ecosystem, milionbases) %>% 
+  dplyr::select(isolate, ecosystem, milionbases) %>% 
+  group_by(isolate, ecosystem) %>% 
+  summarise(milionbases = sum(milionbases), .groups = "drop") %>% 
   arrange(-milionbases) %>% 
   head() %>% 
-  write_csv("data/metadata/read_size_desc_group.csv")
+  write_csv("data/metadata/read_size_desc.csv")

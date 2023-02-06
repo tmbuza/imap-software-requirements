@@ -2,7 +2,7 @@
 
 library(tidyverse, suppressPackageStartupMessages())
 
-metadata <- read_csv("data/metadata/SraRunTable.csv", show_col_types = FALSE) %>%  
+metadata <- read_csv("config/SraRunTable.csv", show_col_types = FALSE) %>%  
   rename_all(tolower) %>% 
   rename(sample_id = run) %>% 
   drop_na(lat_lon) %>% 

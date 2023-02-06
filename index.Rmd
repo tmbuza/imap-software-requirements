@@ -24,6 +24,8 @@ description: |
 ---
 <h4>Github Repo: `r rmarkdown::metadata$github_repo`. </h4> 
 
+<br>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -89,13 +91,30 @@ library(schtools)
 <br><hr width=100%><br>
 
 # Basic Software
-```{r child='workflow/scripts/01a_basic_software.Rmd'}
+```{r child='workflow/scripts/software.Rmd'}
 ```
 
 <br><hr width=100%><br>
 
 # Sample metadata
-```{r child='workflow/scripts/01b_samplemetadata.Rmd'}
+```{r child='workflow/scripts/metadata.Rmd'}
+```
+
+## Read count distribution
+<img src="images/variables_freq.svg">
+
+
+## Read ascending size
+```{r}
+read_csv("data/metadata/read_size_asce.csv", show_col_types = FALSE) %>%
+head()
+```
+
+
+## Read descending size
+```{r}
+read_csv("data/metadata/read_size_desc.csv", show_col_types = FALSE) %>%
+head()
 ```
 
 <br><hr width=100%><br>
