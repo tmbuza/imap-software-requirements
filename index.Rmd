@@ -2,7 +2,7 @@
 title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br>"
 subtitle: |
   | ![](images/planning.png)<br>
-  | <big>I</big>ntegrated <big>M</big>icrobiome <big>A</big>nalysis <big>P</big>ipelines<br><br>
+  | <b>I</b>ntegrated <b>M</b>icrobiome <b>A</b>nalysis <b>P</b>ipelines<br><br><small>Reproducible Practical User Guide Series</small><br>
 date: |
   |  Updated on `r Sys.time()` <br>
 author: Teresia Mrema-Buza
@@ -15,15 +15,15 @@ link-citations: true
 mainfont:
 biblio-style: apalike
 email_address: "tmbuza@complexdatainsights.com"
-github_repo: "https://github.com/tmbuza/microbiome-analysis"
-github_page: "https://tmbuza.github.io/microbiome-analysis/"
+github_repo: "https://github.com/tmbuza/imap-requirements"
+github_page: "https://tmbuza.github.io/imap-requirements/"
 related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 
 
 ---
-<h4>Github Repo: `r rmarkdown::metadata$github_repo`. </h4> 
+<h4>Github Repo:</h4> <h5>`r rmarkdown::metadata$github_repo`. </h5> 
 
 <br>
 
