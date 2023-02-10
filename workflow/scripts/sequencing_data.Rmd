@@ -1,0 +1,42 @@
+<!-- # Sequencing Data -->
+## Quick glimpse
+Read sequencing data may be obtained from different sources. The most common ones include:
+
+1. Reads from sequencing platforms for research purposes.
+2. Reads downloaded from the Sequence Read Archive (SRA) using the SraToolkit functions.
+3. Reads synthesized using special simulation software such as `InSilicoSeq` [@Insilicoseq2023; @Hadrien2018].
+  - Most `insilico` data is used for testing software before using real data.
+  - Generating `insilico` data can be challenging but can provide a starting data for testing some pipelines.
+ 
+> `InSilicoSeq` comes with a set of pre-computed error models to allow the user to easily generate reads from the most popular Illumina instruments, including:    
+> - HiSeq
+> - MiSeq
+> - NovaSeq
+
+```bash
+
+```
+
+
+<br>
+
+## How to resize Fastq Files
+- Sometimes we want to extract a small subset to test the bioinformatics pipeline.
+- You can resize the fastq files using the `seqkit sample` function [@seqkit2022].
+- Below is a quick demo for extracting only 1% of the paired-end metagenomics sequencing data.
+
+> This example extract 1% of the reads in only two sample (SRR10245277 & SRR10245278)
+
+```bash
+mkdir -p data
+for i in {77..78}
+  do
+    cat SRR102452$i\_R1.fastq \
+    | seqkit sample -p 0.01 \
+    | seqkit shuffle -o data/SRR102452$i\_R1_sub.fastq \
+    | cat SRR102452$i\_R2.fastq \
+    | seqkit sample -p 0.01 \
+    | seqkit shuffle -o data/SRR102452$i\_R2_sub.fastq
+  done
+```
+

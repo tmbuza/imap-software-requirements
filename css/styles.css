@@ -1,0 +1,188 @@
+ body{
+  font-size: 14px;
+  text-align: left;
+}
+.main-container {
+  max-width: 80%;
+  background-color: black;
+  color: white;
+  padding: 3% 3% 3% 3%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#header .title big {
+  font-size: 1.5em;
+  text-transform: capitalize;
+  color: #004400;
+  font-family: "Anton", sans-serif;
+} 
+#header .subtitle{
+  font-size: 2em;
+  text-transform: normal;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+} 
+#header .subtitle big {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #004400;
+  font-family: "Anton", sans-serif;
+} 
+#header h1{
+  font-size: 2.5em;
+  text-transform: capitalize;
+  color: #1a1a1a;
+  font-family: "Anton", sans-serif;
+}
+
+.author{
+  display: none;
+} 
+
+.date{
+  color: #040330;
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+}
+#header {
+  background: linear-gradient(to bottom, rgb(213, 255, 89), rgba(255, 122, 89,0));
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  width: 100%;
+  padding: 5%;
+  text-transform: none;
+  font-weight: bold;
+  background-image: url("../images/bkgd1.png");
+  /* background-image: url("../images/bkgd2.png"); */
+  background-repeat: no-repeat;
+  height: 100%; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+body h1{
+  color: white;
+  font-size: 2.5em;
+  text-transform: capitalize;
+  font-family: "Anton", sans-serif;
+}
+
+/* ############
+# BODY CSS
+############ */
+
+table tbody tr td {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+body img{
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+}
+#header img{
+  width:80%;
+  background: linear-gradient(to bottom, rgb(213, 255, 89), rgba(255, 122, 89,0));
+}
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 16px;
+  border-left: 5px solid #eee;
+}
+
+a{
+  color: #6bb7f5;
+}
+#tablefield {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+hr {
+  display: inline-block;
+  text-align: left;
+  margin: 0px;
+  color: #AAAAAA;
+}
+#appendix img{
+  width: 75%;
+}
+.DiagrammeR, .mermaid{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.DiagrammeR rect, .mermaid rect{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.node text {
+font-family: 'trebuchet ms', verdana, arial;
+font-size: 14px;
+}
+.DiagrammeR .mermaid{
+position: absolute;
+text-align: center;
+max-width: 200px;
+padding: 2px;
+font-family: 'trebuchet ms', verdana, arial;
+font-size: 12px;
+background: #ffff00;
+border: 1px solid #aaaa33;
+border-radius: 2px;
+pointer-events: none;
+z-index: 100;
+}
+/* #######################################*/
+/* #######################################*/
+@media only screen and (max-width: 768px) {
+  .main-container {
+  max-width: 100%;
+  padding: 1% 1% 1% 1%;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  #header h1{
+    font-size: 2em;
+    text-transform: capitalize;
+    color: #1a1a1a;
+    font-family: "Anton", sans-serif;
+  }
+  body {
+    font-size: 12px;
+    width: 100%; 
+  } 
+  #footer {
+    text-align: left;
+    font-size: 1.1em;
+  } 
+
+  #tablefield {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+} 
+body h1{
+  font-size: 2.5em;
+  text-transform: capitalize;
+  font-family: "Anton", sans-serif;
+}
+body h2{
+  font-size: 1.8em;
+}
+
+body h3{
+  font-size: 1.6em;
+}
+
+#tablefield h2{
+  font-size: 1.6em;
+}
+}

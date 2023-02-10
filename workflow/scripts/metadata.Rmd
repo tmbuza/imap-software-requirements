@@ -1,7 +1,9 @@
-<!-- # Sample Metadata -->
+<!-- # General Overview -->
 ## What is metadata?
 * <b>Metadata</b> is a set of data that describes and provides information about other data. It is commonly defined as **data about data**.
 * **Sample metadata** described in this book refers to the description and context of the individual sample collected for a specific microbiome study.
+
+<br>
 
 ## Metadata structure
 * Metadata collected at different stages (Figure 1) are typically organized in an Excel or Google spreadsheet where:
@@ -10,20 +12,52 @@
   * Typically, the first column of sample metadata is Sample ID, which designates the key associated to individual sample
   * Sampl ID must be unique.
 
+<br>
+
 ## Embedded metadata
 * In most cases, you will find the metadata detached from the experimental data.
 * Embedded metadata integrates the experimental data especially for graphics.
 * Major microbiome analysis platforms require sample metadata, commonly referred to as **mapping file** when performing downstream analysis.
 
+<br>
 
-## Downloading metadata from NCBI-SRA
-Typically, after sequencing the microbiome DNA, the investigators are encouraged to deposit the sequence reads in a public repository. The Sequence Read Archive (SRA) is currently the best bioinformatics database for read information. The good thing about SRA is that it integrates data from the NCBI, the European Bioinformatics Institute (EBI), and the DNA Data Bank of Japan (DDBJ). 
+## SRA metadata
+- Typically, after sequencing the microbiome DNA, the investigators are encouraged to deposit the sequence reads in a public repository. The Sequence Read Archive (SRA) is currently the best bioinformatics database for read information. The good thing about SRA is that it integrates data from the NCBI, the European Bioinformatics Institute (EBI), and the DNA Data Bank of Japan (DDBJ).
+- This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
+- The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
+
+> Demo: Downloading metadata associated with the bushmeat microbiome bioproject number PRJNA477349 Note that the SRA filename for metadata is automatically named SraRunTable.txt (not CSV).
+
+
+![Screen shot of SRA Run Selector for metadata associated with the NCBI-SRA bioproject number PRJNA477349](images/sra_run_selector.png)
+
+<br>
+
+## Filtering metadata
+- We want the sample metadata to include a few desired variables. 
+- In this example we desire to include sample collection point i.e latitude and longitude. 
+- We will drop row with `NA` in location column.
+- It is a good habit to rename, modify or replace longer column names with meaningful names.
+- We will select a few columns to create a desired metadata for downstream analyses.
+- Saving the tidy metadata file in `RDS or RData` format will preserve a compressed file but here we save a tidy file as CSV.
+- Script: `workflow/scripts/tidy_metadata`.
+
+
+## Explore the metadata
+At this stage you will be able to select and decide what to include in the downstream analyses. 
+
 
 <br><br>
 
-## Sample distribution
-This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
- The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
+## Sample collection points
+### Get latitudes and longitudes
+- Does the metadata contains latitudes and longitudes (lat-lon) of the collection point? 
+- You may consider dropping a pin on exact location. 
 
+### Draw interactive map 
+- The [`leaflet`](https://rstudio.github.io/leaflet/) R package can do a great job in dropping a pin on the corresponding coordinate. 
+- Note that samples collected on the same coordinate will overlap. 
+- You can zoom in-out to expand or minimize the map. 
+- You can also mouse over the pin to see the variable label. 
 
-
+![Static image from the interactive HTML map converted using the html2image package.](images/sample_gps.png)

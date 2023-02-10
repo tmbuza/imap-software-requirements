@@ -1,0 +1,8 @@
+<!-- # Mapping Files -->
+
+## Mothur mapping files
+The mapping files are required to direct the pipeline where to look for the files containing the sequencing data.
+
+- The format of the mapping files for `mothur` and `QIIME2` pipelines is slightly different. 
+- We will demonstrate how to prepare both.
+- Each mapping file will contain only the files that are parsed by bioinformatics analysis. 

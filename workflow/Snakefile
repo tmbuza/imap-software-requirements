@@ -2,73 +2,68 @@ from snakemake.utils import min_version
 
 min_version("6.10.0")
 
-
 # Configuration file containing all user-specified settings
 configfile: "config/config.yaml"
 
-# Function for aggregating list of raw sequencing files.
-mothurSamples = list(set(glob_wildcards(os.path.join('data/mothur/raw/', '{sample}_{readNum, R[12]}_001.fastq.gz')).sample))
+mothurSamples = list(set(glob_wildcards(os.path.join('data/mothur/reads/', '{sample}_{readNum, R[12]}_001.fastq.gz')).sample))
+
+sraSamples = list(set(glob_wildcards(os.path.join('data/reads/', '{sample}_{sraNum, [12]}.fastq.gz')).sample))
+
 
 import os
 import csv
 import pandas as pd
 
-# Get the SRA Run accessions
-METADATA=pd.read_csv('config/SraRunTable.csv').loc[0:1]
-
+METADATA=pd.read_csv('data/metadata/SraRunTable_bushmeat.csv').loc[0:1]
 ACCESSIONS=METADATA['Run'].tolist() # Specify the column containing the accession, in this demo is Run
-
 OUTDIR="data/reads" 
 if not os.path.exists(OUTDIR):
    os.makedirs(OUTDIR)
 
-###############################################
-###############################################
-
+TESTDIR="data/reads/test"
 
 # Master rule for controlling workflow.
 rule all:
     input:
         "index.html",
-        # "project_tree.txt",
-        # "data/metadata/metadata.csv",
-        # "data/metadata/read_size_asce.csv",
-        # "data/metadata/read_size_desc.csv",
+        "images/project_tree.txt",
+        # "data/metadata/bushmeat.csv",
+        # "data/metadata/ibd.csv",
+        # "results/read_size_asce.csv",
+        # "results/read_size_desc.csv",
         # "images/variable_freq.png",
-        # "images/variable_freq.svg",
+        # "images/bush_variable_freq.svg",
+        # "images/ibd_variable_freq.svg",
         # "images/sample_gps.png",
         # "images/smkreport/screenshot.png",  
-        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-
-# Get analysis software
-rule basic_software:
-    input:
-        rmd="software.Rmd",
-        ide="images/RStudioIDE.png"
-    output:
-        html="software.html"
-    shell:
-        """
-        R -e "library(rmarkdown); render('{input.rmd}')"
-        """
+        # expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        # expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        # expand("{testdir}/{accession}_1_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        # expand("{testdir}/{accession}_2_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        # "results/mothur_mapping_file.tsv",
+        # "results/mothur_design_file.tsv",
+        # "data/mothur/references/silva.v4.align",
+        # "data/mothur/references/trainset16_022016.pds.fasta",
+        # "data/mothur/references/trainset16_022016.pds.tax",
+        # "data/mothur/references/zymo.mock.16S.v4.fasta",
 
 
 # Get tidy metadata
-rule get_tidy_metadata:
+rule process_sra_metadata:
     output:
-        csv="data/metadata/metadata.csv"
+        bushcsv="data/metadata/bushmeat.csv",
+        ibdcsv="data/metadata/ibd.csv"
     script:
-        "scripts/get_tidy_metadata.R"
+        "scripts/process_sra_metadata.R"
         
 
 # Get variable barplot
 rule plot_variable_freq:
     input:
-        csv=rules.get_tidy_metadata.output.csv
+        rules.process_sra_metadata.output.bushcsv
     output:
-        png="images/variable_freq.png",
-        svg="images/variable_freq.svg"
+        png="images/bush_variable_freq.svg",
+        svg="images/ibd_variable_freq.svg"
     script:
         "scripts/plot_var_freq.R"
 
@@ -76,10 +71,10 @@ rule plot_variable_freq:
 # Get read size
 rule explore_read_size:
     input:
-        csv=rules.get_tidy_metadata.output.csv
+        rules.process_sra_metadata.output.bushcsv
     output:
-        asce="data/metadata/read_size_asce.csv",
-        desc="data/metadata/read_size_desc.csv"
+        asce="results/read_size_asce.csv",
+        desc="results/read_size_desc.csv"
     script:
         "scripts/explore_read_size.R"
       
@@ -87,17 +82,34 @@ rule explore_read_size:
 # Get sample location 
 rule get_sample_gps:
     input:
-        csv=rules.get_tidy_metadata.output.csv
+        rules.process_sra_metadata.output.bushcsv
     output:
         map="images/sample_gps.png"
     script:
         "scripts/get_sample_gps.R"
 
 
+
+# Get rule graphs
+rule get_rulegraph:
+    output:
+        "dags/rulegraph.svg",
+    shell:
+        """
+        bash workflow/scripts/rules_dag.sh
+        """
+
+# Get smk html report
+rule snakemake_html_report:
+    shell:
+        """
+        bash workflow/scripts/smk_html_report.sh
+        """
+
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        acc=rules.get_tidy_metadata.output.csv
+        rules.process_sra_metadata.output.bushcsv
     output:
         "{outdir}/{accession}_1.fastq",
         "{outdir}/{accession}_2.fastq"
@@ -105,56 +117,105 @@ rule download_sra_reads:
         download_folder=OUTDIR,
     threads: 1
     shell:
-        "fasterq-dump {wildcards.accession} -O {params.download_folder} --threads {threads}"
+        """
+        fasterq-dump {wildcards.accession} -O {params.download_folder} --threads {threads}
+        """
+
+# Subset a test data
+rule resize_test_subset:
+    input:
+        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+    output:
+        "{testdir}/{accession}_1_sub.fastq",
+        "{testdir}/{accession}_2_sub.fastq",
+    threads: 1
+    shell:
+        """
+        bash workflow/scripts/resize_test_subset.sh
+        """
+
+
+rule get_simple_stats:
+    input:
+        script="workflow/scripts/seqkit_stat_1.sh",
+        rawreads=expand("{outdir}/{accession}_{sraNum}.fastq", outdir=OUTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
+    output:
+        seqkit1="results/stats1/seqkit_stats.txt",
+    threads: 1
+    shell:
+      "bash {input.script}"
+
+
+rule mothur_mapping_file:
+    input:
+        stats1="results/stats1/seqkit_stats.txt"
+    output:
+        files="data/metadata/mothur_mapping_file.tsv",
+    threads: 1
+    script:
+      "scripts/mothur_mapping_file.R"
+
+
+rule mothur_design_file:
+    input:
+        files="data/metadata/mothur_mapping_file.tsv",
+    output:
+        files="data/metadata/mothur_design_file.tsv",
+    threads: 1
+    script:
+      "scripts/mothur_design_file.R"
+
+# Downloading and formatting SILVA and RDP reference databases. The v4 region is extracted from 
+# SILVA database for use as reference alignment.
+rule get_mothur_references:
+	input:
+		script="workflow/scripts/mothurReferences.sh"
+	output:
+		silvaV4="data/mothur/references/silva.v4.align",
+		rdpFasta="data/mothur/references/trainset16_022016.pds.fasta",
+		rdpTax="data/mothur/references/trainset16_022016.pds.tax"
+	conda:
+		"envs/mothur.yaml"
+	shell:
+		"bash {input.script}"
+
+
+# Downloading the Zymo mock sequence files and extracting v4 region for error estimation.
+rule get_zymo_mock:
+	input:
+		script="workflow/scripts/mothurMock.sh",
+		silvaV4="data/mothur/references/silva.v4.align",
+	output:
+		mockV4="data/mothur/references/zymo.mock.16S.v4.fasta"
+	conda:
+		"envs/mothur.yaml"
+	shell:
+		"bash {input.script}"
 
 
 # Get directory tree
 rule get_project_tree_txt:
     output:
-        tree="project_tree.txt"
+        tree="images/project_tree.txt"
     shell:
         """
-        tree -L 2 . >{output}
+        bash workflow/scripts/tree.sh
         """
 
-# Get rule graphs
-rule get_rulegraph:
-    output:
-        "dags/rulegraph.svg",
-    shell:
-        "bash workflow/scripts/rules_dag.sh"
-
-# Get smk html report
-rule snakemake_html_report:
-    output:
-        html="report.html"
-    shell:
-        """
-        bash "workflow/scripts/snakemake_html_report.sh
-        """
-
-# Get static image of smk report
-rule static_smk_report:
-    input:
-        html=rules.snakemake_html_report.output.html
-    output:
-        "images/smkreport/screenshot.png"
-    shell:
-        "bash workflow/scripts/interactive_report.sh"
-
-
-# Create a shareabke html report
 rule github_page_index:
     input:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
         rulegraph="dags/rulegraph.svg",
-        dag=rules.plot_variable_freq.output,
-        map=rules.get_sample_gps.output,
-        smkstats=rules.static_smk_report.output,
-        tree=rules.get_project_tree_txt.output,
-        asce=rules.explore_read_size.output.asce,
-        desc=rules.explore_read_size.output.desc,
+        dag="images/variable_freq.svg",
+        map="images/sample_gps.png",
+        html2png="images/smkreport/screenshot.png",
+        tree="images/project_tree.txt",
+        asce="results/read_size_asce.csv",
+        desc="results/read_size_desc.csv",
+        mapfiles="data/metadata/mothur_mapping_file.tsv",
+        design="data/metadata/mothur_design_file.tsv"
     output:
         doc="index.html",
     shell:

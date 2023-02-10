@@ -1,4 +1,5 @@
 # Additional
+fasterq*
 code
 The10BeatitudesInScripture.Rmd
 *metamap*
@@ -12,6 +13,7 @@ library/*
 data/*
 dags/dag.svg
 dags/dag.png
+resources/*
 results/*
 # dags/*.
 images/*

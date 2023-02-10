@@ -1,25 +1,26 @@
 ---
-title:  "<big><u>IMAP-PART 1</u></big><br><br>Getting started with Microbiome Data Analysis<br><br>"
+title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br>"
 subtitle: |
-  | ![](../images/cicd.png)<br>
-  | Integrated Microbiome Analysis Pipelines (IMAP) with Snakemake & GitHub Actions<br><br>
+  | ![](images/planning.png)<br>
+  | <big>I</big>ntegrated <big>M</big>icrobiome <big>A</big>nalysis <big>P</big>ipelines<br><br>
 date: |
-  |  Updated on `r Sys.Date()` <br>
+  |  Updated on `r Sys.time()` <br>
 author: Teresia Mrema-Buza
 output: 
   html_document: 
-    css: styles.css
+    css: css/styles.css
 csl: "library/apa.csl"
 bibliography: "library/references.bib"
 link-citations: true
 mainfont:
 biblio-style: apalike
 email_address: "tmbuza@complexdatainsights.com"
-github_repo: "https://github.com/tmbuza/imap-requirements"
-github_page: "https://tmbuza.github.io/imap-requirements/"
+github_repo: "https://github.com/tmbuza/microbiome-analysis"
+github_page: "https://tmbuza.github.io/microbiome-analysis/"
 related_website: "https://complexdatainsights.com"
 description: |
-  This repo provides integrated and highly curated solutions for reproducible microbiome data analysis.
+  This repo provides integrated and highly curated solutions for reproducible research.
+
 
 ---
 <h4>Github Repo: `r rmarkdown::metadata$github_repo`. </h4> 
@@ -32,7 +33,6 @@ description: |
 <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-source("workflow/scripts/common.R")
 knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
@@ -50,13 +50,19 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse, suppressPackageStartupMessages())
-library(mikropml)
 library(schtools)
 
 ```
 
+# Basic requirements
 
-# General Overview
+<br>
+
+<img src="images/imap-part1.png">
+
+<br>
+
+## General Overview
 
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
   - Maintaining reproducibility in technical validation and regeneration of results
@@ -71,12 +77,6 @@ library(schtools)
 > We envision to keep fostering on continuous integration and development of highly reproducible workflows.
 
 
-<br><hr width=100%><br>
-
-# Basic requirements
-
-<img src="images/imap-part1.png">
-
 <br><br>
 
 ## Snakemake rule DAG
@@ -84,94 +84,171 @@ library(schtools)
 <br><br>
 
 ## Screenshot of interactive snakemake report {#smkreport}
-> Open the snakemake html report using a compartible browser such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better view of the dispaly.
+> The snakemake html report can be viewed using any compartible browser such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better view of the dispaly.
 
 <img src="images/smkreport/screenshot.png">
 
-<br><hr width=100%><br>
+<br><hr width=50%><br>
 
-# Basic Software
-```{r child='workflow/scripts/software.Rmd'}
-```
 
-<br><hr width=100%><br>
+# Sample Metadata
+![](images/metadata.png)
 
-# Sample metadata
 ```{r child='workflow/scripts/metadata.Rmd'}
 ```
 
-## Read count distribution
-<img src="images/variables_freq.svg">
+### Read count distribution
+
+**Example 1: Bushmeat project**
+
+![Bar chart depicting variables against read counts in bushmeat project.](images/bush_variable_freq.svg)
+
+<br>
+
+**Example 2: IBD project**
+
+![Bar chart depicting variables against read counts in IBD project.](images/ibd_variable_freq.svg)
+
+<br><hr width=50%><br>
+
+# Analysis Software
+```{r child='workflow/scripts/software.Rmd'}
+```
+
+<br><hr width=50%><br>
+
+# Quality Control Tools
+
+```{r child='workflow/scripts/preprocess_tools.Rmd'}
+```
+
+<br><hr width=50%><br>
+
+# Sequencing Data
+
+```{r child='workflow/scripts/sequencing_data.Rmd'}
+```
+
+<br><hr width=50%><br>
+
+# Bioinformatics Pipelines
+
+```{r child='workflow/scripts/bioinfo_pipelines.Rmd'}
+```
+
+<br><hr width=50%><br>
 
 
-## Read ascending size
+# References Databases
+- Mothur alignment references
+- Classifiers
+- Taxonomy references
+- Mock references
+
+```{r child='workflow/scripts/bioinfo_pipelines.Rmd'}
+```
+
+<br><hr width=50%><br>
+
+# Mapping Files
+
+<!-- ```{r child='workflow/scripts/mapping_files.Rmd'}``` -->
+
+## Mothur sample mapping file
+The mapping files are required to direct the pipeline where to look for the files containing the sequencing data.
+
+- The format of the mapping files for `mothur` and `QIIME2` pipelines is slightly different. 
+- We will demonstrate how to prepare both.
+- Each mapping file will contain only the files that are parsed by bioinformatics analysis. 
+
+<br>
+
 ```{r}
-read_csv("data/metadata/read_size_asce.csv", show_col_types = FALSE) %>%
+source("workflow/scripts/mothur_mapping_file.R")
+read_tsv("data/metadata/mothur_mapping_file.tsv", show_col_types = F) %>% 
+head()
+ 
+```
+
+<br>
+
+## Mothur design file
+- Mothur pipeline expects the design (metadata) file to have column headers. 
+- We will extract only the desired number of samples.
+- The first column header should be **group**.
+- For more detail see Mothur [MiSeq SOP](https://mothur.org/wiki/miseq_sop/).
+
+```{r}
+source("workflow/scripts/mothur_design_file.R")
+read_tsv("data/metadata/mothur_design_file.tsv", show_col_types = F) %>% 
 head()
 ```
 
 
-## Read descending size
-```{r}
-read_csv("data/metadata/read_size_desc.csv", show_col_types = FALSE) %>%
-head()
-```
 
-<br><hr width=100%><br>
+<br><hr width=50%><br><br>
 
-<!-- #  -->
-```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
-```
-
-<br><hr width=100%><br>
-
-<!-- #  -->
-```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
-```
-
-<br><hr width=100%><br>
-
-<!-- #  -->
-```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
-```
-
-<br><hr width=100%><br>
-
-<!-- #  -->
-```{r eval=FALSE, child='workflow/scripts/.Rmd', include=FALSE}
-```
-
-<br><hr width=100%><br>
-
+<!-- ################################################### -->
 # Appendix
+<!-- ################################################### -->
+
+<br>
+
+## Project directories {#dirs}
+```{bash}
+cat images/project_tree.txt
+```
+
 <br><br>
 
-## Project directories
-```{bash}
-cat project_tree.txt
+## Selected bioproject for metadata exploration
+- BioProject number:
+  - [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349): Multispecies 16S rRNA from bushmeat samples collected from Tanzania.
+  
+```{r}
+library(tidyverse, suppressPackageStartupMessages())
+metadata <- read_csv("data/metadata/bushmeat.csv", show_col_types = FALSE) %>%
+  colnames()
+
 ```
 
+
+  - [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168): Multi-omics response to biologic therapies in IBD - BioProject
+
+```{r}
+library(tidyverse, suppressPackageStartupMessages())
+read_csv("data/metadata/ibd.csv", show_col_types = FALSE) %>%  
+  colnames()
+```
+
+<br><br>
 
 ## Troubleshooting (in progress)
 <ol>
-  <li></li>
-    <ul></ul>.
-  <li></li>
-    <ul></ul>
+  <li>CiteprocXMLError: Missing root element</li>
+    <ul>
+      <li>Maybe the CSL file is empty. Some examples of citation style language are available on Github [@CSL2023].</li>
+      <li></li>
+    </ul>
+  <li>Error from srapath: Error: RC(rcNS,rcNoTarg,rcValidating,rcConnection,rcNotFound)</li>
+    <ul>
+      <li>This happened when downloading SRA reads from online and it seems to be related to connection issues. Not clear what causes this error but keeping retrying sometimes helps.</li>
+      <li>Alternatively, you can download the data using the NCBI-SraToolkits (fasterq-dump is the fastest).</li>
+    </ul>
 </ol>
 
-<br><br>
+
+<br><br><hr width=50%><br>
 
 ## References
 ::: {#refs}
 :::
 
-<br><br><hr width=50%><br>
+<br><br><hr width=100%><br>
 
 <div id="footer">
 Last updated on `r format(Sys.time(), '%B %d, %Y')`. <br><br>
-These workflows are continuously reviewed, integrated, tested and compiled by [`r rmarkdown::metadata$author`](mailto:`r rmarkdown::metadata$email_address`).  
+The snakemake workflow mentioned in this report is continuously being reviewed, integrated, tested and compiled by [`r rmarkdown::metadata$author`](mailto:`r rmarkdown::metadata$email_address`).  
 Github_Repo: `r rmarkdown::metadata$github_repo`.  
-Github_Page (this document): `r rmarkdown::metadata$github_page`.  
-Visit the [Complex Data Insights (CDI) website](`r rmarkdown::metadata$related_website`) for more practical user guides (...in progress).  
+
 </div><br><br>

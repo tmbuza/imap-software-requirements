@@ -1,4 +1,10 @@
+# Path to SRA metadata sheet (CSV, TSV format).
+# Columns starts with Run,Assay Type,AvgSpotLen,Bases,BioProject,BioSample,etc.
+# We assume the table name is the orinal but with CSV extension (default is TXT)
+srameta: data/metadata/SraRunTable.csv
 # config.yaml
+
+accessions:
 
 # Path to sample sheet (TSV format, columns: sample, condition, ...)
 samples: config/samples.tsv
@@ -10,7 +16,7 @@ units: config/units.tsv
 
 
 # Auto created from fastq files
-dataset: bush
+dataset: test
   
 # Group names of mock samples (e.g. Mock1_S1_L001_R1_001.fastq.gz = Mock1).
 mothurMock:
@@ -39,7 +45,7 @@ mothurBeta:
   - braycurtis
 
 # Minimum read threshold for subsampling. Review sample statistics from preprocessing step
-subthresh: 100
+subthresh: 1000
 
 # NOTE: Leave these settings as is.
 
@@ -60,3 +66,5 @@ mothurGroups:
 
 # Random seed
 seed: 110912
+
+

@@ -1,2 +1,1 @@
-# imap-requirements
-Getting started with microbiome data analysis
+# Sample Metadata Exploration and Profiling
