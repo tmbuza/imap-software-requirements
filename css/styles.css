@@ -19,13 +19,14 @@
 #header .subtitle{
   font-size: 2em;
   text-transform: normal;
-  color: #000000;
-  font-family: "Roboto", sans-serif;
-} 
-#header .subtitle big {
-  font-size: 1.5em;
-  text-decoration: none;
   color: #004400;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+} 
+#header .subtitle small{
+  font-size: 0.8em;
+  text-decoration: none;
+  color: orange;
   font-family: "Anton", sans-serif;
 } 
 #header h1{
