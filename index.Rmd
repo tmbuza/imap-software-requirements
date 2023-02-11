@@ -1,10 +1,11 @@
 ---
-title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br> <small>Integrated Microbiome Analysis Pipelines (IMAP)</small><br><br>"
+title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br> <small>Reproducible Practical User Guide Series</small><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
-  | <big>Reproducible Practical User Guides</big><br>
+  | <big>Integrated Microbiome Analysis Pipelines (IMAP) Part 1 <br> [GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</big>
+  |
 date: |
-  |  Updated on `r Sys.time()` <br>
+  |  Updated on `r Sys.time()`
 author: Teresia Mrema-Buza
 output: 
   html_document: 
@@ -16,12 +17,13 @@ mainfont:
 biblio-style: apalike
 email_address: "tmbuza@complexdatainsights.com"
 github_repo: "https://github.com/tmbuza/imap-requirements"
-github_page: "https://tmbuza.github.io/imap-requirements/"
 related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 ---
-<h4>Github Repo:</h4> <h5>`r rmarkdown::metadata$github_repo`. </h5> <br>
+
+
+<hr width=100%><br>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

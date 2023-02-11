@@ -13,20 +13,21 @@
 #header .title big {
   font-size: 1.5em;
   text-transform: capitalize;
-  color: #1a1a1a;
+  font-family: "Anton", sans-serif;
+} 
+#header .title big, .title small {
+  color: rgb(206, 138, 13);
   font-family: "Anton", sans-serif;
 } 
 #header .subtitle{
   font-size: 2em;
   text-transform: normal;
-  /* color: #004400; */
-  font-family: "Roboto", sans-serif;
   text-align: center;
 } 
 #header .subtitle big{
   font-size: 0.8em;
   text-decoration: none;
-  color: #777;
+  color: rgb(206, 138, 13);
   font-family: "Anton", sans-serif;
 } 
 #header h1{
@@ -41,12 +42,12 @@
 } 
 
 .date{
-  color: #1a1a1a;
+  color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
 }
 #header {
-  background: linear-gradient(to bottom, rgb(213, 255, 89), rgba(255, 122, 89,0));
+  background: linear-gradient(to bottom, rgb(164, 255, 89), rgba(255, 122, 89,0));
   color: black;
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -54,7 +55,7 @@
   padding: 5%;
   text-transform: none;
   font-weight: bold;
-  background-image: url("../images/bkgd1.png");
+  /* background-image: url("../images/bkgd1.png"); */
   /* background-image: url("../images/bkgd2.png"); */
   background-repeat: no-repeat;
   height: 100%; /* You must set a specified height */
@@ -96,7 +97,7 @@ blockquote {
 }
 
 a{
-  color: #6bb7f5;
+  color: #063cc5;
 }
 #tablefield {
   max-width: 80%;
