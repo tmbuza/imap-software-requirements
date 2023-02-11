@@ -13,20 +13,20 @@
 #header .title big {
   font-size: 1.5em;
   text-transform: capitalize;
-  color: #004400;
+  color: #1a1a1a;
   font-family: "Anton", sans-serif;
 } 
 #header .subtitle{
   font-size: 2em;
   text-transform: normal;
-  color: #004400;
+  /* color: #004400; */
   font-family: "Roboto", sans-serif;
   text-align: center;
 } 
-#header .subtitle small{
+#header .subtitle big{
   font-size: 0.8em;
   text-decoration: none;
-  color: orange;
+  color: #777;
   font-family: "Anton", sans-serif;
 } 
 #header h1{
@@ -41,7 +41,7 @@
 } 
 
 .date{
-  color: #040330;
+  color: #1a1a1a;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
 }

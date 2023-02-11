@@ -26,7 +26,7 @@ TESTDIR="data/reads/test"
 rule all:
     input:
         "index.html",
-        "images/project_tree.txt",
+        # "images/project_tree.txt",
         # "data/metadata/bushmeat.csv",
         # "data/metadata/ibd.csv",
         # "results/read_size_asce.csv",
@@ -36,42 +36,64 @@ rule all:
         # "images/ibd_variable_freq.svg",
         # "images/sample_gps.png",
         # "images/smkreport/screenshot.png",  
-        # expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        # expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        # expand("{testdir}/{accession}_1_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        # expand("{testdir}/{accession}_2_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        # "results/mothur_mapping_file.tsv",
-        # "results/mothur_design_file.tsv",
-        # "data/mothur/references/silva.v4.align",
-        # "data/mothur/references/trainset16_022016.pds.fasta",
-        # "data/mothur/references/trainset16_022016.pds.tax",
-        # "data/mothur/references/zymo.mock.16S.v4.fasta",
+        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        expand("{testdir}/{accession}_1_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        expand("{testdir}/{accession}_2_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        "data/metadata/mothur_mapping_file.tsv",
+        "data/metadata/mothur_design_file.tsv",
+        "data/mothur/references/silva.v4.align",
+        "data/mothur/references/trainset16_022016.pds.fasta",
+        "data/mothur/references/trainset16_022016.pds.tax",
+        "data/mothur/references/zymo.mock.16S.v4.fasta",
+
+
+# Download metadata
+rule download_sra_metadata:
+    output:
+        srametadata="data/metadata/SraRunTable.csv",
+    shell:
+        """
+        echo Download a project metadata by clicking the metadata tab and specify output file as SraRunTable.csv.
+        """
+
+# Get SRA accessions, the first column of metadata
+rule get_sra_accesions:
+    input:
+        srametadata=rules.download_sra_metadata.output
+    output:
+        sra_acc="data/metadata/sra_accesions.txt",
+    shell:
+        """
+        echo Extract the SRA accesions from the SraRunTable.csv downloaded in the previous step.
+        """
 
 
 # Get tidy metadata
 rule process_sra_metadata:
+    input:
+        sra_acc=rules.download_sra_metadata.output
     output:
-        bushcsv="data/metadata/bushmeat.csv",
-        ibdcsv="data/metadata/ibd.csv"
+        tidymetadata="data/metadata/metadata.csv",
     script:
         "scripts/process_sra_metadata.R"
         
 
 # Get variable barplot
-rule plot_variable_freq:
+rule ggplot_variable_freq:
     input:
-        rules.process_sra_metadata.output.bushcsv
+        rules.process_sra_metadata.output
     output:
-        png="images/bush_variable_freq.svg",
-        svg="images/ibd_variable_freq.svg"
+        png="images/variable_freq.png",
+        svg="images/variable_freq.svg"
     script:
         "scripts/plot_var_freq.R"
 
 
 # Get read size
-rule explore_read_size:
+rule R_dplyr_read_size:
     input:
-        rules.process_sra_metadata.output.bushcsv
+        rules.process_sra_metadata.output
     output:
         asce="results/read_size_asce.csv",
         desc="results/read_size_desc.csv"
@@ -80,9 +102,9 @@ rule explore_read_size:
       
 
 # Get sample location 
-rule get_sample_gps:
+rule leaflet_sample_location:
     input:
-        rules.process_sra_metadata.output.bushcsv
+        rules.process_sra_metadata.output
     output:
         map="images/sample_gps.png"
     script:
@@ -91,7 +113,7 @@ rule get_sample_gps:
 
 
 # Get rule graphs
-rule get_rulegraph:
+rule dot_rulegraph:
     output:
         "dags/rulegraph.svg",
     shell:
@@ -109,7 +131,7 @@ rule snakemake_html_report:
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        rules.process_sra_metadata.output.bushcsv
+        rules.get_sra_accesions.output
     output:
         "{outdir}/{accession}_1.fastq",
         "{outdir}/{accession}_2.fastq"
@@ -122,7 +144,7 @@ rule download_sra_reads:
         """
 
 # Subset a test data
-rule resize_test_subset:
+rule seqkit_test_subset:
     input:
         expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
         expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
@@ -136,7 +158,7 @@ rule resize_test_subset:
         """
 
 
-rule get_simple_stats:
+rule seqkit_simple_stats:
     input:
         script="workflow/scripts/seqkit_stat_1.sh",
         rawreads=expand("{outdir}/{accession}_{sraNum}.fastq", outdir=OUTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
@@ -168,7 +190,7 @@ rule mothur_design_file:
 
 # Downloading and formatting SILVA and RDP reference databases. The v4 region is extracted from 
 # SILVA database for use as reference alignment.
-rule get_mothur_references:
+rule mothur_references:
 	input:
 		script="workflow/scripts/mothurReferences.sh"
 	output:
@@ -182,7 +204,7 @@ rule get_mothur_references:
 
 
 # Downloading the Zymo mock sequence files and extracting v4 region for error estimation.
-rule get_zymo_mock:
+rule mothur_zymo_mock:
 	input:
 		script="workflow/scripts/mothurMock.sh",
 		silvaV4="data/mothur/references/silva.v4.align",
@@ -195,7 +217,7 @@ rule get_zymo_mock:
 
 
 # Get directory tree
-rule get_project_tree_txt:
+rule project_tree:
     output:
         tree="images/project_tree.txt"
     shell:
@@ -203,7 +225,7 @@ rule get_project_tree_txt:
         bash workflow/scripts/tree.sh
         """
 
-rule github_page_index:
+rule github_summary_website:
     input:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
