@@ -26,6 +26,7 @@ TESTDIR="data/reads/test"
 rule all:
     input:
         "index.html",
+        "data/metadata/sra_accessions.txt",
         # "images/project_tree.txt",
         # "data/metadata/bushmeat.csv",
         # "data/metadata/ibd.csv",
@@ -56,18 +57,6 @@ rule download_sra_metadata:
         """
         echo Download a project metadata by clicking the metadata tab and specify output file as SraRunTable.csv.
         """
-
-# Get SRA accessions, the first column of metadata
-rule get_sra_accesions:
-    input:
-        srametadata=rules.download_sra_metadata.output
-    output:
-        sra_acc="data/metadata/sra_accesions.txt",
-    shell:
-        """
-        echo Extract the SRA accesions from the SraRunTable.csv downloaded in the previous step.
-        """
-
 
 # Get tidy metadata
 rule process_sra_metadata:
@@ -128,10 +117,20 @@ rule snakemake_html_report:
         bash workflow/scripts/smk_html_report.sh
         """
 
+# Get SRA accessions, the first column of metadata
+rule get_sra_accessions:
+    input:
+        sra_acc=rules.download_sra_metadata.output
+    output:
+        sra_acc="data/metadata/sra_accessions.txt",
+    script:
+        "scripts/get_sra_accessions.py"
+
+
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        rules.get_sra_accesions.output
+        rules.get_sra_accessions.output.sra_acc
     output:
         "{outdir}/{accession}_1.fastq",
         "{outdir}/{accession}_2.fastq"
