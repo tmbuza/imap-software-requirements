@@ -10,30 +10,38 @@
   margin-left: auto;
   margin-right: auto;
 }
+.main-container #header{
+  max-width: 100%;
+  background-color: black;
+  color: white;
+  /* padding: 3% 3% 3% 3%; */
+  margin-left: auto;
+  margin-right: auto;
+}
 #header .title big {
   font-size: 1.5em;
   text-transform: capitalize;
   font-family: "Anton", sans-serif;
 } 
 #header .title big, .title small {
-  color: rgb(206, 138, 13);
+  color: white;
   font-family: "Anton", sans-serif;
 } 
 #header .subtitle{
+  font-family: "Anton", sans-serif;
   font-size: 2em;
   text-transform: normal;
   text-align: center;
 } 
-#header .subtitle big{
-  font-size: 0.8em;
+#header .title small, .subtitle big{
+  font-size: 24px;
   text-decoration: none;
   color: rgb(206, 138, 13);
-  font-family: "Anton", sans-serif;
 } 
 #header h1{
   font-size: 2.5em;
   text-transform: capitalize;
-  color: #1a1a1a;
+  color: white;
   font-family: "Anton", sans-serif;
 }
 
@@ -42,13 +50,14 @@
 } 
 
 .date{
-  color: #fff;
+  color: white;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
 }
 #header {
-  background: linear-gradient(to bottom, rgb(164, 255, 89), rgba(255, 122, 89,0));
-  color: black;
+  /* background: linear-gradient(to bottom, rgb(74, 163, 2), rgba(89, 144, 255, 0)); */
+  background: linear-gradient(to bottom, blue, green);
+  color: white;
   font-family: "Montserrat", sans-serif;
   text-align: center;
   width: 100%;
@@ -87,7 +96,9 @@ body img{
 }
 #header img{
   width:80%;
-  background: linear-gradient(to bottom, rgb(213, 255, 89), rgba(255, 122, 89,0));
+  background-image: url("../images/bkgd1.png");
+  /* background: linear-gradient(to bottom, orange, white); */
+  background-size: cover;
 }
 blockquote {
   padding: 10px 20px;
@@ -97,7 +108,7 @@ blockquote {
 }
 
 a{
-  color: #063cc5;
+  color: #06afc5;
 }
 #tablefield {
   max-width: 80%;

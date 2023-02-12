@@ -2,8 +2,7 @@
 title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br> <small>Reproducible Practical User Guide Series</small><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
-  | <big>Integrated Microbiome Analysis Pipelines (IMAP) Part 1 <br> [GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</big>
-  |
+  | <big>Integrated Microbiome Analysis Pipelines ( IMAP ) Part 1 </big><br><small>[GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
 date: |
   |  Updated on `r Sys.time()`
 author: Teresia Mrema-Buza
@@ -21,7 +20,6 @@ related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 ---
-
 
 <hr width=100%><br>
 
@@ -57,23 +55,6 @@ library(schtools)
 <br>
 
 <img src="images/imap-part1.png">
-
-<br>
-
-## General Overview
-
-- We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
-  - Maintaining reproducibility in technical validation and regeneration of results
-  - Creating scalable data analysis scaled to server, grid or cloud environment seamlessly.
-  - Fostering sustainable improvement of the microbiome data analysis.
-- Reviewing existing workflows methodlogies [@Snakemake2023; @Mothursnakemake] helps in gaining a better insights for improving microbiome data analysis.
-- We break any complex workflows into small contiguous but related chunks for simplicity reasons.
-- Each major step forms a separate executable snakemake rule and is represented in the DAG (Directed Acyclic Graph).
-
-<br>
-
-> We envision to keep fostering on continuous integration and development of highly reproducible workflows.
-
 
 <br><br>
 
@@ -142,9 +123,6 @@ library(schtools)
 - Classifiers
 - Taxonomy references
 - Mock references
-
-```{r child='workflow/scripts/bioinfo_pipelines.Rmd'}
-```
 
 <br><hr width=50%><br>
 
