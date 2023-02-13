@@ -1,5 +1,5 @@
 ---
-title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br><br>"
+title:  "<big><u>IMAP-PART1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
   | Integrated Microbiome Analysis Pipelines<br>(IMAP)<br><br>[<small>Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
@@ -10,7 +10,9 @@ output:
   html_document: 
     css: css/styles.css
 csl: "library/apa.csl"
-bibliography: "library/references.bib"
+bibliography:
+- library/references.bib
+- library/imap.bib
 link-citations: true
 mainfont:
 biblio-style: apalike
