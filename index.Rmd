@@ -71,29 +71,29 @@ library(schtools)
 <br><hr width=50%><br>
 
 
+# Analysis Software
+```{r child='workflow/scripts/software.Rmd'}
+```
+
+<br><hr width=50%><br>
+
 # Sample Metadata
 ![](images/metadata.png)
 
 ```{r child='workflow/scripts/metadata.Rmd'}
 ```
 
-### Read count distribution
+**Read count distribution**
 
-**Example 1: Bushmeat project**
+Example 1: Bioproject [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349)  PRJNA477349 (Bushmeat project).
 
 ![Bar chart depicting variables against read counts in bushmeat project.](images/bush_variable_freq.svg)
 
 <br>
 
-**Example 2: IBD project**
+Example 2: Bioproject [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168) (IBD project).
 
 ![Bar chart depicting variables against read counts in IBD project.](images/ibd_variable_freq.svg)
-
-<br><hr width=50%><br>
-
-# Analysis Software
-```{r child='workflow/scripts/software.Rmd'}
-```
 
 <br><hr width=50%><br>
 
@@ -120,10 +120,11 @@ library(schtools)
 
 
 # References Databases
-- Mothur alignment references
-- Classifiers
-- Taxonomy references
-- Mock references
+- Example of reference databases for `Mothur` pipeline.
+  - Alignment references
+  - Classifiers
+  - Taxonomy references
+  - Mock references
 
 <br><hr width=50%><br>
 
@@ -137,15 +138,7 @@ The mapping files are required to direct the pipeline where to look for the file
 - The format of the mapping files for `mothur` and `QIIME2` pipelines is slightly different. 
 - We will demonstrate how to prepare both.
 - Each mapping file will contain only the files that are parsed by bioinformatics analysis. 
-
-<br>
-
-```{r}
-source("workflow/scripts/mothur_mapping_file.R")
-read_tsv("data/metadata/mothur_mapping_file.tsv", show_col_types = F) %>% 
-head()
- 
-```
+- For more detail see Mothur [MiSeq SOP](https://mothur.org/wiki/miseq_sop/).
 
 <br>
 
@@ -154,14 +147,6 @@ head()
 - We will extract only the desired number of samples.
 - The first column header should be **group**.
 - For more detail see Mothur [MiSeq SOP](https://mothur.org/wiki/miseq_sop/).
-
-```{r}
-source("workflow/scripts/mothur_design_file.R")
-read_tsv("data/metadata/mothur_design_file.tsv", show_col_types = F) %>% 
-head()
-```
-
-
 
 <br><hr width=50%><br><br>
 
@@ -184,7 +169,7 @@ cat images/project_tree.txt
   
 ```{r}
 library(tidyverse, suppressPackageStartupMessages())
-metadata <- read_csv("data/metadata/bushmeat.csv", show_col_types = FALSE) %>%
+metadata <- read_csv("data/metadata/metadata.csv", show_col_types = FALSE) %>%
   colnames()
 
 ```
