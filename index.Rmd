@@ -2,7 +2,7 @@
 title:  "<big><u>IMAP-PART1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
-  | Integrated Microbiome Analysis Pipelines<br>(IMAP)<br><br>[<small>Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
+  | Integrated Microbiome Analysis Pipelines<br>(IMAP) [@TMBuza2019]<br><br>[<small>Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
 date: |
   |  Updated on `r Sys.time()`
 author: Teresia Mrema-Buza
@@ -53,6 +53,7 @@ library(schtools)
 
 ```
 
+
 # Basic requirements
 
 <br>
@@ -66,7 +67,7 @@ library(schtools)
 <br><br>
 
 ## Screenshot of interactive snakemake report {#smkreport}
-> The snakemake html report can be viewed using any compartible browser such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better view of the dispaly.
+> The snakemake html report can be viewed using any compartible browser, such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better view of the dispaly.
 
 <img src="images/smkreport/screenshot.png">
 

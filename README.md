@@ -13,10 +13,10 @@
 
 
 
-## Full Citation
-> Please consider citing the [iMAP article](https://rdcu.be/b5iVj) if you find any part of the IMAP practical user guides helpful in your microbiome data analysis:
+## Full APA Citation Style
+> Please consider citing the [iMAP article](https://rdcu.be/b5iVj) [@TMBuza2019] if you find any part of the IMAP practical user guides helpful in your microbiome data analysis:
 
-    Teresia M. Buza, Triza Tonui, Francesca Stomeo, Christian Tiambo, Robab Katani, Megan Schilling, Beatus Lyimo, Paul Gwakisa, Isabella M. Cattadori, Joram Buza and Vivek Kapur. iMAP: an integrated bioinformatics and visualization pipeline for microbiome data analysis. BMC Bioinformatics (2019) 20:374. [Free Full Text](https://pubmed.ncbi.nlm.nih.gov/31269897/).
+  Buza, T. M., Tonui, T., Stomeo, F., Tiambo, C., Katani, R., Schilling, M., … Kapur, V. (2019). iMAP: An integrated bioinformatics and visualization pipeline for microbiome data analysis. BMC Bioinformatics, 20. https://doi.org/10.1186/S12859-019-2965-4
 
 > Please, help to increase awareness of freely available microbiome data analysis tools.
 Current [iMAP manuscript dimensions](https://badge.dimensions.ai/details/id/pub.1117740326)
