@@ -17,10 +17,13 @@ import pandas as pd
 METADATA=pd.read_csv('data/metadata/SraRunTable.csv').loc[0:3]
 ACCESSIONS=METADATA['Run'].tolist() # Specify the column containing the accession, in this demo is Run
 OUTDIR="data/reads" 
+TESTDIR="data/test"
+
 if not os.path.exists(OUTDIR):
    os.makedirs(OUTDIR)
 
-TESTDIR="data/test"
+if not os.path.exists(TESTDIR):
+   os.makedirs(TESTDIR)
 
 # Master rule for controlling workflow.
 rule all:
@@ -127,10 +130,11 @@ rule download_sra_reads:
         "{outdir}/{accession}_2.fastq"
     params:
         download_folder=OUTDIR,
+        subset_folder=OUTDIR,
     threads: 1
     shell:
         """
-        fasterq-dump {wildcards.accession} -O {params.download_folder} --threads {threads}
+        fasterq-dump --split-3 --force --skip-technical {wildcards.accession} --outdir {params.download_folder} --temp {params.subset_folder} --threads {threads}
         """
 
 # Subset a test data

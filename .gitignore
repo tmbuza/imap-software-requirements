@@ -1,4 +1,7 @@
 # Additional
+
+report.html
+index.html
 Rplot.pdf
 fasterq*
 code
@@ -16,6 +19,7 @@ dags/dag.svg
 dags/dag.png
 resources/*
 results/*
+
 # dags/*.
 images/*
 figures/*
