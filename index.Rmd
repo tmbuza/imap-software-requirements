@@ -2,9 +2,9 @@
 title:  "<big><u>IMAP-PART1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
-  | Integrated Microbiome Analysis Pipelines<br>(IMAP) [@TMBuza2019]<br><br>[<small>Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
+  | Integrated Microbiome Analysis Pipelines<br>(IMAP-PART1) <br><br><small>[Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
 date: |
-  |  Updated on `r Sys.time()`
+  |  Updated on `r Sys.Date()`
 author: Teresia Mrema-Buza
 output: 
   html_document: 
@@ -22,8 +22,9 @@ related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 ---
+> We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
 
-<hr width=100%><br>
+<br><hr width=100%><br>
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +53,7 @@ library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 
 ```
-
+<br><br>
 
 # Basic requirements
 
@@ -61,6 +62,7 @@ library(schtools)
 <img src="images/imap-part1.png">
 
 <br><br>
+
 
 ## Snakemake rule DAG
 <img src="dags/rulegraph.svg">
@@ -85,18 +87,6 @@ library(schtools)
 
 ```{r child='workflow/scripts/metadata.Rmd'}
 ```
-
-**Read count distribution**
-
-Example 1: Bioproject [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349)  PRJNA477349 (Bushmeat project).
-
-![Bar chart depicting variables against read counts in bushmeat project.](images/bush_variable_freq.svg)
-
-<br>
-
-Example 2: Bioproject [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168) (IBD project).
-
-![Bar chart depicting variables against read counts in IBD project.](images/ibd_variable_freq.svg)
 
 <br><hr width=50%><br>
 
@@ -162,28 +152,6 @@ The mapping files are required to direct the pipeline where to look for the file
 ## Project directories {#dirs}
 ```{bash}
 cat images/project_tree.txt
-```
-
-<br><br>
-
-## Selected bioproject for metadata exploration
-- BioProject number:
-  - [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349): Multispecies 16S rRNA from bushmeat samples collected from Tanzania.
-  
-```{r}
-library(tidyverse, suppressPackageStartupMessages())
-metadata <- read_csv("data/metadata/metadata.csv", show_col_types = FALSE) %>%
-  colnames()
-
-```
-
-
-  - [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168): Multi-omics response to biologic therapies in IBD - BioProject
-
-```{r}
-library(tidyverse, suppressPackageStartupMessages())
-read_csv("data/metadata/ibd.csv", show_col_types = FALSE) %>%  
-  colnames()
 ```
 
 <br><br>

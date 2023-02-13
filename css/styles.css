@@ -10,67 +10,64 @@ body{
   margin-left: auto;
   margin-right: auto;
 }
-.main-container #header{
-  max-width: 100%;
-  background-color: black;
-  color: white;
-  /* padding: 3% 3% 3% 3%; */
+
+#header {
+  color: black;
   margin-left: auto;
   margin-right: auto;
-}
-#header .title big {
-  font-size: 1.5em;
-  text-transform: capitalize;
-  font-family: "Anton", sans-serif;
-} 
-#header .title big, .title small {
-  color: white;
-  font-family: "Anton", sans-serif;
-} 
-#header .subtitle{
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
-  text-transform: normal;
-  text-align: center;
-} 
-#header .title small, .subtitle big{
-  font-size: 24px;
-  text-decoration: none;
-  /* color: rgb(206, 138, 13); */
-} 
-#header h1{
-  font-size: 2.5em;
-  text-transform: capitalize;
-  color: white;
-  font-family: "Anton", sans-serif;
-}
-
-.author{
-  display: none;
-} 
-
-.date{
-  color: white;
-  font-family: "Roboto", sans-serif;
-  font-weight: normal;
-}
-#header {
-  background: linear-gradient(to bottom, rgb(74, 163, 2, 1), rgba(89, 144, 255, 0));
-  background-color: rgb(2, 96, 2);
-  color: white;
+  background: linear-gradient(to bottom, rgb(74, 163, 2, 1), rgb(74, 163, 2, 1));
   font-family: "Montserrat", sans-serif;
   text-align: center;
   width: 100%;
   padding: 5%;
   text-transform: none;
   font-weight: bold;
-  /* background-image: url("../images/bkgd1.png"); */
+  background-image: url("../images/bkgd1.png");
   /* background-image: url("../images/bkgd2.png"); */
   background-repeat: no-repeat;
   height: 100%; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-size: cover; /* Resize the background image to cover the entire container */
+  opacity: 1;
 }
+#header .subtitle{
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  text-transform: normal;
+  text-align: center;
+} 
+#header .date{
+  font-size: 14px;
+} 
+#header a{
+  color: #0786f3;
+} 
+#header .title small, .subtitle big{
+  font-size: 24px;
+  text-decoration: none;
+} 
+#header h1{
+  font-size: 2.5em;
+  text-transform: capitalize;
+  color: black;
+  font-family: "Anton", sans-serif;
+}
+#header big{
+  color: black;
+  font-family: "Anton", sans-serif;
+} 
+a{
+  color: #0786f3;
+} 
+.author{
+  display: none;
+} 
+.date{
+  /* color: white; */
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+}
+
 
 body h1{
   color: white;
@@ -96,8 +93,8 @@ body img{
 }
 #header img{
   width:80%;
-  background-image: url("../images/bkgd1.png");
-  /* background: linear-gradient(to bottom, orange, white); */
+  /* background-image: url("../images/bkgd1.png"); */
+  background: linear-gradient(to bottom, orange, white);
   background-size: cover;
 }
 blockquote {
@@ -107,14 +104,6 @@ blockquote {
   border-left: 5px solid #eee;
 }
 
-a{
-  color: #1473f0;
-}
-#tablefield {
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
 hr {
   display: inline-block;
   text-align: left;
@@ -128,17 +117,14 @@ hr {
   .main-container {
   max-width: 100%;
   padding: 1% 1% 1% 1%;
-  margin-left: auto;
-  margin-right: auto;
   }
   #header h1{
-    font-size: 2em;
+    font-size: 2.5em;
   }
   body {
     font-size: 12px;
   } 
   #footer {
-    text-align: left;
     font-size: 1.1em;
   } 
   body h1{

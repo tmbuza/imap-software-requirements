@@ -21,17 +21,14 @@
 
 <br>
 
-## SRA metadata
+# Explore SRA metadata
 - Typically, after sequencing the microbiome DNA, the investigators are encouraged to deposit the sequence reads in a public repository. The Sequence Read Archive (SRA) is currently the best bioinformatics database for read information. The good thing about SRA is that it integrates data from the NCBI, the European Bioinformatics Institute (EBI), and the DNA Data Bank of Japan (DDBJ).
 - This demo uses metadata associated with the bushmeat microbiome bioproject number [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=477349).
 - The metadata and the `run` accessions are available via the [SRA database](https://www.ncbi.nlm.nih.gov/Traces/study/?WebEnv=MCID_63d94ddd2805b915ba189567&query_key=1&GALAXY_URL=https%3A%2F%2Fusegalaxy.org%2Ftool_runner%3Ftool_id%3Dsra_source).
 
-> Demo: Downloading metadata associated with the bushmeat microbiome bioproject number PRJNA477349 Note that the SRA filename for metadata is automatically named SraRunTable.txt (not CSV).
-
-
 ![Screen shot of SRA Run Selector for metadata associated with the NCBI-SRA bioproject number PRJNA477349](images/sra_run_selector.png)
 
-<br>
+<br><br>
 
 ## Filtering metadata
 - We want the sample metadata to include a few desired variables. 
@@ -39,22 +36,59 @@
 - We will drop row with `NA` in location column.
 - It is a good habit to rename, modify or replace longer column names with meaningful names.
 - We will select a few columns to create a desired metadata for downstream analyses.
-- Saving the tidy metadata file in `RDS or RData` format will preserve a compressed file but here we save a tidy file as CSV.
-- Script: `workflow/scripts/tidy_metadata`.
+
+<br><br>
+
+## Column names of selected variables
+- BioProject number:
+  - [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349): Multispecies 16S rRNA from bushmeat samples collected from Tanzania.
+  
+```{r}
+library(tidyverse, suppressPackageStartupMessages())
+
+col <- read_csv("../../data/metadata/metadata.csv", show_col_types = FALSE) %>% 
+colnames() %>% 
+as.data.frame()
+
+colnames(col)[1] <- "PRJNA477349"
+print(col)
+```
 
 
-## Explore the metadata
-At this stage you will be able to select and decide what to include in the downstream analyses. 
+  - [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168): Multi-omics response to biologic therapies in IBD.
 
+```{r}
+library(tidyverse, suppressPackageStartupMessages())
+
+col <- read_csv("../../data/metadata/ibd.csv", show_col_types = FALSE) %>% 
+colnames() %>% 
+as.data.frame()
+
+colnames(col)[1] <- "PRJNA685168"
+print(col)
+```
+
+<br>
+
+## Read count distribution
+
+### Example 1
+Bioproject [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349) (Bushmeat project).
+
+![]](images/bush_variable_freq.svg)
+
+<br><br>
+
+### Example 2
+Bioproject [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168) (IBD project).
+
+![](images/ibd_variable_freq.svg)
 
 <br><br>
 
 ## Sample collection points
-### Get latitudes and longitudes
 - Does the metadata contains latitudes and longitudes (lat-lon) of the collection point? 
 - You may consider dropping a pin on exact location. 
-
-### Draw interactive map 
 - The [`leaflet`](https://rstudio.github.io/leaflet/) R package can do a great job in dropping a pin on the corresponding coordinate. 
 - Note that samples collected on the same coordinate will overlap. 
 - You can zoom in-out to expand or minimize the map. 
