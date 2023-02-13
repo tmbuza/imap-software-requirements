@@ -1,5 +1,5 @@
-# Integrated Microbiome Analysis Pipelines <br> IMAP-PART-1
+# IMAP-PART-1: Preparing for Microbiome Data Analysis
 
-## Preparing for Microbiome Data Analysis
+<br> <br> 
 
-![](images/planning.png)<br><br>
+GitHub Page: [https://tmbuza.github.io/imap-requirements/](https://tmbuza.github.io/imap-requirements/)
