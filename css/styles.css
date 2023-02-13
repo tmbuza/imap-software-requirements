@@ -1,4 +1,4 @@
- body{
+body{
   font-size: 14px;
   text-align: left;
 }
@@ -28,15 +28,15 @@
   font-family: "Anton", sans-serif;
 } 
 #header .subtitle{
-  font-family: "Anton", sans-serif;
-  font-size: 2em;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
   text-transform: normal;
   text-align: center;
 } 
 #header .title small, .subtitle big{
   font-size: 24px;
   text-decoration: none;
-  color: rgb(206, 138, 13);
+  /* color: rgb(206, 138, 13); */
 } 
 #header h1{
   font-size: 2.5em;
@@ -55,8 +55,8 @@
   font-weight: normal;
 }
 #header {
-  /* background: linear-gradient(to bottom, rgb(74, 163, 2), rgba(89, 144, 255, 0)); */
-  background: linear-gradient(to bottom, blue, green);
+  background: linear-gradient(to bottom, rgb(74, 163, 2, 1), rgba(89, 144, 255, 0));
+  background-color: rgb(2, 96, 2);
   color: white;
   font-family: "Montserrat", sans-serif;
   text-align: center;
@@ -108,7 +108,7 @@ blockquote {
 }
 
 a{
-  color: #06afc5;
+  color: #1473f0;
 }
 #tablefield {
   max-width: 80%;
@@ -121,38 +121,7 @@ hr {
   margin: 0px;
   color: #AAAAAA;
 }
-#appendix img{
-  width: 75%;
-}
-.DiagrammeR, .mermaid{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.DiagrammeR rect, .mermaid rect{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.node text {
-font-family: 'trebuchet ms', verdana, arial;
-font-size: 14px;
-}
-.DiagrammeR .mermaid{
-position: absolute;
-text-align: center;
-max-width: 200px;
-padding: 2px;
-font-family: 'trebuchet ms', verdana, arial;
-font-size: 12px;
-background: #ffff00;
-border: 1px solid #aaaa33;
-border-radius: 2px;
-pointer-events: none;
-z-index: 100;
-}
+
 /* #######################################*/
 /* #######################################*/
 @media only screen and (max-width: 768px) {
@@ -164,38 +133,21 @@ z-index: 100;
   }
   #header h1{
     font-size: 2em;
-    text-transform: capitalize;
-    color: #1a1a1a;
-    font-family: "Anton", sans-serif;
   }
   body {
     font-size: 12px;
-    width: 100%; 
   } 
   #footer {
     text-align: left;
     font-size: 1.1em;
   } 
-
-  #tablefield {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-} 
-body h1{
-  font-size: 2.5em;
-  text-transform: capitalize;
-  font-family: "Anton", sans-serif;
-}
-body h2{
-  font-size: 1.8em;
-}
-
-body h3{
-  font-size: 1.6em;
-}
-
-#tablefield h2{
-  font-size: 1.6em;
-}
-}
+  body h1{
+    font-size: 2.5em;
+  }
+  body h2{
+    font-size: 1.8em;
+  }
+  body h3{
+    font-size: 1.6em;
+  }
+  }

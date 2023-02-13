@@ -1,19 +1,19 @@
 #!/bin/bash
 
 INPUTDIR="data/reads"
-OUTDIR="data/reads/test"
+OUTDIR="data/test"
 
 mkdir -p "${OUTDIR}"
 
 echo PRGRESS: Resizing fastq file for testing
 
-for i in {77..81};
+for i in {6..9};
   do
-    cat "${INPUTDIR}"/SRR102452$i\_1.fastq \
+    cat "${INPUTDIR}"/SRR745070$i\_1.fastq \
     | seqkit sample -p 0.01 \
-    | seqkit shuffle -o "${OUTDIR}"/SRR102452$i\_1_sub.fastq \
-    | cat "${INPUTDIR}"/SRR102452$i\_2.fastq \
+    | seqkit shuffle -o "${OUTDIR}"/SRR745070$i\_1_sub.fastq \
+    | cat "${INPUTDIR}"/SRR745070$i\_2.fastq \
     | seqkit sample -p 0.01 \
-    | seqkit shuffle -o "${OUTDIR}"/SRR102452$i\_2_sub.fastq;
+    | seqkit shuffle -o "${OUTDIR}"/SRR745070$i\_2_sub.fastq;
   done
 

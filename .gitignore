@@ -1,4 +1,5 @@
 # Additional
+Rplot.pdf
 fasterq*
 code
 The10BeatitudesInScripture.Rmd
@@ -153,3 +154,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .Rproj.user
+Rplots.pdf
+Rplots.pdf

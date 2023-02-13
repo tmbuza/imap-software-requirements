@@ -2,7 +2,7 @@
 
 # NCBI BioProject PRJNA685168: Bushmeat samples
 library(tidyverse, suppressPackageStartupMessages())
-metadata <- read_csv("data/metadata/SraRunTable_bushmeat.csv", show_col_types = FALSE) %>%  
+metadata <- read_csv("data/metadata/SraRunTable.csv", show_col_types = FALSE) %>%  
   rename_all(tolower) %>% 
   rename(sample_id = run) %>% 
   drop_na(lat_lon) %>% 
@@ -19,7 +19,7 @@ metadata <- read_csv("data/metadata/SraRunTable_bushmeat.csv", show_col_types = 
   mutate(bases = round(bases/1E6, digits = 0)) %>% 
   select(sample_id, ecosystem, isolate, latitude, longitude, milionbases=bases, description)
   
-  write_csv(metadata, "data/metadata/bushmeat.csv")
+  write_csv(metadata, "data/metadata/metadata.csv")
 
 
 # NCBI BioProject PRJNA685168: Multi-Omics response to biologic therapies in IBD

@@ -14,21 +14,21 @@ import os
 import csv
 import pandas as pd
 
-METADATA=pd.read_csv('data/metadata/SraRunTable_bushmeat.csv').loc[0:1]
+METADATA=pd.read_csv('data/metadata/SraRunTable.csv').loc[0:3]
 ACCESSIONS=METADATA['Run'].tolist() # Specify the column containing the accession, in this demo is Run
 OUTDIR="data/reads" 
 if not os.path.exists(OUTDIR):
    os.makedirs(OUTDIR)
 
-TESTDIR="data/reads/test"
+TESTDIR="data/test"
 
 # Master rule for controlling workflow.
 rule all:
     input:
         "index.html",
-        "data/metadata/sra_accessions.txt",
+        # "data/metadata/sra_accessions.txt",
         # "images/project_tree.txt",
-        # "data/metadata/bushmeat.csv",
+        # "data/metadata/metadata.csv",
         # "data/metadata/ibd.csv",
         # "results/read_size_asce.csv",
         # "results/read_size_desc.csv",
@@ -41,29 +41,20 @@ rule all:
         expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
         expand("{testdir}/{accession}_1_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
         expand("{testdir}/{accession}_2_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        "data/metadata/mothur_mapping_file.tsv",
-        "data/metadata/mothur_design_file.tsv",
-        # "data/mothur/references/silva.v4.align",
-        # "data/mothur/references/trainset16_022016.pds.fasta",
-        # "data/mothur/references/trainset16_022016.pds.tax",
-        # "data/mothur/references/zymo.mock.16S.v4.fasta",
-
+        # "data/metadata/mothur_mapping_file.tsv",
+        # "data/metadata/mothur_design_file.tsv",
+        "data/mothur/references/silva.v4.align",
+        "data/mothur/references/trainset16_022016.pds.fasta",
+        "data/mothur/references/trainset16_022016.pds.tax",
+        "data/mothur/references/zymo.mock.16S.v4.fasta",
+        # "images/smkreport/screenshot.png",  
 
 # Download metadata
-rule download_sra_metadata:
-    output:
-        srametadata="data/metadata/SraRunTable.csv",
-    shell:
-        """
-        echo Download a project metadata by clicking the metadata tab and specify output file as SraRunTable.csv.
-        """
-
-# Get tidy metadata
 rule process_sra_metadata:
     input:
-        sra_acc=rules.download_sra_metadata.output
+        srameta="data/metadata/SraRunTable.csv"
     output:
-        tidymetadata="data/metadata/metadata.csv",
+        metadata="data/metadata/metadata.csv",
     script:
         "scripts/process_sra_metadata.R"
         
@@ -71,7 +62,7 @@ rule process_sra_metadata:
 # Get variable barplot
 rule ggplot_variable_freq:
     input:
-        rules.process_sra_metadata.output
+        "data/metadata/metadata.csv"
     output:
         png="images/variable_freq.png",
         svg="images/variable_freq.svg"
@@ -82,7 +73,7 @@ rule ggplot_variable_freq:
 # Get read size
 rule R_dplyr_read_size:
     input:
-        rules.process_sra_metadata.output
+        "data/metadata/metadata.csv"
     output:
         asce="results/read_size_asce.csv",
         desc="results/read_size_desc.csv"
@@ -93,7 +84,7 @@ rule R_dplyr_read_size:
 # Get sample location 
 rule leaflet_sample_location:
     input:
-        rules.process_sra_metadata.output
+        "data/metadata/metadata.csv"
     output:
         map="images/sample_gps.png"
     script:
@@ -120,7 +111,7 @@ rule snakemake_html_report:
 # Get SRA accessions, the first column of metadata
 rule get_sra_accessions:
     input:
-        sra_acc=rules.download_sra_metadata.output
+        sra_acc="data/metadata/metadata.csv"
     output:
         sra_acc="data/metadata/sra_accessions.txt",
     script:
@@ -222,6 +213,12 @@ rule project_tree:
     shell:
         """
         bash workflow/scripts/tree.sh
+        """
+
+rule gather_bioinfo_resources:
+    shell:
+        """
+        bash workflow/scripts/get_bioinfo_resources.sh
         """
 
 rule github_summary_website:

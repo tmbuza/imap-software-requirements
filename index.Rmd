@@ -1,8 +1,8 @@
 ---
-title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br> <small>Reproducible Practical User Guide Series</small><br><br>"
+title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br><br>"
 subtitle: |
   | ![](images/planning.png)<br><br>
-  | <big>Integrated Microbiome Analysis Pipelines ( IMAP ) Part 1 </big><br><small>[GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
+  | Integrated Microbiome Analysis Pipelines<br>(IMAP)<br><br>[<small>Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
 date: |
   |  Updated on `r Sys.time()`
 author: Teresia Mrema-Buza
@@ -22,6 +22,7 @@ description: |
 ---
 
 <hr width=100%><br>
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

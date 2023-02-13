@@ -4,7 +4,7 @@ source("workflow/scripts/common.R")
 library(tidyverse, suppressPackageStartupMessages())
 
 
-read_csv("data/metadata/bushmeat.csv", show_col_types = FALSE) %>%
+read_csv("data/metadata/metadata.csv", show_col_types = FALSE) %>%
   ggplot(aes(x = isolate, y = milionbases, fill = ecosystem)) +
   facet_grid(~ ecosystem) +
   geom_col(position = "dodge") +
@@ -12,7 +12,8 @@ read_csv("data/metadata/bushmeat.csv", show_col_types = FALSE) %>%
   labs(x = "Animal Name", y = "Read size (milion bases)") +
   theme_light()
 
-ggsave(file="images/bush_variable_freq.svg", width=10, height=10)
+ggsave(file="images/variable_freq.png", width=10, height=10)
+ggsave(file="images/variable_freq.svg", width=10, height=10)
 
 
 read_csv("data/metadata/ibd.csv", show_col_types = FALSE) %>%
@@ -23,6 +24,7 @@ read_csv("data/metadata/ibd.csv", show_col_types = FALSE) %>%
   labs(x = "Taking Antibiotic", y = "Read size (milion bases)") +
   theme_light()
 
+ggsave(file="images/ibd_variable_freq.png", width=10, height=10)
 ggsave(file="images/ibd_variable_freq.svg", width=10, height=10)
 
 
