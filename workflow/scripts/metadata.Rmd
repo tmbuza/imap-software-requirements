@@ -75,7 +75,7 @@ print(col)
 ### Example 1
 Bioproject [PRJNA477349](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA477349) (Bushmeat project).
 
-![]](images/bush_variable_freq.svg)
+![](images/variable_freq.svg)
 
 <br><br>
 
@@ -93,5 +93,7 @@ Bioproject [PRJNA685168](https://www.ncbi.nlm.nih.gov/sra/?term=PRJNA685168) (IB
 - Note that samples collected on the same coordinate will overlap. 
 - You can zoom in-out to expand or minimize the map. 
 - You can also mouse over the pin to see the variable label. 
+
+<br>
 
 ![Static image from the interactive HTML map converted using the html2image package.](images/sample_gps.png)

@@ -47,7 +47,7 @@ body{
   text-decoration: none;
 } 
 #header h1{
-  font-size: 2.5em;
+  font-size: 3em;
   text-transform: capitalize;
   color: black;
   font-family: "Anton", sans-serif;
@@ -85,17 +85,18 @@ table tbody tr td {
   text-transform: capitalize;
 }
 body img{
-  width: 80%;
+  width: 90%;
   display: block;
   margin-left: auto;
   margin-right: auto;
   background-color: white;
 }
 #header img{
-  width:80%;
+  width:90%;
   /* background-image: url("../images/bkgd1.png"); */
   background: linear-gradient(to bottom, orange, white);
   background-size: cover;
+  padding: 20px;
 }
 blockquote {
   padding: 10px 20px;
@@ -118,22 +119,4 @@ hr {
   max-width: 100%;
   padding: 1% 1% 1% 1%;
   }
-  #header h1{
-    font-size: 2.5em;
-  }
-  body {
-    font-size: 12px;
-  } 
-  #footer {
-    font-size: 1.1em;
-  } 
-  body h1{
-    font-size: 2.5em;
-  }
-  body h2{
-    font-size: 1.8em;
-  }
-  body h3{
-    font-size: 1.6em;
-  }
-  }
+}
