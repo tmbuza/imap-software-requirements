@@ -211,6 +211,12 @@ rule mothur_zymo_mock:
 
 
 # Get directory tree
+# rule get_project_tree:
+# 	output:
+# 		tree="images/project_tree.txt"
+# 	shell:
+# 		"tree -d . >{output}"
+
 rule project_tree:
     output:
         tree="images/project_tree.txt"

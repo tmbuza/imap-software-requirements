@@ -37,7 +37,7 @@ body{
   text-transform: normal;
   text-align: center;
   line-height: 1.5;
-  color: rgb(205, 135, 7);
+  color: #777;
 } 
 #header .date{
   font-size: 14px;
