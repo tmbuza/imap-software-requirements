@@ -18,7 +18,7 @@ mainfont:
 biblio-style: apalike
 email_address: "tmbuza@complexdatainsights.com"
 github_repo: "https://github.com/tmbuza/imap-requirements"
-related_website: "https://complexdatainsights.com"
+related_website: "https://complexdatainsights.com/microbiome-analysis/imap-part1"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 ---
@@ -50,7 +50,7 @@ library(schtools)
 
 ```
 
-<div id="inprogress"><h2> - - - Work In Progress! - - - </h2> </div>
+<br><div id="inprogress"><h2> --- Work In Progress! --- </h2> </div><br><br>
 
 > We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
 
