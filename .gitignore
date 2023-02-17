@@ -1,11 +1,9 @@
 # Additional
 .vscode
 .DS_store
-report.html
 Rplot.pdf
 fasterq*
 code
-The10BeatitudesInScripture.Rmd
 *metamap*
 *temp*
 *jquery*
@@ -18,6 +16,7 @@ dags/dag.svg
 dags/dag.png
 resources/*
 results/*
+current_files.summary
 
 images/*
 figures/*
