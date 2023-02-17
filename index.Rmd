@@ -22,10 +22,6 @@ related_website: "https://complexdatainsights.com"
 description: |
   This repo provides integrated and highly curated solutions for reproducible research.
 ---
-> We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
-
-<br><hr width=100%><br>
-
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +49,12 @@ library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 
 ```
-<br><br>
+
+<div id="inprogress"><h2> - - - Work In Progress! - - - </h2> </div>
+
+> We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
+
+<br><hr width=100%><br><br><br>
 
 # Basic requirements
 

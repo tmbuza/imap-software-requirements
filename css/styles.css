@@ -2,6 +2,10 @@ body{
   font-size: 14px;
   text-align: left;
 }
+#inprogress {
+  color: red;
+  background: white;
+}
 .main-container {
   max-width: 80%;
   background-color: black;
