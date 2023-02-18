@@ -1,14 +1,18 @@
 # IMAP-PART-1: Preparing for Microbiome Data Analysis
 
+
+---In Progress---
+
 <br> 
 
-## :tada: IMAP MAIN PARTS!
+## :tada: IMAP Repos integrated with Snakemake and GitHub Actions!
 
 | Repo | Description | Summary |
 |-------------------------|---------------------------------------------------|-----------------|
 | [IMAP-PART1](https://github.com/tmbuza/imap-requirements/) | Preparing for Microbiome Data Analysis | [GH-Pages](https://tmbuza.github.io/imap-requirements/) |
 | [IMAP-PART2](https://github.com/tmbuza/imap-bioinformatics/) | Bioinformatics Analysis of Microbiome Data | [..In Progress..](https://tmbuza.github.io/imap-bioinformatics/) |
 | [IMAP-PART3](https://github.com/tmbuza/imap-data-preprocessing/) | Microbiome Data Preprocessing | [..In Progress..](https://tmbuza.github.io/imap-data-preprocessing/) |
+| [IMAP-PART4](https://github.com/tmbuza/imap-exploratory-analysis/) | Exploratory Analysis of Microbiome Data | [..In Progress..](https://tmbuza.github.io/imap-exploratory-analysis/) |
 
 
 ## Citation
