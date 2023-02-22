@@ -1,4 +1,4 @@
-# IMAP-PART-01: Preparing for Microbiome Data Analysis
+# IMAP-PART01: Preparing for Microbiome Data Analysis
 
 ---In Progress---
 
