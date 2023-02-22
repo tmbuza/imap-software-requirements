@@ -40,17 +40,19 @@ rule all:
         # "images/ibd_variable_freq.svg",
         # "images/sample_gps.png",
         # "images/smkreport/screenshot.png",  
-        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        expand("{testdir}/{accession}_1_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        expand("{testdir}/{accession}_2_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        # "data/metadata/mothur_mapping_file.tsv",
-        # "data/metadata/mothur_design_file.tsv",
-        "data/mothur/references/silva.v4.align",
-        "data/mothur/references/trainset16_022016.pds.fasta",
-        "data/mothur/references/trainset16_022016.pds.tax",
-        "data/mothur/references/zymo.mock.16S.v4.fasta",
-        # "images/smkreport/screenshot.png",  
+        expand("{outdir}/{accession}_{sraNum}.fastq", outdir=OUTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
+        expand("{testdir}/{accession}_{sraNum}_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
+
+        # expand("{testdir}/{accession}_1.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        # expand("{testdir}/{accession}_2.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        # # "data/metadata/mothur_mapping_file.tsv",
+        # # "data/metadata/mothur_design_file.tsv",
+        # "data/mothur/references/silva.v4.align",
+        # "data/mothur/references/trainset16_022016.pds.fasta",
+        # "data/mothur/references/trainset16_022016.pds.tax",
+        # "data/mothur/references/zymo.mock.16S.v4.fasta",
+        # # "images/smkreport/screenshot.png",  
+
 
 # Download metadata
 rule process_sra_metadata:
@@ -117,7 +119,12 @@ rule download_sra_reads:
     threads: 1
     shell:
         """
-        fasterq-dump --split-3 --force --skip-technical {wildcards.accession} --outdir {params.download_folder} --temp {params.subset_folder} --threads {threads}
+        fasterq-dump \
+        --split-3 --force \
+        --skip-technical {wildcards.accession} \
+        --outdir {params.download_folder} \
+        --temp {params.subset_folder} \
+        --threads {threads}
         """
 
 # Subset a test data
@@ -165,32 +172,32 @@ rule mothur_design_file:
     script:
       "scripts/mothur_design_file.R"
 
-# Downloading and formatting SILVA and RDP reference databases. The v4 region is extracted from 
-# SILVA database for use as reference alignment.
-rule mothur_references:
-	input:
-		script="workflow/scripts/mothurReferences.sh"
-	output:
-		silvaV4="data/mothur/references/silva.v4.align",
-		rdpFasta="data/mothur/references/trainset16_022016.pds.fasta",
-		rdpTax="data/mothur/references/trainset16_022016.pds.tax"
-	conda:
-		"envs/mothur.yaml"
-	shell:
-		"bash {input.script}"
+# # Downloading and formatting SILVA and RDP reference databases. The v4 region is extracted from 
+# # SILVA database for use as reference alignment.
+# rule mothur_references:
+# 	input:
+# 		script="workflow/scripts/mothurReferences.sh"
+# 	output:
+# 		silvaV4="data/mothur/references/silva.v4.align",
+# 		rdpFasta="data/mothur/references/trainset16_022016.pds.fasta",
+# 		rdpTax="data/mothur/references/trainset16_022016.pds.tax"
+# 	conda:
+# 		"envs/mothur.yaml"
+# 	shell:
+# 		"bash {input.script}"
 
 
-# Downloading the Zymo mock sequence files and extracting v4 region for error estimation.
-rule mothur_zymo_mock:
-	input:
-		script="workflow/scripts/mothurMock.sh",
-		silvaV4="data/mothur/references/silva.v4.align",
-	output:
-		mockV4="data/mothur/references/zymo.mock.16S.v4.fasta"
-	conda:
-		"envs/mothur.yaml"
-	shell:
-		"bash {input.script}"
+# # Downloading the Zymo mock sequence files and extracting v4 region for error estimation.
+# rule mothur_zymo_mock:
+# 	input:
+# 		script="workflow/scripts/mothurMock.sh",
+# 		silvaV4="data/mothur/references/silva.v4.align",
+# 	output:
+# 		mockV4="data/mothur/references/zymo.mock.16S.v4.fasta"
+# 	conda:
+# 		"envs/mothur.yaml"
+# 	shell:
+# 		"bash {input.script}"
 
 
 # Get directory tree
@@ -200,36 +207,36 @@ rule mothur_zymo_mock:
 # 	shell:
 # 		"tree -d . >{output}"
 
-rule project_tree:
-    output:
-        tree="images/project_tree.txt"
-    shell:
-        """
-        bash workflow/scripts/tree.sh
-        """
+# rule project_tree:
+#     output:
+#         tree="images/project_tree.txt"
+#     shell:
+#         """
+#         bash workflow/scripts/tree.sh
+#         """
 
-rule gather_bioinfo_resources:
-    shell:
-        """
-        bash workflow/scripts/get_bioinfo_resources.sh
-        """
+# rule gather_bioinfo_resources:
+#     shell:
+#         """
+#         bash workflow/scripts/get_bioinfo_resources.sh
+#         """
 
 
-# Get rule graphs
-rule dot_rulegraph:
-    output:
-        "dags/rulegraph.svg",
-    shell:
-        """
-        bash workflow/scripts/rules_dag.sh
-        """
+# # Get rule graphs
+# rule dot_rulegraph:
+#     output:
+#         "dags/rulegraph.svg",
+#     shell:
+#         """
+#         bash workflow/scripts/rules_dag.sh
+#         """
 
-# Get smk html report
-rule snakemake_html_report:
-    shell:
-        """
-        bash workflow/scripts/smk_html_report.sh
-        """
+# # Get smk html report
+# rule snakemake_html_report:
+#     shell:
+#         """
+#         bash workflow/scripts/smk_html_report.sh
+#         """
 
 rule deploy_to_github_pages:
     input:
@@ -238,8 +245,8 @@ rule deploy_to_github_pages:
         rulegraph="dags/rulegraph.svg",
         dag="images/variable_freq.svg",
         map="images/sample_gps.png",
-        html2png="images/smkreport/screenshot.png",
-        tree="images/project_tree.txt",
+        # html2png="images/smkreport/screenshot.png",
+        # tree="images/project_tree.txt",
         asce="results/read_size_asce.csv",
         desc="results/read_size_desc.csv",
         mapfiles="data/metadata/mothur_mapping_file.tsv",

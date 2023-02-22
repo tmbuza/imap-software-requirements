@@ -1,5 +1,5 @@
 ---
-title:  "<big><u>IMAP-PART01</u></big><br><br>Preparing for Microbiome Data Analysis<br><br>"
+title:  "<big><u>IMAP-PART 1</u></big><br><br>Preparing for Microbiome Data Analysis<br><br>"
 subtitle: |
   | ![](images/software.png)<br>
   | Integrated Microbiome Analysis Pipelines<br>( IMAP-PART1 ) <br><br><small>[Latest GitHub-Repo](https://github.com/tmbuza/imap-requirements/)</small>
@@ -50,32 +50,50 @@ library(schtools)
 
 ```
 
-<br><div id="inprogress"><h2> --- Work In Progress! --- </h2> </div><br><br>
+<br><div id="inprogress"><h3> ...Work In Progress!... </h3> </div><br><br>
 
 > We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
 
-<br><hr width=100%><br><br><br>
+<br><hr width=100%><br>
 
-# Basic requirements
+# Project Overview
 
-<br>
-
-<img src="images/imap-part1.png">
+##  Basic structure
+```{bash, include=FALSE}
+bash workflow/scripts/rules_dag.sh
+```
+<img src="dags/basic_rulegraph.svg">Basic structure
 
 <br><br>
 
+## Current project tree
+```{bash, include=FALSE}
+bash workflow/scripts/tree.sh
+```
 
-## Snakemake rule DAG
-<img src="dags/rulegraph.svg">
+```{bash}
+cat images/project_tree.txt
+```
+
 <br><br>
 
-## Screenshot of interactive snakemake report {#smkreport}
+##  Analytical workflow
+<img src="dags/analysis_rulegraph.svg">
+
+<br><br>
+
+## Screenshot of Snakemake HTML report {#smkreport}
 > The snakemake html report can be viewed using any compartible browser, such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better wider view of the display.
 
+```{bash, include=FALSE}
+snakemake --report report.html
+bash workflow/scripts/smk_html_report.sh
+```
 
 <img src="images/smkreport/screenshot.png">
 
-<br><hr width=50%><br>
+<br><br><hr width=100%><br><br>
+
 
 
 # Analysis Software
@@ -112,7 +130,6 @@ library(schtools)
 ```
 
 <br><hr width=50%><br>
-
 
 # References Databases
 - Example of reference databases for `Mothur` pipeline.
@@ -178,13 +195,6 @@ The mapping files are required to direct the pipeline where to look for the file
 # Appendix
 
 <br>
-
-## Project directories {#dirs}
-```{bash}
-cat images/project_tree.txt
-```
-
-<br><br>
 
 ## Troubleshooting (in progress)
 <ol>
