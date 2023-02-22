@@ -1,11 +1,10 @@
-# IMAP-PART-1: Preparing for Microbiome Data Analysis
+# IMAP-PART-01: Preparing for Microbiome Data Analysis
 
 ---In Progress---
 
 <br> 
 
-## :tada: Related work
-> Here we show the IMAP Repos integrated with Snakemake and GitHub Actions!
+## Related work: IMAP series
 
 | Repo | Description | Summary |
 |-------------------------|---------------------------------------------------|-----------------|
