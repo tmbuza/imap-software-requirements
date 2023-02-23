@@ -59,7 +59,7 @@ rule all:
 
 
 # Download SRA metadata
-rule fetch_sra_metadata:
+rule fetch_sra_runinfo:
     output:
         runinfo=expand("data/metadata/runinfo_{bioproject}.csv", bioproject=config["bioproject"]),
         runacc=expand("data/metadata/acc_{bioproject}.txt", bioproject=config["bioproject"]),
@@ -69,9 +69,7 @@ rule fetch_sra_metadata:
         
 
 # Process SRA metadata
-rule process_local_metadata:
-    input:
-        runacc=expand("data/metadata/acc_{bioproject}.txt", bioproject=config["bioproject"]),
+rule get_user_metadata:
     output:
         metadata="data/metadata/metadata.csv",
     script:
@@ -111,9 +109,10 @@ rule plot_sample_location:
 
 
 # Get SRA accessions, the first column of metadata
-rule get_sra_accessions:
+rule extract_accessions:
     input:
         sra_acc="data/metadata/metadata.csv",
+        acc=rules.fetch_sra_runinfo.output
     output:
         sra_acc="data/metadata/sra_accessions.txt",
     script:
@@ -123,8 +122,7 @@ rule get_sra_accessions:
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        rules.get_sra_accessions.output,
-        rules.fetch_sra_metadata.output
+        rules.extract_accessions.output,
     output:
         "data/reads/{accession}_1.fastq",
         "data/reads/{accession}_2.fastq"
@@ -257,7 +255,7 @@ rule deploy_to_github_pages:
     input:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
-        rulegraph="dags/rulegraph.svg",
+        rulegraph="dags/analysis_rulegraph.svg",
         dag="images/variable_freq.svg",
         map="images/sample_gps.png",
         # html2png="images/smkreport/screenshot.png",
