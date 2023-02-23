@@ -1,0 +1,39 @@
+
+<!-- # Project Overview -->
+
+##  Basic structure
+```{bash, include=FALSE}
+bash workflow/scripts/rules_dag.sh
+```
+<img src="dags/basic_rulegraph.svg">Basic structure
+
+<br><br>
+
+## Current project tree
+```{bash, include=FALSE}
+bash workflow/scripts/tree.sh
+```
+
+```{bash}
+cat images/project_tree.txt
+```
+
+<br><br>
+
+##  Current rules
+<img src="dags/analysis_rulegraph.svg">
+
+<br><br>
+
+## Screenshot of Snakemake interactive report {#smkreport}
+> The snakemake html report can be viewed using any compartible browser, such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better wider view of the display.
+
+```{bash, include=FALSE}
+snakemake --report report.html
+bash workflow/scripts/smk_html_report.sh
+```
+
+<img src="images/smkreport/screenshot.png">
+
+<br><br><hr width=100%><br><br>
+

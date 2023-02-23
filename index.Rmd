@@ -9,6 +9,7 @@ author: Teresia Mrema-Buza
 output: 
   html_document: 
     css: css/styles.css
+    template: bs4_template.html
 csl: "library/apa.csl"
 bibliography:
 - library/references.bib
@@ -50,11 +51,14 @@ library(schtools)
 
 ```
 
-<br><div id="inprogress"><h3> ...Work In Progress!... </h3> </div><br><br>
+<br><div id="inprogress" width=100><h3> ...Work In Progress!... </h3> </div><br><br>
 
 > We continuously review and integrate the old iMAP [@TMBuza2019] with Snakemake and GitHub actions to facilitate reproducible microbiome data analysis!
 
 <br><hr width=100%><br>
+
+<!-- ######################################### -->
+<!-- ######################################### -->
 
 # Project Overview
 
@@ -77,12 +81,12 @@ cat images/project_tree.txt
 
 <br><br>
 
-##  Analytical workflow
+##  Current rules
 <img src="dags/analysis_rulegraph.svg">
 
 <br><br>
 
-## Screenshot of Snakemake HTML report {#smkreport}
+## Screenshot of Snakemake interactive report {#smkreport}
 > The snakemake html report can be viewed using any compartible browser, such as chrome to explore more on the workflow and the associated statistics. You will be able to close the left bar to get a better wider view of the display.
 
 ```{bash, include=FALSE}
@@ -94,7 +98,8 @@ bash workflow/scripts/smk_html_report.sh
 
 <br><br><hr width=100%><br><br>
 
-
+<!-- ######################################### -->
+<!-- ######################################### -->
 
 # Analysis Software
 ```{r child='workflow/scripts/software.Rmd'}
@@ -194,9 +199,14 @@ The mapping files are required to direct the pipeline where to look for the file
 
 # Appendix
 
-<br>
-
 ## Troubleshooting (in progress)
+<ol>
+  <li>How to download SRA metadata</li>
+    <ul>
+      <li>esearch -db sra -query 'PRJNA491191[bioproject]' |  efetch -format runinfo >data/metadata/esearch.csv.</li>
+      <li>esearch -db sra -query 'PRJNA491191[bioproject]' |  efetch -format runinfo >data/metadata/esearch.csv</li>
+      <li>esearch -db sra -query 'PRJNA477349[bioproject]' | esummary | xtract -pattern DocumentSummary -element Run >data/metadata/esearch.txt</li>
+    </ul>
 <ol>
   <li>CiteprocXMLError: Missing root element</li>
     <ul>
@@ -225,3 +235,9 @@ The snakemake workflow mentioned in this report is continuously being reviewed, 
 Github_Repo: `r rmarkdown::metadata$github_repo`.  
 
 </div><br><br>
+
+
+
+
+
+

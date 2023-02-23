@@ -14,16 +14,17 @@ import os
 import csv
 import pandas as pd
 
+# RUNINFO="data/metadata"
 METADATA=pd.read_csv('data/metadata/SraRunTable.csv').loc[0:3]
 ACCESSIONS=METADATA['Run'].tolist() # Specify the column containing the accession, in this demo is Run
-OUTDIR="data/reads" 
-TESTDIR="data/test"
+# OUTDIR="data/reads" 
+# TESTDIR="data/test"
 
-if not os.path.exists(OUTDIR):
-   os.makedirs(OUTDIR)
+# if not os.path.exists(OUTDIR):
+#    os.makedirs(OUTDIR)
 
-if not os.path.exists(TESTDIR):
-   os.makedirs(TESTDIR)
+# if not os.path.exists(TESTDIR):
+#    os.makedirs(TESTDIR)
 
 # Master rule for controlling workflow.
 rule all:
@@ -39,12 +40,15 @@ rule all:
         # "images/bush_variable_freq.svg",
         # "images/ibd_variable_freq.svg",
         # "images/sample_gps.png",
-        # "images/smkreport/screenshot.png",  
-        expand("{outdir}/{accession}_{sraNum}.fastq", outdir=OUTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
-        expand("{testdir}/{accession}_{sraNum}_sub.fastq", testdir=TESTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
+        # "images/smkreport/screenshot.png", 
+        # expand("data/metadata/runinfo_{bioproject}.csv", bioproject=config["bioproject"]),
+        # expand("data/metadata/acc_{bioproject}.txt", bioproject=config["bioproject"]),
+        # expand("data/metadata/{bioproject}.csv", bioproject=config["BioProject"]),
+        expand("data/reads/{accession}_{sraNum}.fastq", accession=ACCESSIONS, sraNum=config["sraNum"]),
+        expand("data/test/{accession}_{sraNum}_sub.fastq", accession=ACCESSIONS, sraNum=config["sraNum"]),
 
-        # expand("{testdir}/{accession}_1.fastq", testdir=TESTDIR, accession=ACCESSIONS),
-        # expand("{testdir}/{accession}_2.fastq", testdir=TESTDIR, accession=ACCESSIONS),
+        # expand("data/test/{accession}_1.fastq", accession=ACCESSIONS),
+        # expand("data/test/{accession}_2.fastq", accession=ACCESSIONS),
         # # "data/metadata/mothur_mapping_file.tsv",
         # # "data/metadata/mothur_design_file.tsv",
         # "data/mothur/references/silva.v4.align",
@@ -54,10 +58,20 @@ rule all:
         # # "images/smkreport/screenshot.png",  
 
 
-# Download metadata
-rule process_sra_metadata:
+# Download SRA metadata
+rule fetch_sra_metadata:
+    output:
+        runinfo=expand("data/metadata/runinfo_{bioproject}.csv", bioproject=config["bioproject"]),
+        runacc=expand("data/metadata/acc_{bioproject}.txt", bioproject=config["bioproject"]),
+    shell:
+         "bash workflow/scripts/fetch_sra_metadata.sh"
+
+        
+
+# Process SRA metadata
+rule process_local_metadata:
     input:
-        srameta="data/metadata/SraRunTable.csv"
+        runacc=expand("data/metadata/acc_{bioproject}.txt", bioproject=config["bioproject"]),
     output:
         metadata="data/metadata/metadata.csv",
     script:
@@ -65,7 +79,7 @@ rule process_sra_metadata:
         
 
 # Get variable barplot
-rule ggplot_variable_freq:
+rule get_variable_freq:
     input:
         "data/metadata/metadata.csv"
     output:
@@ -76,7 +90,7 @@ rule ggplot_variable_freq:
 
 
 # Get read size
-rule R_dplyr_read_size:
+rule explore_read_size:
     input:
         "data/metadata/metadata.csv"
     output:
@@ -87,7 +101,7 @@ rule R_dplyr_read_size:
       
 
 # Get sample location 
-rule leaflet_sample_location:
+rule plot_sample_location:
     input:
         "data/metadata/metadata.csv"
     output:
@@ -99,7 +113,7 @@ rule leaflet_sample_location:
 # Get SRA accessions, the first column of metadata
 rule get_sra_accessions:
     input:
-        sra_acc="data/metadata/metadata.csv"
+        sra_acc="data/metadata/metadata.csv",
     output:
         sra_acc="data/metadata/sra_accessions.txt",
     script:
@@ -109,13 +123,14 @@ rule get_sra_accessions:
 # Dowload the SRA RUN reads
 rule download_sra_reads: 
     input:
-        rules.get_sra_accessions.output.sra_acc
+        rules.get_sra_accessions.output,
+        rules.fetch_sra_metadata.output
     output:
-        "{outdir}/{accession}_1.fastq",
-        "{outdir}/{accession}_2.fastq"
+        "data/reads/{accession}_1.fastq",
+        "data/reads/{accession}_2.fastq"
     params:
-        download_folder=OUTDIR,
-        subset_folder=OUTDIR,
+        download_folder="data/reads",
+        subset_folder="data/test",
     threads: 1
     shell:
         """
@@ -130,11 +145,11 @@ rule download_sra_reads:
 # Subset a test data
 rule seqkit_subset_fastq:
     input:
-        expand("{outdir}/{accession}_1.fastq", outdir=OUTDIR, accession=ACCESSIONS),
-        expand("{outdir}/{accession}_2.fastq", outdir=OUTDIR, accession=ACCESSIONS),
+        expand("data/reads/{accession}_1.fastq", accession=ACCESSIONS),
+        expand("data/reads/{accession}_2.fastq", accession=ACCESSIONS),
     output:
-        "{testdir}/{accession}_1_sub.fastq",
-        "{testdir}/{accession}_2_sub.fastq",
+        "data/test/{accession}_1_sub.fastq",
+        "data/test/{accession}_2_sub.fastq",
     threads: 1
     shell:
         """
@@ -145,7 +160,7 @@ rule seqkit_subset_fastq:
 rule seqkit_simple_stats:
     input:
         script="workflow/scripts/seqkit_stat_1.sh",
-        rawreads=expand("{outdir}/{accession}_{sraNum}.fastq", outdir=OUTDIR, accession=ACCESSIONS, sraNum=config["sraNum"]),
+        rawreads=expand("data/reads/{accession}_{sraNum}.fastq", accession=ACCESSIONS, sraNum=config["sraNum"]),
     output:
         seqkit1="results/stats1/seqkit_stats.txt",
     threads: 1
