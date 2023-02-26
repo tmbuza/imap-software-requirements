@@ -11,18 +11,18 @@ code
 *samplelocmap*
 *leaflet*
 REFER
-data/*
-!data/metadata
+data/*.*
+# !data/metadata
 dags/dag.svg
 dags/dag.png
 resources/*
 results/*
 current_files.summary
 
-images/*
-!images/bkgd1.png
-!images/bkgd2.png
-!images/cicd.png
+# images/*
+# !images/bkgd1.png
+# !images/bkgd2.png
+# !images/cicd.png
 figures/*
 report/*
 .snakemake

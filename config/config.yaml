@@ -21,9 +21,9 @@ dataset: test
 # BioProject
 bioproject:
   - PRJNA477349
-  - PRJDB10610
+  - PRJNA685168
   - PRJEB21612
-  - PRJEB50682
+  - PRJNA802976
 
 # Group names of mock samples (e.g. Mock1_S1_L001_R1_001.fastq.gz = Mock1).
 mothurMock:

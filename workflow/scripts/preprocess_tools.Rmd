@@ -1,12 +1,15 @@
 <!-- # Preprocessing Tools -->
 ## What tools are out there?
-There several tools out there that can help in preprocessing raw read. Listed below are some of most common tools used in understanding the characteristics of the read and their quality scores. Click on the hyperlinked tool to learn more how to install it.
+There are several tools out there that can help in preprocessing raw reads. Most of the preprocessing tools are available via the bioconda channel.
+Listed below are some of most common bioinformatics tools used in understanding read features and their quality scores. Click on the hyperlinked tool to learn more on how to install it.
 
-- [Seqkit](https://bioinf.shenwei.me/seqkit/download/) for simple statistics [@seqkit2016].
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) for quality assessment of bases [@fastqc2018].
-- [MultiQC](https://multiqc.info/) for summarizing FastQC metrics [@multiqc2016].
-- [BBMap](https://sourceforge.net/projects/bbmap/files/latest/download) platform for read trimming and decontamination [@bbmap2016].
-- [Kneaddata](https://huttenhower.sph.harvard.edu/kneaddata/) in biobakery platform for integrated quality control [@kneaddata2022].
+- [Seqkit](https://anaconda.org/bioconda/seqkit/) for simple statistics [@seqkit2016].
+- [FastQC](https://anaconda.org/bioconda/fastqc/) for quality assessment of bases [@fastqc2018].
+- [MultiQC](https://anaconda.org/bioconda/multiqc/) for summarizing FastQC metrics [@multiqc2016].
+- [BBMap](https://anaconda.org/bioconda/bbmap) platform for read trimming and decontamination [@bbmap2016].
+- [Trimmommatic](https://anaconda.org/bioconda/trimmomatic/) is a flexible read trimming tool for Illumina NGS data [@trimmomatic2023].
+- [Kneaddata](https://anaconda.org/bioconda/kneaddata/) via bioconda channel for performing quality control on metagenomic sequencing data. [@kneaddata2022].
+- [Kneaddata](https://anaconda.org/biobakery/kneaddata/) via biobakery channel for performing quality control on metagenomic sequencing data [@kneaddata2022].
 
 > Note that the links for each tool may be outdated. Make sure to check for latest instructions online.
 

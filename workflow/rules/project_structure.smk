@@ -2,22 +2,19 @@ from snakemake.utils import min_version
 
 min_version("6.10.0")
 
-rule targets:
-    input:
-        "dags/analysis_rulegraph.svg",
-        "dags/analysis_rulegraph.png",
-        "dags/basic_rulegraph.svg",
-        "dags/basic_rulegraph.png",
-        "images/smkreport/screenshot.png",
-        "images/project_tree.txt",
+# Configuration file containing all user-specified settings
+configfile: "config/config.yaml"
+
+# Master rule for controlling workflow.
+rule all:
+	input:
+		"index.html",
 
 # Get dot rule graphs
-rule basic_rulegraph:
+rule dot_rule_graph:
 	output:
-		"dags/analysis_rulegraph.svg",
-		"dags/analysis_rulegraph.png",
-		"dags/basic_rulegraph.svg",
-		"dags/basic_rulegraph.png",
+		"dags/rulegraph.svg",
+		"dags/rulegraph.png",
 	shell:
 		"bash workflow/scripts/rules_dag.sh"
 
@@ -36,3 +33,18 @@ rule snakemake_html_report:
 		"images/smkreport/screenshot.png"
 	shell:
 		"bash workflow/scripts/smk_html_report.sh"
+
+rule deploy_to_github_pages:
+    input:
+        script="workflow/scripts/render.R",
+        rmd="index.Rmd",
+        rulegraph="dags/rulegraph.svg",
+        tree="images/project_tree.txt",
+        html2png="images/smkreport/screenshot.png",
+    output:
+        doc="index.html",
+    shell:
+        """
+        R -e "library(rmarkdown); render('{input.rmd}')"
+        """
+
