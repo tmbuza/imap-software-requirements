@@ -1,7 +1,7 @@
 ---
 title:  "<big><u>IMAP-PART 01</u></big><br><br>Preparing for Microbiome Data Analysis with Snakemake Workflows<br><br>"
 subtitle: |
-  | ![](images/cicd.png)<br>
+  | ![](images/imap_part_01.png)<br>
   | Integrated Microbiome Analysis Pipelines<br>( IMAP-PART 01 ) <br><br><small>[Latest GitHub-Repo](https://github.com/tmbuza/imap-basic-requirements/)</small>
 date:
 - Updated on `r Sys.Date()`
@@ -24,19 +24,20 @@ description: |
 ---
 
 
+<div id="main-container">
+
 <!-- Google Fonts: https://fonts.google.com/?preview.text=IMAP%20template&preview.text_type=custom-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;7000&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;7000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
 
 <span class="fas fa-my-custom-icon"></span>
 
 
-<!-- Some global settings -->
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -54,12 +55,11 @@ knitr::opts_chunk$set(
   fig.show = "asis"
 )
 
-htmltools::tagList(rmarkdown::html_dependency_font_awesome())
-
-
 library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 ```
+
+<br>
 
 # Project Overview
 
@@ -81,9 +81,12 @@ bash workflow/scripts/rules_dag.sh
 
 <img src="dags/rulegraph.svg">
 
+
 <br><br>
 
+
 <!-- ############################# -->
+<!-- # Main Subjects Starts here -->
 <!-- ############################# -->
 
 # Analysis Software
@@ -233,11 +236,10 @@ bash workflow/scripts/smk_html_report.sh
 </ol>
 
 
-<br><br><br>
+<br><br>
 
-```{block, type='tmbinfo', echo=TRUE}
-### Hurraaayyyy!!!!
-```
+</div> <!-- end main-container -->
+
 
 <div id="footer">
 Last updated on `r format(Sys.time(), '%B %d, %Y')`. <br><br>

@@ -16,8 +16,10 @@
 │   ├── bkgd1.png
 │   ├── bkgd2.png
 │   ├── cicd.png
+│   ├── imap-part1.png
 │   ├── imap_all_parts.png
 │   ├── imap_part_01.png
+│   ├── planning.png
 │   ├── project_tree.txt
 │   ├── smkreport
 │   ├── software.png
@@ -38,4 +40,4 @@
     ├── schemas
     └── scripts
 
-14 directories, 24 files
+14 directories, 26 files
