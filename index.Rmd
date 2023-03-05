@@ -1,9 +1,11 @@
 ---
-title:  "<big><u>IMAP-PART 01</u></big><br><br>Preparing for Microbiome Data Analysis with Snakemake Workflows<br><br>"
+title:  "<big><u>IMAP-PART 01</u></big><br><br>Getting Started with Microbiome Data Analysis<br><br>"
 subtitle: |
-  | ![](images/imap_part_01.png)<br>
-  | Integrated Microbiome Analysis Pipelines<br>( IMAP-PART 01 ) <br><br><small>[Latest GitHub-Repo](https://github.com/tmbuza/imap-basic-requirements/)</small>
+  | ![](images/cicd.png)<br>
+
+  | IMAP: Integrated Microbiome Analysis Pipelines<br><small>Fostering Reproducible Microbioma data Analysis<br><br>
 date:
+- IMAP-PART 01<br>[Latest GitHub-Repo](https://github.com/tmbuza/imap-basic-requirements/)<br>
 - Updated on `r Sys.Date()`
 author: Teresia Mrema-Buza
 output: 
@@ -61,65 +63,115 @@ library(schtools)
 
 <br>
 
-# Project Overview
+# IMAP General Overview
 
-## Current project tree
-```{bash tree, include=FALSE}
-bash workflow/scripts/tree.sh
-```
+- We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
+  - Maintaining reproducibility in technical validation and regeneration of results.
+  - Creating scalable data analysis scaled to server, grid or cloud environment.
+  - Fostering sustainable improvement of the microbiome data analysis.
+- We also review existing workflows [@Snakemake2023; @Mothursnakemake] to help in gaining a better insights for improving microbiome data analysis.
+- We break any complex workflows into small contiguous but related chunks where each major step form a separate executable snakemake rule.
 
-```{bash treeimg}
-cat images/project_tree.txt
-```
+<br>
 
-<br><br>
+> We envision to keep fostering on continuous integration and development of highly reproducible workflows.
 
-##  Current snakemake workflow
-```{bash ruledag, include=FALSE}
-bash workflow/scripts/rules_dag.sh
-```
-
-<img src="dags/rulegraph.svg">
-
+<!-- <img src="images/cicd.png"> -->
 
 <br><br>
 
+# Getting started
 
-<!-- ############################# -->
-<!-- # Main Subjects Starts here -->
-<!-- ############################# -->
+## Install conda and Mambaforge
+Get helpful information see [`Getting started with conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 
-# Analysis Software
-```{r child='workflow/scripts/software.Rmd'}
+
+### Example installing on MAC OS
+
+- Installation: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
+- Miniconda: https://conda.io/miniconda.html
+- Anaconda: https://www.anaconda.com/download/
+
+Miniconda3: On CLI run:
+```bash
+curl -L  https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o Miniconda3-latest-MacOSX-x86_64.sh
+bash Miniconda3-latest-MacOSX-x86_64.sh
 ```
 
-<br><hr width=100%><br>
+<br>
 
-# Sample Metadata
-<!-- ![](images/metadata.png) -->
-
-```{r child='workflow/scripts/metadata.Rmd'}
+Mambaforge: On CLI run:
+```bash
+curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
+bash Mambaforge-MacOSX-x86_64.sh
 ```
 
-<br><hr width=100%><br>
+## Setting up common channels
 
-# Quality Control Tools
-
-```{r child='workflow/scripts/preprocess_tools.Rmd'}
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda config --add channels biobakery
+conda config --set auto_activate_base False
 ```
 
-<br><hr width=100%><br>
+## Create environment 
+- Optionally, specify a python version
+- Let's create an environment named `snakemake` and use `python version 10`
 
-# Sequencing Data
-
-```{r child='workflow/scripts/sequencing_data.Rmd'}
+```bash
+conda create --name snakemake python==10
 ```
 
-<br><hr width=100%><br>
+## Reproduce an existing environment
+- Must create env spec file, like so:
 
-# Bioinformatics Pipelines
+```bash
+conda list --explicit > spec-file.txt
+```
 
-```{r child='workflow/scripts/bioinfo_pipelines.Rmd'}
+- Then create the environment using the file like so:
+```bash
+conda create --name snakemake --file spec-file.txt
+```
+
+## Installing from a typical YAML file
+Example: `environment.yml` also similar to `environment.yaml`
+
+```
+name: snakemake
+channels:
+  - defaults
+  - anaconda
+dependencies:
+  - python==3.10
+  - pandas
+  - pip:
+    - scikit-learn
+    - pillow
+
+```
+
+```bash
+mamba env create --name snakemake --file environment.yaml
+```
+
+
+```{r child='workflow/scripts/software.Rmd', eval=FALSE}
+```
+
+
+```{r child='workflow/scripts/metadata.Rmd', eval=FALSE}
+```
+
+```{r child='workflow/scripts/preprocess_tools.Rmd', eval=FALSE}
+```
+
+```{r child='workflow/scripts/sequencing_data.Rmd', eval=FALSE}
+```
+
+```{r child='workflow/scripts/bioinfo_pipelines.Rmd', eval=FALSE}
 ```
 
 <br><hr width=100%><br>
@@ -133,36 +185,9 @@ bash workflow/scripts/rules_dag.sh
 
 <br><hr width=100%><br>
 
-# Mapping Files
 
-<!-- ```{r child='workflow/scripts/mapping_files.Rmd'}``` -->
-
-## Mothur sample mapping file
-The mapping files are required to direct the pipeline where to look for the files containing the sequencing data.
-
-- The format of the mapping files for `mothur` and `QIIME2` pipelines is slightly different. 
-- We will demonstrate how to prepare both.
-- Each mapping file will contain only the files that are parsed by bioinformatics analysis. 
-- For more detail see Mothur [MiSeq SOP](https://mothur.org/wiki/miseq_sop/).
-
-<br>
-
-## Mothur design file
-- Mothur pipeline expects the design (metadata) file to have column headers. 
-- We will extract only the desired number of samples.
-- The first column header should be **group**.
-- For more detail see Mothur [MiSeq SOP](https://mothur.org/wiki/miseq_sop/).
-
-
-<br><br><hr width=100%><br><br>
-
-
-# Main Subjects Continue here
-
-<br><br><hr width=100%><br><br>
-
-```{block imaprepos, echo=TRUE}
 # Related work
+```{block imaprepos, echo=TRUE}
 
 > Here we show the IMAP Repos integrated with Snakemake and GitHub Actions!
 
@@ -180,30 +205,34 @@ The mapping files are required to direct the pipeline where to look for the file
 | [IMAP-PART8](https://github.com/tmbuza//) |  | [GH-Pages](https://tmbuza.github.io//) |
 ```
 
-<br>
 
 ## Citation
-Please consider citing the [iMAP article](https://rdcu.be/b5iVj) (see below) if you find any part of the IMAP practical user guides helpful in your microbiome data analysis.
 
-  Buza, T. M., Tonui, T., Stomeo, F., Tiambo, C., Katani, R., Schilling, M., … Kapur, V. (2019). iMAP: An integrated bioinformatics and visualization pipeline for microbiome data analysis. BMC Bioinformatics, 20. https://doi.org/10.1186/S12859-019-2965-4
+> Please consider citing the iMAP article [@TMBuza2019] if you find any part of the IMAP practical user guides helpful in your microbiome data analysis.
 
-  <br>
-
-> Help to increase awareness of freely available microbiome data analysis tools.  
-> Current [iMAP manuscript dimensions](https://badge.dimensions.ai/details/id/pub.1117740326)
-
-
-<br><br><hr width=100%><br><br>
+<br><br>
 
 # References
 ::: {#refs}
 :::
 
+<br><hr width=100%><br>
+
+# Appendix {-}
+
+## Project main tree
+```{bash, include=FALSE}
+bash workflow/scripts/tree.sh
+```
+
+```{bash treeimg}
+cat results/project_tree.txt
+```
+
 <br><br>
 
-# Appendix
 
-## Static Snakemake report {#smkreport}
+## Screenshot of interactive snakemake report {#smkreport}
 > The interactive snakemake html report can be viewed by opening the `report.html` using any compartible browser. You will be able to explore the workflow and the associated statistics. You will also be able to close the left bar to get a better wider view of the display.
 
 ```{bash smkrpt, include=FALSE}
@@ -221,18 +250,12 @@ bash workflow/scripts/smk_html_report.sh
 
 <br><br>
 
-## Troubleshooting
+## Troubleshooting of FAQs
 <ol>
-  <li>CiteprocXMLError: Missing root element</li>
-    <ul>
-      <li>Maybe the CSL file is empty. Some examples of citation style language are available on Github [@CSL2023].</li>
-      <li></li>
-    </ul>
-  <!-- <li>Error from srapath: Error: RC(rcNS,rcNoTarg,rcValidating,<br>rcConnection,rcNotFound)</li>
-    <ul>
-      <li>This happened when downloading SRA reads from online and it seems to be related to connection issues. Not clear what causes this error but keeping retrying sometimes helps.</li>
-      <li>Alternatively, you can download the data using the NCBI-SraToolkits (fasterq-dump is the fastest).</li>
-    </ul> -->
+  <li>Question</li>
+    <ul>Answer</ul>
+  <li>Question</li>
+    <ul>Answer</ul>
 </ol>
 
 

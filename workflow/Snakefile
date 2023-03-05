@@ -22,7 +22,7 @@ rule all:
 # Get project tree
 rule project_tree:
     output:
-        tree="images/project_tree.txt"
+        tree="results/project_tree.txt"
     shell:
         """
         bash workflow/scripts/tree.sh
@@ -43,7 +43,7 @@ rule deploy_to_github_pages:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
         # rulegraph="dags/rulegraph.svg",
-        tree="images/project_tree.txt",
+        tree="results/project_tree.txt",
         html2png=rules.static_snakemake_report.output.html2png,
     output:
         doc="index.html",
