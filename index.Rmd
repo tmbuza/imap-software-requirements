@@ -1,9 +1,9 @@
 ---
 title:  "<big><u>IMAP-PART 01</u></big><br><br>Getting Started with Microbiome Data Analysis<br><br>"
 subtitle: |
-  | ![](images/cicd.png)<br>
+  | ![](images/imap.png)<br>
 
-  | IMAP: Integrated Microbiome Analysis Pipelines<br><small>Fostering Reproducible Microbioma data Analysis<br><br>
+  | Fostering Reproducible Microbioma data Analysis with Snakemake workflow<br><br>
 date:
 - IMAP-PART 01<br>[Latest GitHub-Repo](https://github.com/tmbuza/imap-basic-requirements/)<br>
 - Updated on `r Sys.Date()`
@@ -60,39 +60,45 @@ knitr::opts_chunk$set(
 library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 ```
+# General Overview
+**IMAP** stands for **Integrated Microbiome Analysis Pipelines**. 
+Microbiome data analysis is about asking questions to understand the microbial composition in a given sample. 
+The IMAP parts are standalone GitHub repositories that, when used sequentially, provide practical user guides for systematic microbiome data analysis beyond the traditional analysis. 
 
-<br>
-
-# IMAP General Overview
-
+# Getting started
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
   - Maintaining reproducibility in technical validation and regeneration of results.
-  - Creating scalable data analysis scaled to server, grid or cloud environment.
+  - Creating scalable data analysis scaled to a server, grid, or cloud environment.
   - Fostering sustainable improvement of the microbiome data analysis.
-- We also review existing workflows [@Snakemake2023; @Mothursnakemake] to help in gaining a better insights for improving microbiome data analysis.
-- We break any complex workflows into small contiguous but related chunks where each major step form a separate executable snakemake rule.
+- We also review existing workflows [@Snakemake2023; @Mothursnakemake] to help gain better insights for improving microbiome data analysis.
+- We break any complex workflows into small contiguous but related chunks where each major step forms a separate executable snakemake rule.
 
 <br>
 
-> We envision to keep fostering on continuous integration and development of highly reproducible workflows.
+> We envision to keep fostering continuous integration and development of highly reproducible workflows.
 
-<!-- <img src="images/cicd.png"> -->
+<img src="images/cicd.png">
 
 <br><br>
 
-# Getting started
 
-## Install conda and Mambaforge
-Get helpful information see [`Getting started with conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
+## Install conda
+Useful links:
+
+- Installation: Visit [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
+- Documentation: Visit [here](https://docs.conda.io/en/latest/).
+- Miniconda: https://docs.conda.io/en/latest/miniconda.html
+- Getting started with Conda: Click [here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
+
+## Install mamba
+> Mamba is a CLI tool to manage conda s environments
+
+- Installation: Visit [here](https://mamba.readthedocs.io/en/latest/installation.html).
+- Documentation: Visit [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
 
 
-### Example installing on MAC OS
-
-- Installation: https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html
-- Miniconda: https://conda.io/miniconda.html
-- Anaconda: https://www.anaconda.com/download/
-
-Miniconda3: On CLI run:
+### Demo installing on MAC OS
+Miniconda3 for `conda`: On CLI run:
 ```bash
 curl -L  https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
@@ -100,13 +106,18 @@ bash Miniconda3-latest-MacOSX-x86_64.sh
 
 <br>
 
-Mambaforge: On CLI run:
+Mambaforge for `mamba`: On CLI run:
 ```bash
 curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
 bash Mambaforge-MacOSX-x86_64.sh
 ```
 
 ## Setting up common channels
+We will be using lots of bioinformatics and analysis tools. 
+
+> - Note that most of the bioinformatics software are installed via `bioconda` channel. 
+> - Most of analysis tools are installed via the `conda-forge` channel.
+> - Some of the metagenomics analysis software will be installed via `biobakery` channel. 
 
 ```bash
 conda config --add channels defaults
@@ -117,8 +128,20 @@ conda config --set auto_activate_base False
 ```
 
 ## Create environment 
-- Optionally, specify a python version
-- Let's create an environment named `snakemake` and use `python version 10`
+- Requires `conda`.
+- You may optionally specify a `python version`.
+- Let's create an environment named `snakemake`.
+
+### Is conda installed?
+```bash
+conda -V
+```
+
+### Is conda up to date??
+```bash
+conda update conda
+```
+
 
 ```bash
 conda create --name snakemake python==10
