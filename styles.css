@@ -40,7 +40,7 @@ a{ color: #0786f3; }
 
 table tbody tr td { font-size: 12px; text-transform: capitalize; }
 
-body img{ width: 90%; display: block; margin-left: auto; margin-right: auto; background-color: black; }
+body img{ width: 90%; display: block; margin-left: auto; margin-right: auto; }
 
 #footer { height: auto; font-size: 90%; background-color: #000000; color: white; padding: 20px}
 
