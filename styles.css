@@ -9,12 +9,13 @@ body h5 { margin-top: 1.5em; font-size: 1em; }
 h1, h2, h3, h4, h5{ line-height: 1.5; }
 p { line-height: 2; }
 
-#main-container { width: 100%; background-color: white; color: black; padding: 50px; margin-left: auto; margin-right: auto; }
+#main-container { width: 100%; background-color: white; color: black; padding: 30px; margin-left: auto; margin-right: auto; }
 
 
 #header { color: white; margin-left: auto; margin-right: auto; 
   text-align: center; line-height: 1.5; width: 100%; padding: 5%; 
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 128, 26, 0.7), rgba(204, 255, 0, 0.87), rgba(212, 255, 0, 0.87)), url("images/bkgd.png");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(1, 97, 20, 0.9), rgb(162, 255, 0, 0.6)); 
+  /* url("images/bkgd.png"); */
   /* background-image: url("images/bkgd.png"); */
   background-position: bottom;
   background-repeat: repeat-y;
@@ -29,10 +30,7 @@ p { line-height: 2; }
 
 #header .date{ font-size: 16px; } 
 
-#header img{ 
-  width:85%; 
-  background: linear-gradient(to bottom, rgba(7, 193, 100, 0.7), rgba(7, 193, 103, 0.7)); 
-  background-size: cover; }
+/* #header img{ width:90%; background: rgba(232, 245, 92, 0.991);background-size: cover; } */
 
 a{ color: #0786f3; }
 
@@ -42,9 +40,10 @@ a{ color: #0786f3; }
 
 table tbody tr td { font-size: 12px; text-transform: capitalize; }
 
-body img{ width: 85%; display: block; margin-left: auto; margin-right: auto; /* background-color: white; */ }
+body img{ width: 90%; display: block; margin-left: auto; margin-right: auto; background-color: black; }
 
 #footer { height: auto; font-size: 90%; background-color: #000000; color: white; padding: 20px}
+
 #footer a{ color: rgb(82, 214, 247)}
 
 blockquote { color: #6c6c6c; padding: 10px 20px; margin: 0 0 20px; font-size: 14px; border-left: 5px solid #ddd; }
@@ -54,7 +53,6 @@ hr { display: inline-block; text-align: left; margin: 0px; height: 1px; border: 
 code{ color:#6c6c6c; font-size: 98%; background-color: #f5f5f5; }
 
 @media only screen and (max-width: 768px) { .main-container { max-width: 100%; padding: 2% 2% 2% 2%; }}
-
 
 .tmbcomment, .tmbalert, .tmbinfo, .tmbqns, .tmbcheck1, .tmbcheck2, .tmbshare, .tmbarrowF, .tmb2arrowsF {
   padding: 1em 1em 1em 4em;

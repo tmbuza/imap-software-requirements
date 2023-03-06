@@ -47,6 +47,7 @@ rule get_current_env_spec:
         conda list --explicit > {output}
         """
 
+
 rule deploy_to_github_pages:
     input:
         script="workflow/scripts/render.R",
