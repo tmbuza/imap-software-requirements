@@ -1,9 +1,8 @@
 ---
-title:  "<big><u>IMAP-PART 01</u></big><br><br>Getting Started with Microbiome Data Analysis<br><br>"
+title:  "<big><u>IMAP-PART 01</u></big><br><br>Getting Started with Microbiome Data Analysis"
 subtitle: |
   | ![](images/imap.png)<br>
-
-  | Fostering Reproducible Microbioma data Analysis with Snakemake workflow<br><br>
+  | Fostering Reproducible Microbiome data Analysis with Snakemake workflow
 date:
 - IMAP-PART 01<br>[Latest GitHub-Repo](https://github.com/tmbuza/imap-basic-requirements/)<br>
 - Updated on `r Sys.Date()`
@@ -61,11 +60,15 @@ library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 ```
 # General Overview
+
+## About IMAP
 **IMAP** stands for **Integrated Microbiome Analysis Pipelines**. 
 Microbiome data analysis is about asking questions to understand the microbial composition in a given sample. 
-The IMAP parts are standalone GitHub repositories that, when used sequentially, provide practical user guides for systematic microbiome data analysis beyond the traditional analysis. 
+The IMAP parts are standalone GitHub repositories that, when used sequentially, provide a systematic microbiome data analysis beyond the traditional methods. 
 
-# Getting started
+
+
+## Workflow system
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
   - Maintaining reproducibility in technical validation and regeneration of results.
   - Creating scalable data analysis scaled to a server, grid, or cloud environment.
@@ -73,44 +76,53 @@ The IMAP parts are standalone GitHub repositories that, when used sequentially, 
 - We also review existing workflows [@Snakemake2023; @Mothursnakemake] to help gain better insights for improving microbiome data analysis.
 - We break any complex workflows into small contiguous but related chunks where each major step forms a separate executable snakemake rule.
 
-<br>
 
-> We envision to keep fostering continuous integration and development of highly reproducible workflows.
+
+## Vision
+> We envision to keep fostering continuous integration and continuous improvement of highly reproducible and sustainable workflows for microbiome data analysis.
 
 <img src="images/cicd.png">
 
-<br><br>
+
+
+# Basic Software
+
 
 
 ## Install conda
-Useful links:
+Conda is a package manager and can be obtained via Miniconda or Anaconda.
 
-- Installation: Visit [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
-- Documentation: Visit [here](https://docs.conda.io/en/latest/).
+- For full installation guide click [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
+- For documentation click [here](https://docs.conda.io/en/latest/).
 - Miniconda: https://docs.conda.io/en/latest/miniconda.html
+- Anaconda: https://docs.anaconda.com/
 - Getting started with Conda: Click [here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 
+
+
 ## Install mamba
-> Mamba is a CLI tool to manage conda s environments
+> Mamba is a CLI tool to manage conda environments
 
-- Installation: Visit [here](https://mamba.readthedocs.io/en/latest/installation.html).
-- Documentation: Visit [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
+- Mamba can be obtained via Mambaforge.
+- For full installation guide click [here](https://mamba.readthedocs.io/en/latest/installation.html).
+- For documentation click [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
 
 
-### Demo installing on MAC OS
-Miniconda3 for `conda`: On CLI run:
+### Demo installing Miniconda3 for Mac OS
 ```bash
 curl -L  https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
 ```
+<!-- SnakeDeploy is a command line and interactive Python client to easily deploy snakemake pipelines from version control like GitHub -->
 
-<br>
 
-Mambaforge for `mamba`: On CLI run:
+### Demo installing Mambaforge for Mac OS
 ```bash
 curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
 bash Mambaforge-MacOSX-x86_64.sh
 ```
+
+
 
 ## Setting up common channels
 We will be using lots of bioinformatics and analysis tools. 
@@ -127,37 +139,105 @@ conda config --add channels biobakery
 conda config --set auto_activate_base False
 ```
 
-## Create environment 
-- Requires `conda`.
-- You may optionally specify a `python version`.
-- Let's create an environment named `snakemake`.
+## Creating conda environment
+Here we demonstrate:
 
-### Is conda installed?
+- How to create an environment named `snakemake`. Replace snakemake with your preferred name!
+- How to create an environment named `snakemake` with a specific python version.
+- How to create an environment named `snakemake` with a specific python version and specific packages
+- How to activate an environment.
+- How to deactivate an environment.
+
+### Using conda
+```bash
+conda create --name snakemake
+conda create --name snakemake python==10
+conda create --name snakemake python==10 pandas numpy seaborn
+```
+### Using mamba
+```bash
+mamba create -c bioconda --name snakemake
+```
+
+### Using existing
+```bash
+mamba create -c bioconda --name snakemake
+```
+> Note: Each line of command performs independent task, so choose a method that suits you best.
+
+
+## Activating and deactivating conda environment
+```bash
+conda activate snakemake
+
+conda deactivate snakemake
+```
+
+> - After setting up the channels and creating an environment we can install more software. 
+> - For installation we will be using `Mamba package manager` instead of `Conda package manager` because it is much faster. 
+
+
+## Install `snakemake`
+- Snakemake is best installed via the Mamba package manager.
+- You can also install snakemake via Mambaforge.
+
+
+### Confirming if conda or mamba is installed
+This will display the version of conda installed on your machine.
+
 ```bash
 conda -V
+
+mamba -V
 ```
 
-### Is conda up to date??
+### Keeping conda or mamba up-to-date
+It is always a good habit to update conda regularly.
+
 ```bash
 conda update conda
+conda -V
+
+mamba update conda
+mamba -V
 ```
 
+### Install snakemake software in activated environment
+We already activated the snakemake environment using `conda activate snakemake` command.
 
 ```bash
-conda create --name snakemake python==10
+mamba install -c bioconda snakemake
 ```
 
-## Reproduce an existing environment
-- Must create env spec file, like so:
+### Install snakemake minimal
+```
+mamba install -c bioconda snakemake-minimal
+```
+
+### Install snakemake wrappers
+```
+mamba install -c bioconda snakemake-wrapper-utils
+```
+
+## Reproducing environment
+- Must first create an environment spec file.
+- Simply activate the environment you want to reproduce.
+- Then run the following command to save the env spec file.
 
 ```bash
-conda list --explicit > spec-file.txt
+conda list --explicit > env_spec_file.txt
 ```
 
-- Then create the environment using the file like so:
+- Then use the spec file when creating a new environment.
 ```bash
-conda create --name snakemake --file spec-file.txt
+conda create --name new_env --file env_spec_file.txt
 ```
+
+- Reproducing packages from an existing environment.
+```bash
+conda install --name existing_env --file env_spec_file.txt
+```
+
 
 ## Installing from a typical YAML file
 Example: `environment.yml` also similar to `environment.yaml`
@@ -197,7 +277,7 @@ mamba env create --name snakemake --file environment.yaml
 ```{r child='workflow/scripts/bioinfo_pipelines.Rmd', eval=FALSE}
 ```
 
-<br><hr width=100%><br>
+<hr width=100%>
 
 # References Databases
 - Example of reference databases for `Mothur` pipeline.
@@ -206,7 +286,7 @@ mamba env create --name snakemake --file environment.yaml
   - Taxonomy references
   - Mock references
 
-<br><hr width=100%><br>
+<hr width=100%>
 
 
 # Related work
@@ -214,7 +294,7 @@ mamba env create --name snakemake --file environment.yaml
 
 > Here we show the IMAP Repos integrated with Snakemake and GitHub Actions!
 
-<br> 
+ 
 
 | Repo | Description | Summary |
 |--------------|----------------------------------|--------------|
@@ -229,19 +309,23 @@ mamba env create --name snakemake --file environment.yaml
 ```
 
 
+
+
 ## Citation
 
 > Please consider citing the iMAP article [@TMBuza2019] if you find any part of the IMAP practical user guides helpful in your microbiome data analysis.
 
-<br><br>
+
 
 # References
 ::: {#refs}
 :::
 
-<br><hr width=100%><br>
+<hr width=100%>
 
 # Appendix {-}
+
+
 
 ## Project main tree
 ```{bash, include=FALSE}
@@ -252,7 +336,9 @@ bash workflow/scripts/tree.sh
 cat results/project_tree.txt
 ```
 
-<br><br>
+
+
+
 
 
 ## Screenshot of interactive snakemake report {#smkreport}
@@ -271,7 +357,9 @@ bash workflow/scripts/smk_html_report.sh
 
 <img src="images/smkreport/screenshot.png">
 
-<br><br>
+
+
+
 
 ## Troubleshooting of FAQs
 <ol>
@@ -282,15 +370,13 @@ bash workflow/scripts/smk_html_report.sh
 </ol>
 
 
-<br><br>
+
 
 </div> <!-- end main-container -->
 
 
 <div id="footer">
-Last updated on `r format(Sys.time(), '%B %d, %Y')`. <br><br>
-Github_Repo: `r rmarkdown::metadata$github_repo`.  
-Repo compiled and maintained by: [`r rmarkdown::metadata$author`](mailto:`r rmarkdown::metadata$email_address`).  
-
-
-</div><br><br>
+Last updated on `r format(Sys.time(), '%B %d, %Y')`.<br>
+Github_Repo: `r rmarkdown::metadata$github_repo`.<br>
+Repo compiled and maintained by: [`r rmarkdown::metadata$author`](mailto:`r rmarkdown::metadata$email_address`). 
+</div>

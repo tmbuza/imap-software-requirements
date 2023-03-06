@@ -10,6 +10,7 @@ configfile: "config/config.yaml"
 rule all:
 	input:
 		"index.html",
+        "docs/env_spec_file.txt",
 
 # # Get dot rule graphs
 # rule dot_rules_graph:
@@ -38,6 +39,14 @@ rule static_snakemake_report:
         bash workflow/scripts/smk_html_report.sh
         """
 
+rule get_current_env_spec:
+    output:
+        "docs/env_spec_file.txt"
+    shell:
+        """
+        conda list --explicit > {output}
+        """
+
 rule deploy_to_github_pages:
     input:
         script="workflow/scripts/render.R",
@@ -45,10 +54,12 @@ rule deploy_to_github_pages:
         # rulegraph="dags/rulegraph.svg",
         tree="results/project_tree.txt",
         html2png=rules.static_snakemake_report.output.html2png,
+        spec="docs/env_spec_file.txt",
     output:
         doc="index.html",
     shell:
         """
         R -e "library(rmarkdown); render('{input.rmd}')"
         """
+
 
