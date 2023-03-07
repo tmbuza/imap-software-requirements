@@ -1,5 +1,5 @@
 <!-- # Basic Software -->
-## Install R Environment {#R-environment}
+## Install R Environment 
 
 <!-- <a href=""><img src="images/rlogoblue.png" alt="R Software" width="10" style="padding: 0 15px; float: left;"/></a> -->
 **R** is a free software for statistical computing, data analysis, and graphics [@RCoreTeam2021]. We need to install R application on a personal computer to process the R programming language. You can download and install R using these steps:
@@ -11,7 +11,7 @@
 
 <br>
 
-## Install RStudio Environment {#rstudio-ide}
+## Install RStudio Environment
 
 <!-- <a href=""><img src="images/rstudio.png" alt="RStudio" width="10" style="padding: 0 15px; float: left;"/></a> -->
 
@@ -25,3 +25,5 @@
 <br>
 
 ![Screen shot of RStudio User Interface](images/RStudioIDE.png)
+
+## Install Python

@@ -24,7 +24,6 @@ description: |
   Minimal summary describing features for getting started with microbiome data analysis.
 ---
 
-
 <div id="main-container">
 
 <!-- Google Fonts: https://fonts.google.com/?preview.text=IMAP%20template&preview.text_type=custom-->
@@ -35,9 +34,6 @@ description: |
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;700&display=swap" rel="stylesheet">
-
-<span class="fas fa-my-custom-icon"></span>
-
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
@@ -59,14 +55,16 @@ knitr::opts_chunk$set(
 library(tidyverse, suppressPackageStartupMessages())
 library(schtools)
 ```
+<br>
+
 # General Overview
+**IMAP** stands for **Integrated Microbiome Analysis Pipelines**. The different IMAP parts are standalone GitHub repositories that, when used sequentially, provide a systematic microbiome data analysis beyond the traditional methods. 
 
-## About IMAP
-**IMAP** stands for **Integrated Microbiome Analysis Pipelines**. 
-Microbiome data analysis is about asking questions to understand the microbial composition in a given sample. 
-The IMAP parts are standalone GitHub repositories that, when used sequentially, provide a systematic microbiome data analysis beyond the traditional methods. 
+<br>
 
-## Workflow system
+<img src="images/imap.png">
+
+<!-- ## Workflow system
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
   - Maintaining reproducibility in technical validation and regeneration of results.
   - Creating scalable data analysis scaled to a server, grid, or cloud environment.
@@ -76,15 +74,14 @@ The IMAP parts are standalone GitHub repositories that, when used sequentially, 
 
 ## Vision
 > We envision to keep fostering continuous integration and continuous improvement of highly reproducible and sustainable workflows for microbiome data analysis.
-
-<img src="images/imap.png">
+ -->
 
 <br><hr width=100%><br>
 
-# Software Installation
+<br>
 
-## Environment and package managers
-### Install conda
+# Environment & package management systen
+## Install conda
 Conda is a package manager and can be obtained via Miniconda or Anaconda.
 
 - For full installation guide click [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
@@ -94,7 +91,7 @@ Conda is a package manager and can be obtained via Miniconda or Anaconda.
 - Getting started with Conda: Click [here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
 
 
-### Install mamba
+## Install mamba
 > Mamba is a CLI tool to manage conda environments
 
 - Mamba can be obtained via Mambaforge.
@@ -102,7 +99,7 @@ Conda is a package manager and can be obtained via Miniconda or Anaconda.
 - For documentation click [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
 
 
-### Demo installing Miniconda3 for Mac OS
+## Demo installing Miniconda3 for Mac OS
 ```bash
 curl -L  https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
@@ -110,7 +107,7 @@ bash Miniconda3-latest-MacOSX-x86_64.sh
 <!-- SnakeDeploy is a command line and interactive Python client to easily deploy snakemake pipelines from version control like GitHub -->
 
 
-### Demo installing Mambaforge for Mac OS
+## Demo installing Mambaforge for Mac OS
 ```bash
 curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
 bash Mambaforge-MacOSX-x86_64.sh
@@ -140,7 +137,7 @@ Here we demonstrate:
 - How to activate an environment.
 - How to deactivate an environment.
 
-### Using conda
+## Using conda
 ```bash
 conda create --name snakemake
 conda create --name snakemake python==10
@@ -148,14 +145,14 @@ conda create --name snakemake python==10 pandas numpy seaborn
 ```
 > Note: Each line of command performs independent task, so choose a method that suits you best.
 
-### Using mamba
+## Using mamba
 ```bash
 mamba create -c bioconda --name snakemake
 mamba create --name snakemake python==10
 mamba create --name snakemake python==10 pandas numpy seaborn
 ```
 
-## Activating and deactivating conda environment
+## Activating and deactivating environment
 ```bash
 conda activate snakemake
 
@@ -165,23 +162,7 @@ conda deactivate snakemake
 > - After setting up the channels and creating an environment we can install more software. 
 > - For installation we will be using `Mamba package manager` instead of `Conda package manager` because it is much faster. 
 
-
-## Install `snakemake` software
-- Snakemake is best installed via the Mamba package manager.
-- We can also install snakemake via Mambaforge.
-
-### Confirming if conda or mamba is installed
-This will display the version of conda installed on your machine.
-
-```bash
-conda -V
-
-mamba -V
-```
-
-### Keeping conda or mamba up-to-date
-It is always a good habit to update conda before major installations.
-
+## Updating conda
 ```bash
 conda update conda
 conda -V
@@ -190,46 +171,61 @@ mamba update conda
 mamba -V
 ```
 
-### Install snakemake software
+## Checking conda version
+```bash
+conda -V
+
+mamba -V
+```
+
+<br>
+
+# Workflow management system
+## Install snakemake
+- Snakemake software is best installed via the Mamba package manager or Mambaforge. 
+- First, we need to confirm if conda or mamba is installed. 
+- This will display the version of conda installed on your machine.
+
 ```bash
 mamba install -c bioconda snakemake
 ```
 
-### Install snakemake minimal
+## Install snakemake minimal
 ```
 mamba install -c bioconda snakemake-minimal
 ```
 
-### Install snakemake wrappers
+## Install snakemake wrappers
 ```
 mamba install -c bioconda snakemake-wrapper-utils
 ```
 
-## Reproducing existing environment
-- Requires an environment `spec` file or a `yaml` file
 
+<br>
 
-### Creating an env spec file
+# Reproducing existing environment
+Requires an environment `spec` file or a `yaml` file
+
+## Creating an env spec file
 ```bash
 conda list --explicit > env_spec_file.txt
 ```
 
-### Creating a new environment from a spec file
+## Creating a new environment from a spec file
 ```bash
 conda create --name new_env --file env_spec_file.txt
 ```
 
-### Installing packages from a spec file
+## Installing packages from a spec file
 ```bash
 conda install --name existing_env --file env_spec_file.txt
 ```
 
-### Creating new env from a YAML file
+## Creating new env from a YAML file
 - First create the YAML or YML file:
   - `environment.yml`
   - `environment.yaml`
-- This demo file is saved in `workflow/envs` folder and is configured to contain the following:
-
+  - SaHere we save the environment.yaml file in `workflow/envs` folder and is configured to contain the following:
 ```
 name: imap
 channels:
@@ -255,14 +251,12 @@ dependencies:
   - graphviz =6.0.1
 ```
 
-- Then create the new env, e.g. `imap`, using the `environment.yaml` like so:
-
 ```bash
 conda activate base
 mamba env create --name imap --file workflow/envs/environment.yaml
 ```
 
-## Check available environments
+## Checking available environments
 If everything went smoothly, you should see the newly created environment, ready to be activated. Great!
 ```bash
 mamba env list
@@ -286,8 +280,15 @@ conda env remove --name /Users/tmbuza/mambaforge/envs/imap
 conda env list
 ```
 
+<br>
 
-```{r child='workflow/scripts/software.Rmd', eval=FALSE}
+# Data Science & Visualization Tools
+The most powerful tools for analyzing and visualikzing microbiome data include:
+
+- R and RStudio
+- Python
+
+```{r child='workflow/scripts/software.Rmd'}
 ```
 
 ```{r child='workflow/scripts/metadata.Rmd', eval=FALSE}
@@ -305,6 +306,8 @@ conda env list
 
 <br><hr width=100%><br>
 
+
+<br>
 
 # Related work
 ```{block imaprepos, echo=TRUE}
@@ -326,11 +329,15 @@ conda env list
 
 > Please consider citing the iMAP article [@TMBuza2019] if you find any part of the IMAP practical user guides helpful in your microbiome data analysis.
 
+<br>
+
 # References
 ::: {#refs}
 :::
 
 <br><hr width=100%><br>
+
+<br>
 
 # Appendix {-}
 
