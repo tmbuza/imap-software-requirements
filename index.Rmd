@@ -225,7 +225,7 @@ conda install --name existing_env --file env_spec_file.txt
 - First create the YAML or YML file:
   - `environment.yml`
   - `environment.yaml`
-  - SaHere we save the environment.yaml file in `workflow/envs` folder and is configured to contain the following:
+  - Here we save the environment.yaml file in `workflow/envs` folder and is configured to contain the following:
 ```
 name: imap
 channels:
@@ -275,7 +275,7 @@ conda env list
 ```bash
 conda deactivate
 
-conda env remove --name /Users/tmbuza/mambaforge/envs/imap
+conda env remove --name imap
 
 conda env list
 ```
@@ -305,9 +305,6 @@ The most powerful tools for analyzing and visualikzing microbiome data include:
 
 
 <br><hr width=100%><br>
-
-
-<br>
 
 # Related work
 ```{block imaprepos, echo=TRUE}
