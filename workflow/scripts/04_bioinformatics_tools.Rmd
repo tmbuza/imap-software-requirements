@@ -1,0 +1,42 @@
+# Bioinformatis Tools
+## Read quality control Tools
+We categorized the quality control (QC) tools under the bioinformatics tools. Most of the QC tools are available via the bioconda channel. Below are some of the most common bioinformatics tools used to understand read features and their quality scores. You can click on the hyperlink to learn more about installing the software.
+
+- [Seqkit](https://anaconda.org/bioconda/seqkit/) for simple statistics [@seqkit2016].
+- [FastQC](https://anaconda.org/bioconda/fastqc/) for quality assessment of bases [@fastqc2018].
+- [MultiQC](https://anaconda.org/bioconda/multiqc/) for summarizing FastQC metrics [@multiqc2016].
+- [BBMap](https://anaconda.org/bioconda/bbmap) platform for read trimming and decontamination [@bbmap2016].
+- [Trimmommatic](https://anaconda.org/bioconda/trimmomatic/) is a flexible read-trimming tool for Illumina NGS data [@trimmomatic2023].
+- [Kneaddata](https://anaconda.org/bioconda/kneaddata/) via bioconda channel for performing quality control on metagenomic sequencing data. [@kneaddata2022].
+- [Kneaddata](https://anaconda.org/biobakery/kneaddata/) via the biobakery channel for performing quality control on metagenomic sequencing data [@kneaddata2022].
+
+> Note that the links for each tool may need to be updated. Make sure to check for the latest instructions online.
+
+## Classifying 16S ribosomal RNA gene sequences
+
+### Mothur pipeline 
+- Most famous for profiling microbial composition from 16S rRNA sequencing data.
+- Mothur is an open-source software package for bioinformatics data processing.
+- Mothur pipeline is a famous platform comprising over 145 tools that can be integrated for a desired pipeline. 
+- Mothur has a [basic tutorial](https://mothur.org/wiki/miseq_sop/) that help users get started with 16S rRNA gene analysis. 
+- We can download a stable platform from [here](https://github.com/mothur/mothur/releases/).
+
+### QIIME2 pipeline
+- Most famous for profiling microbial composition from 16S rRNA sequencing data.
+- QIIME2 is an open-source microbiome analysis platform with integrated software for quality control, such as DADA2.
+- It is a very famous platform with an active community forum. 
+- QIIME2 has [profound tutorials](https://docs.qiime2.org/2022.2/tutorials/) that help users get started with 16S rRNA gene analysis. 
+- We can install the latest version from [here](https://docs.qiime2.org/2022.2/install/).
+
+<br>
+
+## Classifying metagenomic shotgun sequences
+
+### MetaPhlAn standalone pipeline
+- MetaPhlAn is an open-source pipeline for taxonomic profiling from metagenomic shotgun sequencing data.
+- MetaPhlAn [tutorial](https://github.com/biobakery/biobakery/wiki/metaphlan3) provide a step-by-step guidance for taxonomic profiling from different environmental samples.
+
+### MetaPhlAn via HUMAnN pipeline
+- HUMAnN (the HMP Unified Metabolic Analysis Network) is an open-source pipeline for functional profiling from metagenomic sequencing data.
+- HUMAnN [tutorial](https://github.com/biobakery/biobakery/wiki/humann3) provide a step-by-step guidance for functional profiling.
+

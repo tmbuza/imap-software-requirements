@@ -1,9 +1,9 @@
 # Environment & package management system
 ## Install conda
-Conda is a package manager and can be obtained via Miniconda or Anaconda.
+Conda is a package manager obtained via Miniconda or Anaconda.
 
-- For full installation guide click [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
-- For documentation click [here](https://docs.conda.io/en/latest/).
+- For a complete installation guide, click [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
+- For documentation, click [here](https://docs.conda.io/en/latest/).
 - Miniconda: https://docs.conda.io/en/latest/miniconda.html
 - Anaconda: https://docs.anaconda.com/
 - Getting started with Conda: Click [here](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html).
@@ -13,19 +13,17 @@ Conda is a package manager and can be obtained via Miniconda or Anaconda.
 > Mamba is a CLI tool to manage conda environments
 
 - Mamba can be obtained via Mambaforge.
-- For full installation guide click [here](https://mamba.readthedocs.io/en/latest/installation.html).
-- For documentation click [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
+- For a complete installation guide, click [here](https://mamba.readthedocs.io/en/latest/installation.html).
+- For documentation, click [here](https://mamba.readthedocs.io/en/latest/user_guide/mamba.html).
 
 
-## Demo installing Miniconda3 for Mac OS
+### Demo installing Miniconda3 for Mac OS
 ```bash
 curl -L  https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o Miniconda3-latest-MacOSX-x86_64.sh
 bash Miniconda3-latest-MacOSX-x86_64.sh
 ```
-<!-- SnakeDeploy is a command line and interactive Python client to easily deploy snakemake pipelines from version control like GitHub -->
 
-
-## Demo installing Mambaforge for Mac OS
+### Demo installing Mambaforge for Mac OS
 ```bash
 curl -L https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-MacOSX-x86_64.sh -o Mambaforge-MacOSX-x86_64.sh
 bash Mambaforge-MacOSX-x86_64.sh
@@ -34,9 +32,9 @@ bash Mambaforge-MacOSX-x86_64.sh
 ## Setting up common channels
 We will be using lots of bioinformatics and analysis tools. 
 
-> - Note that most of the bioinformatics software are installed via `bioconda` channel. 
-> - Most of analysis tools are installed via the `conda-forge` channel.
-> - Some of the metagenomics analysis software will be installed via `biobakery` channel. 
+> - Note that most bioinformatics tools are via the `bioconda` channel. 
+> - Most analysis tools are installed via the `conda-forge` channel.
+> - Some metagenomics analysis tools described in this guide are installed via the `biobakery` channel. 
 
 ```bash
 conda config --add channels defaults
@@ -46,39 +44,33 @@ conda config --add channels biobakery
 conda config --set auto_activate_base False
 ```
 
-## Creating conda environment
-Here we demonstrate:
+## Creating a conda environment
 
-- How to create an environment named `snakemake`. Replace snakemake with your preferred name!
-- How to create an environment named `snakemake` with a specific python version.
-- How to create an environment named `snakemake` with a specific python version and specific packages
-- How to activate an environment.
-- How to deactivate an environment.
-
-## Using conda
+### Using conda
 ```bash
-conda create --name snakemake
-conda create --name snakemake python==10
-conda create --name snakemake python==10 pandas numpy seaborn
+conda activate base
+conda create --name imap
+conda create --name imap python==10
+conda create --name imap python==10 pandas numpy seaborn
 ```
-> Note: Each line of command performs independent task, so choose a method that suits you best.
+> Note: Each command line creates the environment `imap` in the base environment, so choose a line that suits you best.
 
-## Using mamba
+### Using mamba
 ```bash
-mamba create -c bioconda --name snakemake
-mamba create --name snakemake python==10
-mamba create --name snakemake python==10 pandas numpy seaborn
+mamba create -c bioconda --name imap
+mamba create --name imap python==10
+mamba create --name imap python==10 pandas numpy seaborn
 ```
 
-## Activating and deactivating environment
+## Activating and deactivating the environment
 ```bash
-conda activate snakemake
+conda activate imap
 
-conda deactivate snakemake
+conda deactivate imap
 ```
 
-> - After setting up the channels and creating an environment we can install more software. 
-> - For installation we will be using `Mamba package manager` instead of `Conda package manager` because it is much faster. 
+> - After setting up the channels and creating an environment, we can install more software. 
+> - For installation, we will use `Mamba package manager` instead of `Conda package manager` because it is much faster. 
 
 ## Updating conda
 ```bash
@@ -89,7 +81,7 @@ mamba update conda
 mamba -V
 ```
 
-## Checking conda version
+## Checking the conda version
 ```bash
 conda -V
 
@@ -100,7 +92,7 @@ mamba -V
 
 
 ## Reproducing existing environment
-Requires an environment `spec` file or a `yaml` file
+Requires an environment `spec` file or a `yml` file
 
 ### Creating an env spec file
 ```bash
@@ -118,10 +110,10 @@ conda install --name existing_env --file env_spec_file.txt
 ```
 
 ### Creating new env from a YAML file
-- First create the YAML or YML file:
+- First, create the YAML or YML file:
   - `environment.yml`
   - `environment.yaml`
-  - Here we save the environment.yaml file in `workflow/envs` folder and is configured to contain the following:
+  - Here, we save the environment.yml file in the `workflow/envs` folder, and it is configured to contain the following:
 ```
 name: imap
 channels:
@@ -153,9 +145,15 @@ mamba env create --name imap --file workflow/envs/environment.yaml
 ```
 
 ## Checking available environments
-If everything went smoothly, you should see the newly created environment, ready to be activated. Great!
+If everything goes smoothly, you should see the newly created environment. It will be ready to be activated. Great!
 ```bash
+conda env list
+
+conda info --envs
+
 mamba env list
+
+mamba info --envs
 ```
 
 ```bash
@@ -163,6 +161,8 @@ conda activate imap
 ```
 
 ## Removing an environment
+> Must deactivate the environment before removing it.
+
 ```bash
 conda env list
 ```
@@ -173,8 +173,30 @@ conda deactivate
 
 conda env remove --name imap
 
+conda remove --name imap --all
+
 conda env list
 ```
 
+## Miscellaneous queries with `repoquery`
 
+### Search all package version
+```bash
+ mamba repoquery search snakemake --channel bioconda 
 
+ mamba repoquery search python --channel conda-forge 
+```
+
+### List package dependencies
+```bash
+mamba repoquery depends snakemake --channel bioconda
+
+mamba repoquery depends python --channel conda-forge
+```
+
+### List which packages depend on
+```bash
+mamba repoquery whoneeds snakemake --channel bioconda
+
+mamba repoquery whoneeds python --channel conda-forge
+```

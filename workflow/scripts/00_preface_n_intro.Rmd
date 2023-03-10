@@ -1,9 +1,11 @@
 # General Overview
-**IMAP** stands for **Integrated Microbiome Analysis Pipelines**. The different IMAP parts are standalone GitHub repositories that, when used sequentially, provide a systematic microbiome data analysis beyond the traditional methods. 
+**IMAP** stands for **Integrated Microbiome Analysis Pipelines**. 
+IMAP comprises different parts. Each part represents a standalone GitHub repository. 
+The IMAP parts, when used sequentially, provide a systematic microbiome data analysis beyond the traditional methods. 
 
-<br>
+<br><br>
 
-<img src="images/imap.png">
+<img src="images/imap.png"><br>
 
 ## IMAP approach
 - We use the snakemake workflow management system [@Koster2021; @Snakemake2023] for:
@@ -13,16 +15,17 @@
 - We break complex workflows into small contiguous but related chunks where each major step forms a separate executable snakemake rule.
 
 ## Vision
-> We envision to promote continuous integration and improvement of highly reproducible and sustainable workflows for microbiome data analysis.
+> We envision fostering continuous integration and improvement of highly reproducible and sustainable workflows for microbiome data analysis.
 
 ## Basic software
-To get started we will need to make sure that all requires software are installed and running smoothly. Example of required software include:
+We must install all essential tools to get started and ensure they run smoothly. Examples of required software include:
 
-- Environment and Package Management Systen.
-- Workflow Management System.
+- Environment and package management system.
+- Workflow management system.
+- Quality control tools.
 - Bioinformatics analysis pipelines.
 - Data analysis software.
 - More tools as needed.
 
-<br><hr width=100%><br>
 
+<br><hr width=100%><br>
