@@ -1,0 +1,19 @@
+# Snakemake workflow management system
+
+## Install snakemake
+- Snakemake software is best installed via the Mamba package manager or Mambaforge. 
+- We first need to confirm if conda or mamba are installed and proceed from there.
+
+```bash
+mamba install -c bioconda snakemake
+```
+
+## Install snakemake minimal
+```
+mamba install -c bioconda snakemake-minimal
+```
+
+## Install snakemake wrappers
+```
+mamba install -c bioconda snakemake-wrapper-utils
+```
