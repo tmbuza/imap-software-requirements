@@ -12,8 +12,7 @@ We categorized the quality control (QC) tools under the bioinformatics tools. Mo
 
 > Note that the links for each tool may need to be updated. Make sure to check for the latest instructions online.
 
-## Classifying 16S ribosomal RNA gene sequences
-
+## Microbial profiling tools
 ### Mothur pipeline 
 - Most famous for profiling microbial composition from 16S rRNA sequencing data.
 - Mothur is an open-source software package for bioinformatics data processing.
@@ -28,15 +27,45 @@ We categorized the quality control (QC) tools under the bioinformatics tools. Mo
 - QIIME2 has [profound tutorials](https://docs.qiime2.org/2022.2/tutorials/) that help users get started with 16S rRNA gene analysis. 
 - We can install the latest version from [here](https://docs.qiime2.org/2022.2/install/).
 
-<br>
-
-## Classifying metagenomic shotgun sequences
-
-### MetaPhlAn standalone pipeline
+### MetaPhlAn pipeline
 - MetaPhlAn is an open-source pipeline for taxonomic profiling from metagenomic shotgun sequencing data.
 - MetaPhlAn [tutorial](https://github.com/biobakery/biobakery/wiki/metaphlan3) provide a step-by-step guidance for taxonomic profiling from different environmental samples.
 
-### MetaPhlAn via HUMAnN pipeline
+## Functional profiling tools
+### HUMAnN pipeline
 - HUMAnN (the HMP Unified Metabolic Analysis Network) is an open-source pipeline for functional profiling from metagenomic sequencing data.
 - HUMAnN [tutorial](https://github.com/biobakery/biobakery/wiki/humann3) provide a step-by-step guidance for functional profiling.
 
+## Installing using conda or mamba
+Direct installation of the bioinformatics is much easier using the conda or mamba package management system.
+
+```bash
+mamba install -c bioconda seqkit
+mamba install -c bioconda fastqc
+mamba install -c bioconda multiqc
+mamba install -c bioconda bbmap
+mamba install -c bioconda trimmommatic
+mamba install -c bioconda kneaddata
+mamba install -c biobakery kneaddata
+```
+
+<br>
+
+## Installing from `environment.yml`
+```bash
+name: bioinformatics
+channels:
+    - bioconda
+    - biobakery
+dependencies:
+    - seqkit =2.3.1
+    - fastqc =0.12.1
+    - bbmap =39.01
+    - multiqc =1.14
+    - trimmomatic =0.39
+    - kneaddata =0.12.0
+```
+
+```bash
+mamba env create --name bioinformatics --file environment.yaml
+```

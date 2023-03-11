@@ -25,9 +25,9 @@ mamba install -c bioconda snakemake-wrapper-utils
 mamba install -c bioconda snakedeploy
 ```
 
-## Shareable `snakemake environment.yml`
+## Installing using `environment.yml`
 ```bash
-name:snakemake
+name: snakemake
 channels:
     - bioconda
 dependencies:
@@ -35,4 +35,9 @@ dependencies:
     - snakemake-minimal =7.19.1
     - snakedeploy =0.8.6
     - snakemake-wrapper-utils =0.5.0
+```
+
+```bash
+conda activate base
+mamba env create --name snakemake --file environment.yaml
 ```

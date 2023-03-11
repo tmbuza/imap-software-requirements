@@ -6,7 +6,7 @@ The most powerful tools for analyzing and visualizing microbiome data include:
 
 
 <!-- # Basic Software -->
-## Install R Environment 
+## Installing R Environment 
 
 <!-- <a href=""><img src="images/rlogoblue.png" alt="R Software" width="10" style="padding: 0 15px; float: left;"/></a> -->
 **R** is free software for statistical computing, data analysis, and graphics [@RCoreTeam2021]. We can install the R application on a personal computer to process the R programming language. You can download and install R using these steps:
@@ -18,7 +18,7 @@ The most powerful tools for analyzing and visualizing microbiome data include:
 
 <br>
 
-## Install RStudio Environment
+## Installing RStudio Environment
 
 <!-- <a href=""><img src="images/rstudio.png" alt="RStudio" width="10" style="padding: 0 15px; float: left;"/></a> -->
 
@@ -36,7 +36,7 @@ The most powerful tools for analyzing and visualizing microbiome data include:
 
 <br>
 
-## Install Python
+## Installing Python
 Python is installed through several methods. The most famous ways include:
 
 - Direct [downloads](https://www.python.org/downloads/)
@@ -50,8 +50,7 @@ conda config --set channel_priority strict
 conda install python=3.10
 ```
 
-
-## Shareable python `environment.yml`
+## Installing using `environment.yml`
 ```bash
 name: python
 channels:
@@ -59,4 +58,9 @@ channels:
 dependencies:
     - python
     - python-abi
+```
+
+```bash
+conda activate base
+mamba env create --name python --file environment.yaml
 ```

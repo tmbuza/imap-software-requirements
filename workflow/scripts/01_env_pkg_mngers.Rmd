@@ -109,12 +109,13 @@ conda create --name new_env --file env_spec_file.txt
 conda install --name existing_env --file env_spec_file.txt
 ```
 
-### Creating new env from a YAML file
+### Creating new env using a YAML file
 - First, create the YAML or YML file:
   - `environment.yml`
   - `environment.yaml`
   - Here, we save the environment.yml file in the `workflow/envs` folder, and it is configured to contain the following:
-```
+
+```bash
 name: imap
 channels:
   - conda-forge
@@ -141,7 +142,7 @@ dependencies:
 
 ```bash
 conda activate base
-mamba env create --name imap --file workflow/envs/environment.yaml
+mamba env create --name imap --file environment.yaml
 ```
 
 ## Checking available environments

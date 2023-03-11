@@ -1,4 +1,8 @@
 # Additional
+.Rproj.user
+Rplots.pdf
+docs/env_spec_file.txt
+
 .vscode
 .DS_store
 Rplot.pdf
@@ -158,6 +162,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-.Rproj.user
-Rplots.pdf
-Rplots.pdf
+
