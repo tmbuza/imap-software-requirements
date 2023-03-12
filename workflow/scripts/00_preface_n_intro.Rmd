@@ -26,6 +26,3 @@ We must install all essential tools to get started and ensure they run smoothly.
 - Bioinformatics analysis pipelines.
 - Data analysis software.
 - More tools as needed.
-
-
-<br><hr width=100%><br>
