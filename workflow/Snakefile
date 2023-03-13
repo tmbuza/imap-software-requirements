@@ -12,13 +12,13 @@ rule all:
 		"index.html",
         "docs/env_spec_file.txt",
 
-# # Get dot rule graphs
-# rule dot_rules_graph:
-# 	output:
-# 		"dags/rulegraph.svg",
-# 		"dags/rulegraph.png",
-# 	shell:
-# 		"bash workflow/scripts/rules_dag.sh"
+# Get dot rule graphs
+rule dot_rules_graph:
+	output:
+		"dags/rulegraph.svg",
+		"dags/rulegraph.png",
+	shell:
+		"bash workflow/scripts/rules_dag.sh"
 
 # Get project tree
 rule project_tree:
@@ -52,7 +52,7 @@ rule deploy_to_github_pages:
     input:
         script="workflow/scripts/render.R",
         rmd="index.Rmd",
-        # rulegraph="dags/rulegraph.svg",
+        rules="dags/rulegraph.svg",
         tree="results/project_tree.txt",
         html2png=rules.static_snakemake_report.output.html2png,
         spec="docs/env_spec_file.txt",
