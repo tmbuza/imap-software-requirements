@@ -26,3 +26,12 @@ We must install all essential tools to get started and ensure they run smoothly.
 - Bioinformatics analysis pipelines.
 - Data analysis software.
 - More tools as needed.
+
+
+## Snakemake workflow rules
+
+<br>
+
+![Tentative snakemake workflow](dags/rulegraph.svg)
+
+<br>
